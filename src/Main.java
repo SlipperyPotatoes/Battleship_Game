@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import java.awt.*; 
 import java.awt.event.*; 
 import javax.swing.*;
@@ -169,6 +170,14 @@ public class Main{
         createMap();
 
 
+=======
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("Hello world!");
+
+
+        System.out.println("new commit test");
+>>>>>>> 4b00e0f7161450f8b7e9344e70915497e0f18964
     }
 
     public void createMap() {
