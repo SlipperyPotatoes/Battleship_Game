@@ -1,13 +1,13 @@
 package com.battleship.game.listeners;
 
-import com.battleship.game.Game;
+import com.battleship.game.Main;
 
 import java.awt.event.*;
 
 public class ActionLis extends BaseLis implements ActionListener {
 
-    public ActionLis(Game game) {
-        super(game);
+    public ActionLis(Main main) {
+        super(main);
     }
 
     @Override

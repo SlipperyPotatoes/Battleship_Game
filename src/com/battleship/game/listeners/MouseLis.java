@@ -1,14 +1,14 @@
 package com.battleship.game.listeners;
 
-import com.battleship.game.Game;
+import com.battleship.game.Main;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class MouseLis extends BaseLis implements MouseListener {
 
-    public MouseLis(Game game) {
-        super(game);
+    public MouseLis(Main main) {
+        super(main);
     }
 
     @Override

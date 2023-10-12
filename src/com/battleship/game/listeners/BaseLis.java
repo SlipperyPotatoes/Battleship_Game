@@ -1,12 +1,12 @@
 package com.battleship.game.listeners;
 
-import com.battleship.game.Game;
+import com.battleship.game.Main;
 
 // A template for other listeners to extend while implementing their intended listener
 public abstract class BaseLis {
-    protected Game game;
+    protected Main main;
 
-    public BaseLis(Game game) {
-        this.game = game;
+    public BaseLis(Main main) {
+        this.main = main;
     }
 }

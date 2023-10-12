@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-import java.awt.*; 
+import java.awt.*;
 import java.awt.event.*; 
 import javax.swing.*;
 import java.awt.Color;
@@ -91,115 +90,111 @@ public class Main{
 
  class Gamestart extends JPanel {
 
-    // JFrame
-    static JFrame mainFrame;
+     // JFrame
+     static JFrame mainFrame;
 
-    static JPanel mainPanel;
+     static JPanel mainPanel;
 
-    static JPanel mainPanel2;
+     static JPanel mainPanel2;
 
-    static JButton startGame;
+     static JButton startGame;
 
-    static JButton exitGame;
+     static JButton exitGame;
 
-    static JButton b2;
+     static JButton b2;
 
-    // Label to display text
-    static JLabel l;
+     // Label to display text
+     static JLabel l;
 
-    static JButton[][] map = new JButton[10][10];
+     static JButton[][] map = new JButton[10][10];
 
-    void run(){
+     void run() {
 
-        GraphicsEnvironment graphics = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        GraphicsDevice device = graphics.getDefaultScreenDevice();
+         GraphicsEnvironment graphics = GraphicsEnvironment.getLocalGraphicsEnvironment();
+         GraphicsDevice device = graphics.getDefaultScreenDevice();
 
-        mainFrame = new JFrame("panel");
+         mainFrame = new JFrame("panel");
 
          // Creating a label to display text
-        l = new JLabel("panel label");
+         l = new JLabel("panel label");
 
          // Creating a new buttons
-         
+
 
          // Creating a panel to add buttons
-        mainPanel = new JPanel();
-        mainPanel2 = new JPanel();
+         mainPanel = new JPanel();
+         mainPanel2 = new JPanel();
 
-        
 
          // Adding buttons and textfield to panel
          // using add() method
-         
-        mainPanel.add(l);
-        
 
-        mainPanel2.setBackground(Color.blue);
-
-        GridLayout layout = new GridLayout(10,10);
+         mainPanel.add(l);
 
 
-        layout.setHgap(5); 
-        layout.setVgap(5); 
+         mainPanel2.setBackground(Color.blue);
 
-        
+         GridLayout layout = new GridLayout(10, 10);
 
-        mainPanel2.setPreferredSize(new Dimension(600, 600));
-        mainPanel2.setLayout(layout);
+
+         layout.setHgap(5);
+         layout.setVgap(5);
+
+
+         mainPanel2.setPreferredSize(new Dimension(600, 600));
+         mainPanel2.setLayout(layout);
 
          // setbackground of panel
-        mainPanel.setBackground(Color.red);
+         mainPanel.setBackground(Color.red);
 
 
-        // Adding panel to frame
+         // Adding panel to frame
 
-        //mainFrame.add(mainPanel);
+         //mainFrame.add(mainPanel);
 
-        mainPanel.add(mainPanel2);
-        mainFrame.add(mainPanel);
-        
+         mainPanel.add(mainPanel2);
+         mainFrame.add(mainPanel);
+
 
          // Setting the size of frame
 
-        mainFrame.setVisible(true);
+         mainFrame.setVisible(true);
 
-        mainFrame.setResizable(false);
+         mainFrame.setResizable(false);
 
-        device.setFullScreenWindow(mainFrame);
+         device.setFullScreenWindow(mainFrame);
 
-        createMap();
-
-
-=======
-public class Main {
-    public static void main(String[] args) {
-        System.out.println("Hello world!");
+         //createMap();
 
 
-        System.out.println("new commit test");
->>>>>>> 4b00e0f7161450f8b7e9344e70915497e0f18964
-    }
+         class Main {
+             public static void main(String[] args) {
+                 System.out.println("Hello world!");
 
-    public void createMap() {
 
-        for (int i = 0; i < 10; i++) {
-            for (int p = 0; p < 10; p++) {
+                 System.out.println("new commit test");
+             }
 
-                String s=Integer.toString(i+p);
+             public void createMap() {
 
-                map[i][p] = new JButton(s);
+                 for (int i = 0; i < 10; i++) {
+                     for (int p = 0; p < 10; p++) {
 
-                //ap[i][p].setPreferredSize(new Dimension(45, 45));
-                //map[i][p].setLocation(i*50, p*50);
+                         String s = Integer.toString(i + p);
 
-                mainPanel2.add(map[i][p]);
-                
+                         map[i][p] = new JButton(s);
 
-            }
-        }
-    }
+                         //ap[i][p].setPreferredSize(new Dimension(45, 45));
+                         //map[i][p].setLocation(i*50, p*50);
 
-    
+                         mainPanel2.add(map[i][p]);
+
+
+                     }
+                 }
+             }
+
+
+         }
+     }
  }
-
-
