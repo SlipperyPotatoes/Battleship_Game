@@ -1,115 +1,79 @@
-<<<<<<< HEAD
 import java.awt.*; 
-import java.awt.event.*; 
+import java.awt.event.*;
+import java.util.Arrays;
+
 import javax.swing.*;
-import java.awt.Color;
 
 
 
-public class Main{
-
-     // JFrame 
-     static JFrame mainFrame; 
-  
-     static JButton startGame;
-
-     static JButton exitGame;
-
-    static JButton b2;
-
-     // Label to display text
-     static JLabel l;
-
-     void run() {
-
-         GraphicsEnvironment graphics = GraphicsEnvironment.getLocalGraphicsEnvironment();
-         GraphicsDevice device = graphics.getDefaultScreenDevice();
-
-         mainFrame = new JFrame("panel");
-
-         // Creating a label to display text
-         l = new JLabel("panel label");
-
-         // Creating a new buttons
-         startGame = new JButton("Start Game");
-         exitGame = new JButton("Exit Game");
-
-         startGame.setPreferredSize(new Dimension(200, 100));
-         exitGame.setPreferredSize(new Dimension(200, 100));
-
-         // Creating a panel to add buttons
-         JPanel mainPanel = new JPanel();
-
-         // Adding buttons and textfield to panel
-         // using add() method
-         mainPanel.add(startGame);
-         mainPanel.add(exitGame);
-         mainPanel.add(l);
+public class Main implements ActionListener {
 
 
-         // setbackground of panel
-         mainPanel.setBackground(Color.red);
+    JFrame mainFrame;
 
-         // Adding panel to frame
-         mainFrame.add(mainPanel);
+        JPanel mainPanel;
 
-         // Setting the size of frame
+        JPanel mainPanel2;
 
-         mainFrame.setVisible(true);
+        JButton startGame;
 
-         mainFrame.setResizable(false);
+        JButton exitGame;
 
-         device.setFullScreenWindow(mainFrame);
+        // Label to display text
+        JLabel l;
 
-     }
-
-     public static void main(String[] args) {
-         new Main().run();
-
-         startGame.addActionListener(new ActionListener() {
-             @Override
-             public void actionPerformed(ActionEvent e) {
-                 mainFrame.setVisible(false);
-                 new Gamestart().run();
-
-                 
-             }
-         });
-
-         exitGame.addActionListener(new ActionListener() {
-             @Override
-             public void actionPerformed(ActionEvent e) {
-                 System.exit(0);
-             }
-         });
-
-     }
-
-}
+        JButton[][] map = new JButton[10][10];
 
 
 
- class Gamestart extends JPanel {
+    public boolean[][] enemyHit = new boolean[10][10];
 
-    // JFrame
-    static JFrame mainFrame;
+    public void copyArray(){
 
-    static JPanel mainPanel;
+        int[][] enemyAttacks = new int[9][9];
 
-    static JPanel mainPanel2;
+        int[][] enemyShips = new int[9][9];
 
-    static JButton startGame;
+        
 
-    static JButton exitGame;
+    }
 
-    static JButton b2;
+    private boolean checkHit(int x,int y, int[][] enemyAttacks){
 
-    // Label to display text
-    static JLabel l;
+        if (enemyAttacks[x][y] == 1) {
 
-    static JButton[][] map = new JButton[10][10];
+            return false;
+        }
+        return true;
+    }
 
-    void run(){
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+         for (int i = 0; i < 10; i++) {
+
+            for (int p = 0; p < 10; p++) {
+
+                //String s=Integer.toString(i+p);
+                if (("button"+ i + p).equals(e.getActionCommand())) {
+
+                    System.out.println("button"+ i + p);
+
+                    enemyHit[i][p] = true;
+
+                    map[i][p].setText("p");
+                    map[i][p].setEnabled(false);
+
+                }
+            }
+        }
+    }
+
+
+    public void createScreen(){
+
+        // JFrame
+        
 
         GraphicsEnvironment graphics = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice device = graphics.getDefaultScreenDevice();
@@ -117,7 +81,7 @@ public class Main{
         mainFrame = new JFrame("panel");
 
          // Creating a label to display text
-        l = new JLabel("panel label");
+        //l = new JLabel("panel label");
 
          // Creating a new buttons
          
@@ -126,12 +90,11 @@ public class Main{
         mainPanel = new JPanel();
         mainPanel2 = new JPanel();
 
-        
-
+    
          // Adding buttons and textfield to panel
          // using add() method
          
-        mainPanel.add(l);
+        //mainPanel.add(l);
         
 
         mainPanel2.setBackground(Color.blue);
@@ -167,39 +130,32 @@ public class Main{
 
         device.setFullScreenWindow(mainFrame);
 
-        createMap();
-
-
-=======
-public class Main {
-    public static void main(String[] args) {
-        System.out.println("Hello world!");
-
-
-        System.out.println("new commit test");
->>>>>>> 4b00e0f7161450f8b7e9344e70915497e0f18964
-    }
-
-    public void createMap() {
 
         for (int i = 0; i < 10; i++) {
+
             for (int p = 0; p < 10; p++) {
 
-                String s=Integer.toString(i+p);
-
-                map[i][p] = new JButton(s);
-
-                //ap[i][p].setPreferredSize(new Dimension(45, 45));
-                //map[i][p].setLocation(i*50, p*50);
+                map[i][p] = new JButton("x");
+                map[i][p].setActionCommand("button" + i + p);
+                map[i][p].addActionListener(this); // Or some other ActionListener
 
                 mainPanel2.add(map[i][p]);
                 
-
             }
         }
     }
 
-    
- }
+    public static void main(String[] args) {
+        new Main().createScreen();
+
+     }
+
+   
+
+
+ 
+}
+
+
 
 
