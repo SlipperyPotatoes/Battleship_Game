@@ -30,9 +30,9 @@ public class Main implements ActionListener {
 
     public void copyArray(){
 
-        int[][] enemyAttacks = new int[9][9];
+        int[][] enemyAttacks = new int[10][10];
 
-        int[][] enemyShips = new int[9][9];
+        int[][] enemyShips = new int[10][10];
 
         
 
@@ -140,9 +140,12 @@ public class Main implements ActionListener {
                 map[i][p].addActionListener(this); // Or some other ActionListener
 
                 mainPanel2.add(map[i][p]);
+
+                
                 
             }
         }
+        SwingUtilities.updateComponentTreeUI(mainFrame);
     }
 
     public static void main(String[] args) {
