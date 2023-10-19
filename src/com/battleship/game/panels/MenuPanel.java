@@ -1,8 +1,8 @@
 package com.battleship.game.panels;
 
 import com.battleship.game.Main;
-import com.battleship.game.BotAlgorithm;
-import com.battleship.game.GameState;
+import com.battleship.game.enums.BotAlgorithmChoice;
+import com.battleship.game.enums.GameState;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +15,7 @@ public class MenuPanel extends BasePanel implements ActionListener {
     private JButton newGameButton;
     private JButton loadGameButton;
     private JButton changeAlgorithmButton;
-    private BotAlgorithm botAlgorithm;
+    private BotAlgorithmChoice botAlgorithm;
 
     public MenuPanel(Main main) {
         super(main, GameState.MAIN_MENU);
@@ -37,7 +37,7 @@ public class MenuPanel extends BasePanel implements ActionListener {
         loadGameButton.addActionListener(this);
 
         changeAlgorithmButton = new JButton();
-        botAlgorithm = BotAlgorithm.SIMPLE;
+        botAlgorithm = BotAlgorithmChoice.SIMPLE;
         changeAlgorithmButton.setText("Current Algorithm: \n" + botAlgorithm.toString());
         changeAlgorithmButton.addActionListener(this);
 

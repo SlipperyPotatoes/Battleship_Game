@@ -1,7 +1,7 @@
 package com.battleship.game.panels;
 
 import com.battleship.game.Main;
-import com.battleship.game.GameState;
+import com.battleship.game.enums.GameState;
 
 import javax.swing.*;
 

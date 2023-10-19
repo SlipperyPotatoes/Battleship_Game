@@ -1,5 +1,7 @@
 package com.battleship.game;
 
+import com.battleship.game.enums.BotAlgorithmChoice;
+import com.battleship.game.enums.GameState;
 import com.battleship.game.panels.*;
 
 import javax.swing.*;
@@ -12,7 +14,7 @@ public class Main {
     private MenuPanel menuPanel;
     private AttackPanel attackPanel;
     private GameState gameState;
-    private Game game;
+    private Game Game;
 
     void run() {
         frame = new JFrame();
@@ -22,7 +24,7 @@ public class Main {
         mainPanel = new JPanel(cardLayout);
 
         menuPanel = new MenuPanel(this);
-        attackPanel = new PlayerAttackPanel(this);
+        attackPanel = new HumanAttackPanel(this);
 
         mainPanel.add(menuPanel, menuPanel.getPanelState().toString());
         mainPanel.add(attackPanel, attackPanel.getPanelState().toString());
@@ -36,7 +38,7 @@ public class Main {
         frame.setVisible(true);
 
         // Show menu
-        cardLayout.show(mainPanel, GameState.MAIN_MENU.toString());
+        changeGameState(GameState.MAIN_MENU);
     }
 
     public void changeGameState(GameState gameState) {
@@ -47,19 +49,33 @@ public class Main {
         cardLayout.show(mainPanel, gameState.toString());
     }
 
-    public void startBotNewGame(BotAlgorithm algorithm) {
-        game = new BotVsPlayerGame(this, algorithm);
-
+    public void startBotNewGame(BotAlgorithmChoice algorithm) {
+        Game = new HumanVsBotGame(this, algorithm);
+        Game.startNewGame();
+        changeGameState(GameState.PLACE_SHIPS);
     }
 
-    public void loadPreviousBotGame(BotAlgorithm algorithm) {
-        game = new BotVsPlayerGame(this, algorithm);
+    public void loadPreviousBotGame(BotAlgorithmChoice algorithm) {
+        Game = new HumanVsBotGame(this, algorithm);
+        Game.startSavedGame("game" + ".botSave");
+    }
+
+    public void saveBotGame() {
 
     }
 
     public JFrame getFrame() {
         return frame;
     }
+
+    public JPanel getMainPanel() {
+        return mainPanel;
+    }
+
+    public Game getCurrentGame() {
+        return Game;
+    }
+
     public static void main(String[] args) {
         new Main().run();
     }

@@ -1,17 +1,17 @@
-package com.battleship.game;
+package com.battleship.game.enums;
 
-public enum BotAlgorithm {
+public enum BotAlgorithmChoice {
     SIMPLE("simple"),
     ADVANCED("advanced");
 
     private final String val;
 
-    BotAlgorithm(String val) {
+    BotAlgorithmChoice(String val) {
         this.val = val;
     }
 
-    public BotAlgorithm next() {
-        BotAlgorithm[] values = BotAlgorithm.values();
+    public BotAlgorithmChoice next() {
+        BotAlgorithmChoice[] values = BotAlgorithmChoice.values();
         return values[(this.ordinal() + 1) % values.length];
     }
 

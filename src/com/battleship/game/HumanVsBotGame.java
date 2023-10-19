@@ -1,16 +1,16 @@
 package com.battleship.game;
 
+import com.battleship.game.enums.BotAlgorithmChoice;
 import com.battleship.game.panels.ShipPlacementPanel;
 
-import javax.management.DescriptorKey;
 import javax.swing.*;
 import java.net.URL;
 
-public class BotVsPlayerGame extends Game {
-    BotAlgorithm algorithm;
+public class HumanVsBotGame extends Game {
+    BotAlgorithmChoice algorithm;
 
 
-    public BotVsPlayerGame(Main main, BotAlgorithm algorithm) {
+    public HumanVsBotGame(Main main, BotAlgorithmChoice algorithm) {
         super(main);
         this.main = main;
         this.algorithm = algorithm;
@@ -19,6 +19,8 @@ public class BotVsPlayerGame extends Game {
     @Override
     public void startNewGame() {
         ShipPlacementPanel shipPlacementPanel = new ShipPlacementPanel(main);
+        main.getMainPanel().add(shipPlacementPanel);
+        main.changeGameState(shipPlacementPanel.getPanelState());
 
     }
 
