@@ -1,3 +1,4 @@
+package com.battleship.game.panels;
 import java.util.*;
 import java.awt.*;
 import java.util.Random;

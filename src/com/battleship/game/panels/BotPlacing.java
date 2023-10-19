@@ -1,3 +1,4 @@
+package com.battleship.game.panels;
 import java.util.*;
 import java.awt.*;
 import java.util.List;
@@ -8,17 +9,16 @@ import java.util.List;
  * -NOT more then 3 the same rotation.
  * -Ships can not touch eachother
  * -1 ship on the border perpendicular to the border
-
  */
+
 public class BotPlacing {
 
-    Ship destroyer = new Ship(2, "Destr");
-    Ship cruiser = new Ship(3, "Cruis");
-    Ship submarine = new Ship(3, "Subma");
-    Ship battleship = new Ship(4, "Battl");
-    Ship aircraftcarrier = new Ship(5, "Aircr");
+    Ship destroyer = new Ship(2, "Destroyer");
+    Ship cruiser = new Ship(3, "Cruiser");
+    Ship submarine = new Ship(3, "Submarine");
+    Ship battleship = new Ship(4, "Battleship");
+    Ship aircraftcarrier = new Ship(5, "Aircraft Carrier");
     Ship currentShip;
-    Ship water;
 
     List<Ship> list = new ArrayList<>();
     
@@ -43,9 +43,6 @@ public class BotPlacing {
         for (int i = 0; i < 4; i++) {
             getRandomPosition();
         }
-        
-        convertArray();
-        print(mapString);
         return botShipPlacement;
     }
 
@@ -158,30 +155,10 @@ public class BotPlacing {
             }
             collisionMap[currentPoint.y][currentPoint.x] = true;
             botShipPlacement[currentPoint.y][currentPoint.x] = currentShip;
-            
+
         }
     }
 
-    private void convertArray() {
-
-        for (int i = 0; i < 10; i++) {
-            for (int p = 0; p < 10; p++) {
-                if (botShipPlacement[i][p] != null) {
-                    mapString[i][p] = botShipPlacement[i][p].name;
-                } else {
-                    mapString[i][p] = "water";
-                }
-            }
-        }
-    }
-
-    private void print(String[][] mapString) {
-        String arraystring = Arrays.deepToString(mapString).replace("], ", "|\n")
-            .replace("[[", "|").replace("]]", "]")
-            .replace(", ", " ").replace("[", "|")
-            .replace("]", "|");
-        System.out.println(arraystring);
-    }
     public static void main(String[] args) {
         new BotPlacing().botPlacing();
     }

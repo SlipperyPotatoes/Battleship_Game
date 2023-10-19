@@ -1,5 +1,9 @@
+package com.battleship.game.panels;
+
 import java.awt.*; 
 import java.awt.event.*;
+import java.net.URL;
+
 import javax.swing.*;
 import java.util.*;
 import java.util.List;
@@ -8,7 +12,20 @@ import java.util.ArrayList;
 
 
 public class Main implements ActionListener {
+    /** 
+    URL titleUrl = getClass().getClassLoader().getResource("com/battleship/game/assets/title_pixelart.png");
+    assert titleUrl != null;
+
+    URL crossUrl = getClass().getClassLoader().getResource("com/battleship/game/assets/Cross.png");
+    assert crossUrl != null;
+    URL stripeHorizontalUrl = getClass().getClassLoader().getResource("com/battleship/game/assets/StripeHorizontal.png");
+    assert stripeHorizontalUrl != null;
+    URL stripeVerticalUrl = getClass().getClassLoader().getResource("com/battleship/game/assets/StripeVertical.png");
+    assert stripeVerticalUrl != null;
+    */
     
+
+
     int totalShips = 5;
 
     JFrame mainFrame;
@@ -90,23 +107,25 @@ public class Main implements ActionListener {
                 gameEnd();
             }
         } else {
-            map[hitY][hitX].setText("hit");
+            map[hitY][hitX].setIcon(null);
         }
     }
 
     private void sinkShip(Ship currentShip) {
         if (currentShip.rotation) {
             for (int i = 0; i < currentShip.length; i++) {
-                 // TODO //map[currentShip.locationStart.y + i][currentShip.locationStart.x].setIcon(new ImageIcon(Class.class.getResource("\"C:\\Users\\20234939\\OneDrive - TU Eindhoven\\Documents\\Programming\\assignments\\CBL\\Battleship_Game\\src\\com\\battleship\\game\\assets\\StripeVertical.png\"")));
+                 map[currentShip.locationStart.y + i][currentShip.locationStart.x].setIcon(null);
+                 //message Ship currentShip.name sunk!
             }
         } else {
             for (int i = 0; i < currentShip.length; i++) {
-                // TODO map[currentShip.locationStart.y][currentShip.locationStart.x + i].setIcon(new ImageIcon(Class.class.getResource("\"C:\\Users\\20234939\\OneDrive - TU Eindhoven\\Documents\\Programming\\assignments\\CBL\\Battleship_Game\\src\\com\\battleship\\game\\assets\\StripeHorizontal.png\"")));
+                map[currentShip.locationStart.y][currentShip.locationStart.x + i].setIcon(null);
+                //message Ship currentShip.name sunk!
             }
         }
     }
 
-    private void gameEnd(){
+    private void gameEnd() {
 
     }
 
