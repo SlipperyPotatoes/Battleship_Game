@@ -1,159 +1,132 @@
 import java.awt.*; 
 import java.awt.event.*;
-import java.util.Arrays;
-
 import javax.swing.*;
+import java.util.*;
+import java.util.List;
+import java.util.ArrayList;
 
 
 
 public class Main implements ActionListener {
-
+    
+    int totalShips = 5;
 
     JFrame mainFrame;
+    
+    JPanel mainPanel;
 
-        JPanel mainPanel;
+    JPanel boardPanel;
 
-        JPanel mainPanel2;
+    JButton[][] map = new JButton[10][10];
 
-        JButton startGame;
-
-        JButton exitGame;
-
-        // Label to display text
-        JLabel l;
-
-        JButton[][] map = new JButton[10][10];
-
-
+    Ship[][] enemyShips = new BotPlacing().botPlacing();
 
     public boolean[][] enemyHit = new boolean[10][10];
 
-    public void copyArray(){
 
-        int[][] enemyAttacks = new int[9][9];
 
-        int[][] enemyShips = new int[9][9];
-
-        
-
-    }
-
-    private boolean checkHit(int x,int y, int[][] enemyAttacks){
-
-        if (enemyAttacks[x][y] == 1) {
-
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-
-         for (int i = 0; i < 10; i++) {
-
+    private void checkButton(ActionEvent e) {
+        for (int i = 0; i < 10; i++) {
             for (int p = 0; p < 10; p++) {
-
-                //String s=Integer.toString(i+p);
-                if (("button"+ i + p).equals(e.getActionCommand())) {
-
-                    System.out.println("button"+ i + p);
-
-                    enemyHit[i][p] = true;
-
-                    map[i][p].setText("p");
-                    map[i][p].setEnabled(false);
-
+                if (("button" + i + p).equals(e.getActionCommand())) {
+                    checkHitOrMiss(enemyShips[i][p],i,p);
                 }
             }
         }
     }
 
 
-    public void createScreen(){
-
-        // JFrame
-        
+    private void createScreen() {
 
         GraphicsEnvironment graphics = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice device = graphics.getDefaultScreenDevice();
 
         mainFrame = new JFrame("panel");
 
-         // Creating a label to display text
-        //l = new JLabel("panel label");
-
-         // Creating a new buttons
-         
-
-         // Creating a panel to add buttons
         mainPanel = new JPanel();
-        mainPanel2 = new JPanel();
-
-    
-         // Adding buttons and textfield to panel
-         // using add() method
-         
-        //mainPanel.add(l);
         
+        boardPanel = new JPanel();
 
-        mainPanel2.setBackground(Color.blue);
+        boardPanel.setBackground(Color.blue);
 
         GridLayout layout = new GridLayout(10,10);
-
-
         layout.setHgap(5); 
         layout.setVgap(5); 
 
+        boardPanel.setPreferredSize(new Dimension(600, 600));
+
+        boardPanel.setLayout(layout);
+
+        mainPanel.add(boardPanel);
         
-
-        mainPanel2.setPreferredSize(new Dimension(600, 600));
-        mainPanel2.setLayout(layout);
-
-         // setbackground of panel
-        mainPanel.setBackground(Color.red);
-
-
-        // Adding panel to frame
-
-        //mainFrame.add(mainPanel);
-
-        mainPanel.add(mainPanel2);
         mainFrame.add(mainPanel);
-        
-
-         // Setting the size of frame
 
         mainFrame.setVisible(true);
 
         mainFrame.setResizable(false);
 
         device.setFullScreenWindow(mainFrame);
+        createMap();
+        SwingUtilities.updateComponentTreeUI(mainFrame);
+    }
 
-
+    private void createMap() {
         for (int i = 0; i < 10; i++) {
-
             for (int p = 0; p < 10; p++) {
-
                 map[i][p] = new JButton("x");
                 map[i][p].setActionCommand("button" + i + p);
-                map[i][p].addActionListener(this); // Or some other ActionListener
-
-                mainPanel2.add(map[i][p]);
-                
+                map[i][p].addActionListener(this);
+                boardPanel.add(map[i][p]);
             }
+        }
+    }
+
+    private void checkHit(Ship currentShip, int hitY, int hitX) {
+        currentShip.hp = currentShip.hp - 1;
+        if (currentShip.hp == 0) {
+            sinkShip(currentShip);
+            totalShips--;
+            if (totalShips == 0){
+                gameEnd();
+            }
+        } else {
+            map[hitY][hitX].setText("hit");
+        }
+    }
+
+    private void sinkShip(Ship currentShip) {
+        if (currentShip.rotation) {
+            for (int i = 0; i < currentShip.length; i++) {
+                 // TODO //map[currentShip.locationStart.y + i][currentShip.locationStart.x].setIcon(new ImageIcon(Class.class.getResource("\"C:\\Users\\20234939\\OneDrive - TU Eindhoven\\Documents\\Programming\\assignments\\CBL\\Battleship_Game\\src\\com\\battleship\\game\\assets\\StripeVertical.png\"")));
+            }
+        } else {
+            for (int i = 0; i < currentShip.length; i++) {
+                // TODO map[currentShip.locationStart.y][currentShip.locationStart.x + i].setIcon(new ImageIcon(Class.class.getResource("\"C:\\Users\\20234939\\OneDrive - TU Eindhoven\\Documents\\Programming\\assignments\\CBL\\Battleship_Game\\src\\com\\battleship\\game\\assets\\StripeHorizontal.png\"")));
+            }
+        }
+    }
+
+    private void gameEnd(){
+
+    }
+
+    private void checkHitOrMiss(Ship currentShip, int checkY, int checkX) {
+        map[checkY][checkX].setEnabled(false);
+        if (currentShip == null) {
+            map[checkY][checkX].setText("miss");
+        } else {
+            checkHit(currentShip,checkY,checkX);
         }
     }
 
     public static void main(String[] args) {
         new Main().createScreen();
+    }
 
-     }
-
-   
-
-
- 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        checkButton(e);
+    }
 }
 
 
