@@ -1,7 +1,5 @@
 package com.battleship.game;
-
 import com.battleship.game.panels.*;
-
 import javax.swing.*;
 import java.awt.*;
 
