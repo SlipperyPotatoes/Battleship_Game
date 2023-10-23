@@ -5,10 +5,8 @@ import com.battleship.game.utils.Vector;
 import java.util.Random;
 
 public enum Direction {
-    NORTH(new Vector(0, 1)),
-    EAST(new Vector(1, 0)),
-    SOUTH(new Vector(0, -1)),
-    WEST(new Vector(-1, 0));
+    VERTICAL(new Vector(0, 1)),
+    HORIZONTAL(new Vector(1, 0));
 
     private final Vector val;
 
@@ -18,19 +16,17 @@ public enum Direction {
         this.val = val;
     }
 
-    public Vector getVal() {
-        return val;
+    public Vector getVec() {
+        return new Vector(val);
     }
 
-    public Direction rotateClockwise() {
+    // Returns the vector of this enum with its values scaled by -1
+    public Vector getNVec() {
+        return getVec().scale(-1);
+    }
 
-        for (int i = 0; i < directions.length; i++) {
-            if (directions[i] == this) {
-                return directions[(i + 1) % directions.length];
-            }
-        }
-
-        throw new RuntimeException("Clockwise rotated direction not found");
+    public Direction switchDirection() {
+        return this == Direction.VERTICAL ? Direction.HORIZONTAL : this;
     }
 
     public static Direction getRandomDirection(Random random) {

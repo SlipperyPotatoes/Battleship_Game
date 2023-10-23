@@ -1,9 +1,10 @@
 package com.battleship.game.panels;
 
 import com.battleship.game.Game;
-import com.battleship.game.ShipData;
-import com.battleship.game.enums.GameState;
 import com.battleship.game.Main;
+import com.battleship.game.ShipData;
+import com.battleship.game.enums.Direction;
+import com.battleship.game.enums.GameState;
 import com.battleship.game.utils.Vector;
 
 import javax.swing.*;
@@ -11,41 +12,51 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static com.battleship.game.utils.ShipPlacementUtil.*;
+
 public class ShipPlacementPanel extends BasePanel implements ActionListener {
-    int[][] ships;
+    int[][] intShips;
     JButton finishPlacementButton;
     JButton rotateShipButton;
 
     boolean shipSelected;
-    ShipData selectedShipData;
-    ShipData newShipData;
-
+    ShipData selectedShip;
 
     public ShipPlacementPanel(Main main) {
         super(main, GameState.PLACE_SHIPS);
-        ships = new int[Game.SIZE_Y][Game.SIZE_X];
+        intShips = new int[Game.SIZE_Y][Game.SIZE_X];
 
         shipSelected = false;
-        selectedShipData = null;
-        newShipData = null;
+        selectedShip = null;
 
-        // Places ships next to each other
-        for (int y = 0; y < Game.SHIP_SIZES.length; y++) {
-            for (int x = 0; x < Game.SHIP_SIZES[y]; x++) {
-                ships[y][x] = Game.SHIP_SIZES[y];
+        // Places ships next to each other with gaps in between
+        for (int size : Game.SHIP_SIZES) {
+            for (int y = 0; y < Game.SIZE_Y; y++) {
+                if (canPlaceAt(intShips, size, new Vector(0, y), Direction.HORIZONTAL)) {
+                    for (int x = 0; x < size; x++) {
+                        intShips[y][x] = size;
+                    }
+                }
             }
         }
 
+
+        GridLayout gridLayout = new GridLayout(Game.SIZE_Y, Game.SIZE_X);
+        this.setLayout(gridLayout);
 
         for (int y = 0; y < Game.SIZE_Y; y++) {
             for (int x = 0; x < Game.SIZE_X; x++) {
                 JButton gridButton = new JButton();
                 gridButton.setBackground(Color.BLUE);
-                gridButton.setActionCommand(new Vector(x, y).toString());
+                String buttonStr = new Vector(x, y).toString();
+                gridButton.setActionCommand(buttonStr);
+
+                this.add(gridButton);
             }
         }
 
-        //TODO: Add code that draws ships and if a ship is selected,
+
+        //TODO: Add code that draws ships and if a ship is selected
 
         rotateShipButton = new JButton();
         rotateShipButton.setText("Rotate");
@@ -54,6 +65,9 @@ public class ShipPlacementPanel extends BasePanel implements ActionListener {
         finishPlacementButton = new JButton();
         finishPlacementButton.setText("Finish");
         finishPlacementButton.addActionListener(this);
+
+        this.add(rotateShipButton);
+        this.add(finishPlacementButton);
     }
 
     @Override
@@ -61,27 +75,52 @@ public class ShipPlacementPanel extends BasePanel implements ActionListener {
         Object object = e.getSource();
 
         if (finishPlacementButton == object) {
-            boolean[][] boolShips = new boolean[Game.SIZE_Y][Game.SIZE_X];
-            for (int y = 0; y < Game.SIZE_Y; y++) {
-                for (int x = 0; x < Game.SIZE_X; x++) {
-                    boolShips[y][x] = ships[y][x] != 0;
-                }
+            if (shipSelected) {
+                JOptionPane.showMessageDialog(main.getFrame(),
+                        "Ship currently selected, please place this down first",
+                        "Cannot Finish Ship Placement",
+                        JOptionPane.WARNING_MESSAGE);
+                return;
             }
-            main.getCurrentGame().setNextPlayerShips(boolShips);
+
+            main.getCurrentGame().setNextPlayerShips(convertIntToBoolArray(intShips));
+            main.getMainPanel().remove(this);
+            main.getCurrentGame().nextPlacement();
         } else if (rotateShipButton == object) {
-            newShipData.rotateShipClockwise();
+            if (shipSelected) {
+                selectedShip.rotateShip();
+            }
+
         } else {
+            // Grid button selected
             Vector buttonPos = new Vector(e.getActionCommand());
 
-            // Ship currently selected
-            if (shipSelected) {
+            if (shipSelected && canPlaceAt(intShips, selectedShip)) {
+                // If ship currently selected
+                shipSelected = false;
 
-            } else if (ships[buttonPos.getY()][buttonPos.getY()] != 0) {
-                // No ship selected and space selected has a ship
+                Vector placePos = new Vector(selectedShip.getPosition());
+
+                for (int i = 0; i < selectedShip.getSize(); i++) {
+                    intShips[placePos.getY()][placePos.getY()] = selectedShip.getSize();
+                    placePos.add(selectedShip.getDirection().getVec());
+                }
+
+                selectedShip = null;
+
+            } else if (intShips[buttonPos.getY()][buttonPos.getY()] != 0) {
+                // If no ship selected and space selected has a ship
                 shipSelected = true;
 
                 // Determine ship's direction and actual pos
+                selectedShip = getShipAt(intShips, buttonPos);
+
                 // Remove ship from array
+                Vector checkPos = new Vector(selectedShip.getPosition());
+                for (int i = 0; i < selectedShip.getSize(); i++) {
+                    intShips[checkPos.getY()][checkPos.getY()] = 0;
+                    checkPos.add(selectedShip.getDirection().getVec());
+                }
 
             }
         }

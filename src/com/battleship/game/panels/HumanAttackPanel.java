@@ -1,15 +1,15 @@
 package com.battleship.game.panels;
 
-import com.battleship.game.enums.GameState;
 import com.battleship.game.Main;
+import com.battleship.game.enums.GameState;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class HumanAttackPanel extends AttackPanel implements ActionListener {
 
-    public HumanAttackPanel(Main main) {
-        super(main, GameState.PLAYER_ATTACK);
+    public HumanAttackPanel(Main main, GameState gameState) {
+        super(main, gameState);
     }
 
     @Override

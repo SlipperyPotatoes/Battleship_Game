@@ -1,38 +1,42 @@
 package com.battleship.game;
 
-// Player can be a user (human) or bot
+// Player can be a user (referred to as humans) or bot
 public class PlayerData {
-    boolean shipsSet;
-    boolean[][] ships;
-    boolean[][] placesAttacked;
+    private boolean shipsSet;
+    private boolean[][] boolShips;
+    private boolean[][] placesAttacked;
 
     PlayerData() {
         shipsSet = false;
-        ships = new boolean[Game.SIZE_Y][Game.SIZE_X];
+        boolShips = new boolean[Game.SIZE_Y][Game.SIZE_X];
         placesAttacked = new boolean[Game.SIZE_Y][Game.SIZE_X];
     }
 
-    public void setShips(boolean[][] ships) {
+    public void setBoolShips(boolean[][] boolShips) {
         if (shipsSet) {
             throw new RuntimeException("Ships positions shouldn't be changed");
         }
         shipsSet = true;
-        this.ships = ships;
+        this.boolShips = boolShips;
     }
 
-    public boolean[][] getShips() {
-        return ships;
+    public boolean[][] getBoolShips() {
+        return boolShips;
     }
 
     public boolean shipsSet() {
         return shipsSet;
     }
 
-    public boolean shipAt(int y, int x) {
-        return ships[y][x];
+    public boolean shipAt(int x, int y) {
+        return boolShips[y][x];
     }
 
-    public boolean hasAttackedAt(int y, int x) {
+    public void attack(int x, int y) {
+        placesAttacked[y][x] = true;
+    }
+
+    public boolean hasAttackedAt(int x, int y) {
         return placesAttacked[y][x];
     }
 }

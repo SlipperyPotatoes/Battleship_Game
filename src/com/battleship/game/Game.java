@@ -1,5 +1,10 @@
 package com.battleship.game;
 
+import com.battleship.game.enums.GameState;
+
+import javax.swing.*;
+import java.net.URL;
+
 public abstract class Game {
     public final static int SIZE_X = 10;
     public final static int SIZE_Y = 10;
@@ -10,12 +15,10 @@ public abstract class Game {
     // that they are in descending order
     // Technically not necessary but useful for debugging
     static {
-        assert SHIP_SIZES.length <= SIZE_Y;
+        assert SHIP_SIZES.length <= SIZE_Y / 2;
         for (int i = 0; i < SHIP_SIZES.length; i++) {
             assert SHIP_SIZES[i] <= SIZE_X;
-            if (i < SHIP_SIZES.length - 1) {
-                assert SHIP_SIZES[i] > SHIP_SIZES[i + 1];
-            }
+            assert i >= SHIP_SIZES.length - 1 || SHIP_SIZES[i] > SHIP_SIZES[i + 1];
         }
     }
 
@@ -32,29 +35,40 @@ public abstract class Game {
 
     public abstract void startNewGame();
 
-    public abstract void startSavedGame(String saveString);
+    public abstract void nextPlacement();
 
-    public PlayerData getPlayer1() {
-        return player1;
+    public void startSavedGame(String saveString) {
+        URL saveURL = getClass()
+                .getClassLoader()
+                .getResource("com/battleship/game/assets/" + saveString + ".save");
+
+        if (saveURL == null) {
+            JOptionPane.showMessageDialog(main.getFrame(),
+                    "No existing save found",
+                    "Load Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+        //TODO: Load game data using url
     }
 
-    public PlayerData getPlayer2() {
-        return player2;
+    public void saveGame() {
+        //TODO: Save game data to text file with .save extension
     }
 
-    public void setPlayer1Ships(boolean[][] ships) {
-        player1.setShips(ships);
-    }
-
-    public void setPlayer2Ships(boolean[][] ships) {
-        player2.setShips(ships);
+    public void nextAttack() {
+        switch (main.getGameState()) {
+            case PLAYER_1_ATTACK -> main.changeGameState(GameState.PLAYER_2_ATTACK);
+            case PLAYER_2_ATTACK -> main.changeGameState(GameState.PLAYER_1_ATTACK);
+            default -> throw new RuntimeException
+                    ("Illegal state reached, nextAttack called on: " + main.getGameState().toString());
+        }
     }
 
     public void setNextPlayerShips(boolean[][] ships) {
-        if (!player1.shipsSet) {
-            player1.setShips(ships);
+        if (!player1.shipsSet()) {
+            player1.setBoolShips(ships);
             return;
         }
-        player2.setShips(ships);
+        player2.setBoolShips(ships);
     }
 }

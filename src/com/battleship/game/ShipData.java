@@ -6,16 +6,26 @@ import com.battleship.game.utils.Vector;
 public class ShipData {
     private Vector position;
     private Direction direction;
-    private int size;
+    private final int size;
+    private int hp;
 
     public ShipData(Vector position, Direction direction, int size) {
         this.position = position;
         this.direction = direction;
         this.size = size;
+        this.hp = size;
     }
 
-    public void rotateShipClockwise() {
-        direction = direction.rotateClockwise();
+    public void rotateShip() {
+        direction = direction.switchDirection();
+    }
+
+    public void hitShip() {
+        hp--;
+    }
+
+    public boolean isDead() {
+        return hp == 0;
     }
 
     public Vector getPosition() {
@@ -38,7 +48,4 @@ public class ShipData {
         return size;
     }
 
-    public void setSize(int size) {
-        this.size = size;
-    }
 }

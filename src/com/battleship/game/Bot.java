@@ -1,18 +1,19 @@
 package com.battleship.game;
 
 
-import com.battleship.game.enums.BotAlgorithmChoice;
+import com.battleship.game.enums.BotAlgorithm;
 import com.battleship.game.enums.Direction;
 import com.battleship.game.utils.Vector;
 
 import java.util.Random;
 
-import static com.battleship.game.utils.ShipPlacementUtil.*;
+import static com.battleship.game.utils.ShipPlacementUtil.canPlaceAt;
+import static com.battleship.game.utils.ShipPlacementUtil.convertIntToBoolArray;
 
 public class Bot {
-    BotAlgorithmChoice algorithm;
+    BotAlgorithm algorithm;
 
-    public Bot(BotAlgorithmChoice algorithm) {
+    public Bot(BotAlgorithm algorithm) {
         this.algorithm = algorithm;
     }
 
@@ -29,11 +30,11 @@ public class Bot {
                 position.setX(random.nextInt(Game.SIZE_X));
                 position.setY(random.nextInt(Game.SIZE_Y));
                 direction = Direction.getRandomDirection(random);
-                if (!checkForCollisions(ships, shipSize, position, direction)) {
+                if (canPlaceAt(ships, shipSize, position, direction)) {
                     //TODO: Add check for if follows rules
                     for (int l = 0; l < shipSize; l++) {
                         ships[position.getY()][position.getX()] = shipSize;
-                        position.add(direction.getVal());
+                        position.add(direction.getVec());
                     }
 
                     break;
@@ -43,8 +44,6 @@ public class Bot {
 
         return convertIntToBoolArray(ships);
     }
-
-
 
     public Vector findNextAttackPos(boolean[][] placesAttacked) {
         //TODO: Implement both simple and advanced attack algorithms
