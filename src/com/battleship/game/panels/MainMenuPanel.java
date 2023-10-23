@@ -11,13 +11,13 @@ import java.awt.event.ActionListener;
 import java.net.URL;
 
 //TODO: Fix button placement, maybe add an option to select a save file or load from save name
-public class MenuPanel extends BasePanel implements ActionListener {
+public class MainMenuPanel extends BasePanel implements ActionListener {
     private final JButton newBotGameButton;
     private final JButton loadBotGameButton;
     private final JButton changeAlgorithmButton;
     private BotAlgorithm botAlgorithm;
 
-    public MenuPanel(Main main) {
+    public MainMenuPanel(Main main) {
         super(main, GameState.MAIN_MENU);
         this.setBackground(Color.BLUE);
 
@@ -41,10 +41,15 @@ public class MenuPanel extends BasePanel implements ActionListener {
         changeAlgorithmButton.setText("Current Algorithm: \n" + botAlgorithm);
         changeAlgorithmButton.addActionListener(this);
 
+        JButton exitButton = new JButton();
+        exitButton.setText("Exit");
+        exitButton.addActionListener((e) -> System.exit(0));
+
         this.add(title);
         this.add(newBotGameButton);
         this.add(loadBotGameButton);
         this.add(changeAlgorithmButton);
+        this.add(exitButton);
     }
 
     @Override

@@ -12,7 +12,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import static com.battleship.game.utils.ShipPlacementUtil.*;
+import static com.battleship.game.utils.ShipUtils.*;
 
 public class ShipPlacementPanel extends BasePanel implements ActionListener {
     int[][] intShips;
@@ -36,6 +36,7 @@ public class ShipPlacementPanel extends BasePanel implements ActionListener {
                     for (int x = 0; x < size; x++) {
                         intShips[y][x] = size;
                     }
+                    break;
                 }
             }
         }
@@ -83,6 +84,9 @@ public class ShipPlacementPanel extends BasePanel implements ActionListener {
                 return;
             }
 
+            System.out.println(convertIntArrayToString(intShips));
+            System.out.println("----------");
+
             main.getCurrentGame().setNextPlayerShips(convertIntToBoolArray(intShips));
             main.getMainPanel().remove(this);
             main.getCurrentGame().nextPlacement();
@@ -90,7 +94,6 @@ public class ShipPlacementPanel extends BasePanel implements ActionListener {
             if (shipSelected) {
                 selectedShip.rotateShip();
             }
-
         } else {
             // Grid button selected
             Vector buttonPos = new Vector(e.getActionCommand());
@@ -108,7 +111,7 @@ public class ShipPlacementPanel extends BasePanel implements ActionListener {
 
                 selectedShip = null;
 
-            } else if (intShips[buttonPos.getY()][buttonPos.getY()] != 0) {
+            } else if (!shipSelected && intShips[buttonPos.getY()][buttonPos.getY()] != 0) {
                 // If no ship selected and space selected has a ship
                 shipSelected = true;
 

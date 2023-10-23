@@ -26,7 +26,7 @@ public enum Direction {
     }
 
     public Direction switchDirection() {
-        return this == Direction.VERTICAL ? Direction.HORIZONTAL : this;
+        return this == Direction.VERTICAL ? HORIZONTAL : VERTICAL;
     }
 
     public static Direction getRandomDirection(Random random) {

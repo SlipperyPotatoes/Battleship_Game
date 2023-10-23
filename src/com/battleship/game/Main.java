@@ -2,7 +2,7 @@ package com.battleship.game;
 
 import com.battleship.game.enums.BotAlgorithm;
 import com.battleship.game.enums.GameState;
-import com.battleship.game.panels.MenuPanel;
+import com.battleship.game.panels.MainMenuPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,8 +25,8 @@ public class Main {
         cardLayout = new CardLayout();
         mainPanel = new JPanel(cardLayout);
 
-        MenuPanel menuPanel = new MenuPanel(this);
-        mainPanel.add(menuPanel, menuPanel.getPanelState().toString());
+        MainMenuPanel mainMenuPanel = new MainMenuPanel(this);
+        mainPanel.add(mainMenuPanel, mainMenuPanel.getPanelState().toString());
 
         // Setup frame
         frame.setContentPane(mainPanel);

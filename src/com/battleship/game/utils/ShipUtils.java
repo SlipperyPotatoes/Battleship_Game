@@ -4,7 +4,7 @@ import com.battleship.game.Game;
 import com.battleship.game.ShipData;
 import com.battleship.game.enums.Direction;
 
-public class ShipPlacementUtil {
+public class ShipUtils {
 
     public static boolean canPlaceAt(int[][] currentShips, ShipData ship) {
         return canPlaceAt(currentShips, ship.getSize(),
@@ -60,17 +60,18 @@ public class ShipPlacementUtil {
             checkPos.add(direction.getVec());
         }
 
-        //Checks if there is any boats in front of this boat
-        if (checkPos.iAdd(direction.getVec()).isWithinArray(currentShips)) {
-            Vector front = checkPos.iAdd(direction.getVec());
-            return currentShips[front.getY()][front.getX()] == 0;
+        // checkPos is already at the cell in front of the end of the boat due to the loop's structure before it
+        // Checks if there is any boats in front of this boat
+        if (checkPos.isWithinArray(currentShips)) {
+            // Since this is the last statement, the value can be returned instead of checked then returned
+            return currentShips[checkPos.getY()][checkPos.getX()] == 0;
         }
 
 
         return true;
     }
 
-    public static boolean checkFollowsBotRules() {
+    public static boolean followsBotRules() {
         //TODO: At meeting figure this out
         return true;
     }
@@ -110,5 +111,21 @@ public class ShipPlacementUtil {
         }
 
         return boolArr;
+    }
+
+    public static String convertIntArrayToString(int[][] ints) {
+        StringBuilder builder = new StringBuilder();
+        for (int[] row : ints) {
+            for (int cell : row) {
+                if (cell == 0) {
+                    builder.append(" ");
+                } else {
+                    builder.append(cell);
+                }
+            }
+            builder.append("\n");
+        }
+
+        return builder.toString();
     }
 }

@@ -7,8 +7,7 @@ import com.battleship.game.utils.Vector;
 
 import java.util.Random;
 
-import static com.battleship.game.utils.ShipPlacementUtil.canPlaceAt;
-import static com.battleship.game.utils.ShipPlacementUtil.convertIntToBoolArray;
+import static com.battleship.game.utils.ShipUtils.*;
 
 public class Bot {
     BotAlgorithm algorithm;
@@ -41,6 +40,8 @@ public class Bot {
                 }
             }
         }
+
+        System.out.println(convertIntArrayToString(ships));
 
         return convertIntToBoolArray(ships);
     }

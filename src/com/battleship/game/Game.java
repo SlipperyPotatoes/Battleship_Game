@@ -8,7 +8,7 @@ import java.net.URL;
 public abstract class Game {
     public final static int SIZE_X = 10;
     public final static int SIZE_Y = 10;
-    public final static int[] SHIP_SIZES = {5, 3, 2};
+    public final static int[] SHIP_SIZES = {5, 4, 3, 3, 2};
 
     // Ensures before the game runs that all the ships can
     // fit on the grid side by side without issue and
