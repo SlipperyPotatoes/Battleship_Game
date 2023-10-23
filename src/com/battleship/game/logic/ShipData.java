@@ -1,4 +1,4 @@
-package com.battleship.game;
+package com.battleship.game.logic;
 
 import com.battleship.game.enums.Direction;
 import com.battleship.game.utils.Vector;

@@ -1,4 +1,4 @@
-package com.battleship.game;
+package com.battleship.game.logic;
 
 // Player can be a user (referred to as humans) or bot
 public class PlayerData {

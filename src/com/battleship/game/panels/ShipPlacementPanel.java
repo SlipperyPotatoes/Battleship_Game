@@ -1,8 +1,8 @@
 package com.battleship.game.panels;
 
-import com.battleship.game.Game;
+import com.battleship.game.logic.Game;
 import com.battleship.game.Main;
-import com.battleship.game.ShipData;
+import com.battleship.game.logic.ShipData;
 import com.battleship.game.enums.Direction;
 import com.battleship.game.enums.GameState;
 import com.battleship.game.utils.Vector;

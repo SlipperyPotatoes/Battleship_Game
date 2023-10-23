@@ -2,6 +2,8 @@ package com.battleship.game;
 
 import com.battleship.game.enums.BotAlgorithm;
 import com.battleship.game.enums.GameState;
+import com.battleship.game.logic.Game;
+import com.battleship.game.logic.HumanVsBotGame;
 import com.battleship.game.panels.MainMenuPanel;
 
 import javax.swing.*;

@@ -1,8 +1,6 @@
-package com.battleship.game;
+package com.battleship.game.utils;
 
 import com.battleship.game.enums.Direction;
-import com.battleship.game.utils.ShipUtils;
-import com.battleship.game.utils.Vector;
 
 public class Test {
 

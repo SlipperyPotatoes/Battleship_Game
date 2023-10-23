@@ -1,5 +1,6 @@
-package com.battleship.game;
+package com.battleship.game.logic;
 
+import com.battleship.game.Main;
 import com.battleship.game.enums.BotAlgorithm;
 import com.battleship.game.enums.GameState;
 import com.battleship.game.panels.BotAttackPanel;

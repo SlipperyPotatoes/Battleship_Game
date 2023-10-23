@@ -1,5 +1,6 @@
-package com.battleship.game;
+package com.battleship.game.logic;
 
+import com.battleship.game.Main;
 import com.battleship.game.enums.GameState;
 
 import javax.swing.*;
@@ -15,10 +16,12 @@ public abstract class Game {
     // that they are in descending order
     // Technically not necessary but useful for debugging
     static {
-        assert SHIP_SIZES.length <= SIZE_Y / 2;
+        assert SHIP_SIZES.length <= SIZE_Y / 2 : "Too many ships in SHIP_SIZES";
         for (int i = 0; i < SHIP_SIZES.length; i++) {
-            assert SHIP_SIZES[i] <= SIZE_X;
-            assert i >= SHIP_SIZES.length - 1 || SHIP_SIZES[i] > SHIP_SIZES[i + 1];
+            assert SHIP_SIZES[i] <= SIZE_X : "Ship in SHIP_SIZES larger than width of grid";
+            if (i < SHIP_SIZES.length - 1) {
+                assert SHIP_SIZES[i] >= SHIP_SIZES[i + 1] : "Ships in SHIP_SIZES not in descending order";
+            }
         }
     }
 

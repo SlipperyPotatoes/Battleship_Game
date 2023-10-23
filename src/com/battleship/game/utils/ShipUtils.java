@@ -1,7 +1,7 @@
 package com.battleship.game.utils;
 
-import com.battleship.game.Game;
-import com.battleship.game.ShipData;
+import com.battleship.game.logic.Game;
+import com.battleship.game.logic.ShipData;
 import com.battleship.game.enums.Direction;
 
 public class ShipUtils {
