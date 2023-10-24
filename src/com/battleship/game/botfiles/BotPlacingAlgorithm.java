@@ -1,4 +1,5 @@
-package com.battleship.game.panels;
+package com.battleship.game.botfiles;
+
 import java.util.*;
 import java.awt.*;
 import java.util.List;
@@ -11,37 +12,56 @@ import java.util.List;
  * -1 ship on the border perpendicular to the border
  */
 
-public class BotPlacing {
+public class BotPlacingAlgorithm {
 
-    Ship destroyer = new Ship(2, "Destroyer");
-    Ship cruiser = new Ship(3, "Cruiser");
-    Ship submarine = new Ship(3, "Submarine");
-    Ship battleship = new Ship(4, "Battleship");
-    Ship aircraftcarrier = new Ship(5, "Aircraft Carrier");
+    Ship destroyer = new Ship(2, "Destroyer", false);
+    Ship cruiser = new Ship(3, "Cruiser", false);
+    Ship submarine = new Ship(3, "Submarine", false);
+    Ship battleship = new Ship(4, "Battleship",false);
+    Ship aircraftcarrier = new Ship(5, "Aircraft Carrier",false);
     Ship currentShip;
 
     List<Ship> list = new ArrayList<>();
     
-    boolean[][] collisionMap = new boolean[10][10];
-    Ship[][] botShipPlacement = new Ship[10][10];
+    boolean[][] collisionMap;
+    Ship[][] botShipPlacement;
     String[][] mapString = new String[10][10];
 
     static int horizontal = 0;
     static int vertical = 0;
+    int shipPlacingTries = 0;
     Random random = new Random();
 
-    Ship[][] botPlacing() {
+    Ship[][] botPlacingAlgorithm() {
 
-        list.add(destroyer);
-        list.add(cruiser);
-        list.add(submarine);
-        list.add(battleship);
-        list.add(aircraftcarrier);
+        boolean foundsolution = false;
+        
+        while (!foundsolution) {
+            collisionMap = new boolean[10][10];
+            botShipPlacement = new Ship[10][10];
+            list = new ArrayList<>();
 
-        placeFirstShip();
+            list.add(destroyer);
+            list.add(cruiser);
+            list.add(submarine);
+            list.add(battleship);
+            list.add(aircraftcarrier);
 
-        for (int i = 0; i < 4; i++) {
-            getRandomPosition();
+            shipPlacingTries = 0;
+
+            placeFirstShip();
+
+            int randomAttacks = 0;
+
+            for (randomAttacks = 0; randomAttacks < 4; randomAttacks++) {
+                if (!getRandomPosition()) {
+                    break;
+                }
+            }
+
+            if (randomAttacks == 4){
+                foundsolution = true;
+            }
         }
         return botShipPlacement;
     }
@@ -59,12 +79,12 @@ public class BotPlacing {
         return number;
     }
 
-    private void getRandomPosition() {
+    private boolean getRandomPosition() {
         boolean foundLocation = false;
         currentShip = getRandomShip();
 
         while (!foundLocation) {
-            if (currentShip.rotation){
+            if (currentShip.rotation) {
                 currentShip.locationStart.y = getRandomNumber(1, 9 - currentShip.length);
                 currentShip.locationStart.x = getRandomNumber(1, 8);
             } else {
@@ -75,8 +95,13 @@ public class BotPlacing {
             if (checkCollide(currentShip)) {
                 foundLocation = true;
             }
+            shipPlacingTries++;
+            if (shipPlacingTries >= 25) {
+                return false;
+            }
         } 
         placeShip(currentShip);
+        return true;
     }
 
     private boolean checkCollide(Ship currentShip) {
@@ -158,9 +183,8 @@ public class BotPlacing {
 
         }
     }
-
     public static void main(String[] args) {
-        new BotPlacing().botPlacing();
+        new BotPlacingAlgorithm().botPlacingAlgorithm();
     }
 }
 

@@ -2,9 +2,15 @@ package com.battleship.game.panels;
 
 import java.awt.*; 
 import java.awt.event.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.net.URL;
 
 import javax.swing.*;
+
+import com.battleship.game.botfiles.BotPlacingAlgorithm;
+import com.battleship.game.botfiles.Ship;
+
 import java.util.*;
 import java.util.List;
 import java.util.ArrayList;
@@ -34,15 +40,27 @@ public class Main implements ActionListener {
 
     JPanel boardPanel;
 
+    JButton newGame = new JButton("new game");
+    
+    JButton loadGame = new JButton("load game");
+
     JButton[][] map = new JButton[10][10];
 
-    Ship[][] enemyShips = new BotPlacing().botPlacing();
+    Ship[][] enemyShips;
 
     public boolean[][] enemyHit = new boolean[10][10];
 
 
 
     private void checkButton(ActionEvent e) {
+
+        if ("newGame".equals(e.getActionCommand())) {
+            Ship[][] enemyShips = new BotPlacingAlgorithm().botPlacingAlgorithm();
+        }
+        if ("loadGame".equals(e.getActionCommand())) {
+            loadGame();
+        }
+
         for (int i = 0; i < 10; i++) {
             for (int p = 0; p < 10; p++) {
                 if (("button" + i + p).equals(e.getActionCommand())) {
@@ -51,6 +69,13 @@ public class Main implements ActionListener {
             }
         }
     }
+
+    //public void loadGame(){
+        
+        //BufferedReader br = new BufferedReader(new FileReader("savedGame.txt"));
+        
+
+    //}
 
 
     private void createScreen() {
@@ -66,6 +91,10 @@ public class Main implements ActionListener {
 
         boardPanel.setBackground(Color.blue);
 
+        newGame.setActionCommand("newGame");
+        newGame.setActionCommand("newGame");
+    
+
         GridLayout layout = new GridLayout(10,10);
         layout.setHgap(5); 
         layout.setVgap(5); 
@@ -75,6 +104,8 @@ public class Main implements ActionListener {
         boardPanel.setLayout(layout);
 
         mainPanel.add(boardPanel);
+        mainPanel.add(loadGame);
+        mainPanel.add(newGame);
         
         mainFrame.add(mainPanel);
 
@@ -83,6 +114,7 @@ public class Main implements ActionListener {
         mainFrame.setResizable(false);
 
         device.setFullScreenWindow(mainFrame);
+
         createMap();
         SwingUtilities.updateComponentTreeUI(mainFrame);
     }
