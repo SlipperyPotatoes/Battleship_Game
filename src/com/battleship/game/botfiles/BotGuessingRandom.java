@@ -1,8 +1,11 @@
 package com.battleship.game.botfiles;
 
+import com.battleship.game.utils.Vector;
+
 import java.awt.*;
-import java.util.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 
 /**
@@ -39,14 +42,14 @@ public class BotGuessingRandom {
 
     List<String> nextDirection;
 
-    Vector<Integer> currentBotAttack;
+    Vector currentBotAttack;
 
     /**
      * 
      * 
      * 
      */
-    public Vector<Integer> botGuessingRandom() {
+    public Vector botGuessingRandom() {
 
         if (attackingShip) {
             if (firstShipAttack) {
@@ -196,7 +199,7 @@ public class BotGuessingRandom {
 
     private void attack() {
 
-        currentBotAttack = new Vector<Integer>(currentAttack.x, currentAttack.y);
+        currentBotAttack = new Vector(currentAttack.x, currentAttack.y);
 
         Ship currentShip = enemyShips[currentAttack.y][currentAttack.x];
 
