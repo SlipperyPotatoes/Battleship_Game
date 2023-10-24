@@ -2,8 +2,8 @@ package com.battleship.game.enums;
 
 public enum GameState {
     MAIN_MENU("main menu"),
-    PLAYER_ATTACK("player attack"),
-    BOT_ATTACK("bot attack"),
+    PLAYER_1_ATTACK("player 1 attack"),
+    PLAYER_2_ATTACK("player 2 attack"),
     PLACE_SHIPS("place ships");
 
     private final String val;
@@ -11,7 +11,6 @@ public enum GameState {
     GameState(String val) {
         this.val = val;
     }
-
 
 
     @Override

@@ -49,15 +49,29 @@ public class Vector {
         return this;
     }
 
+    // Adds another vector to this vector and returns a new result, not affecting either vec
+    public Vector iAdd(Vector vec) {
+        return new Vector(x + vec.getX(), y + vec.getY());
+    }
+
     public Vector scale(int scalar) {
         x *= scalar;
         y *= scalar;
         return this;
     }
 
+    public Vector iScale(int scalar) {
+        return new Vector(x * scalar, y * scalar);
+    }
+
     // Converts the vector object into the format "x y"
     @Override
     public String toString() {
         return x + " " + y;
+    }
+
+    // Checks is this vector is within an array at array[y][x]
+    public boolean isWithinArray(int[][] array) {
+        return !(x < 0 || y < 0 || y >= array.length || x >= array[0].length);
     }
 }
