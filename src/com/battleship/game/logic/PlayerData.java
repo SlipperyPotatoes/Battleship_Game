@@ -3,25 +3,25 @@ package com.battleship.game.logic;
 // Player can be a user (referred to as humans) or bot
 public class PlayerData {
     private boolean shipsSet;
-    private boolean[][] boolShips;
+    private ShipData[][] ships;
     private boolean[][] placesAttacked;
 
     PlayerData() {
         shipsSet = false;
-        boolShips = new boolean[Game.SIZE_Y][Game.SIZE_X];
+        ships = new ShipData[Game.SIZE_Y][Game.SIZE_X];
         placesAttacked = new boolean[Game.SIZE_Y][Game.SIZE_X];
     }
 
-    public void setBoolShips(boolean[][] boolShips) {
+    public void setShips(ShipData[][] ships) {
         if (shipsSet) {
             throw new RuntimeException("Ships positions shouldn't be changed");
         }
         shipsSet = true;
-        this.boolShips = boolShips;
+        this.ships = ships;
     }
 
-    public boolean[][] getBoolShips() {
-        return boolShips;
+    public ShipData[][] getShips() {
+        return ships;
     }
 
     public boolean shipsSet() {
@@ -29,7 +29,7 @@ public class PlayerData {
     }
 
     public boolean shipAt(int x, int y) {
-        return boolShips[y][x];
+        return ships[y][x] != null;
     }
 
     public void attack(int x, int y) {

@@ -10,6 +10,8 @@ public abstract class Game {
     public final static int SIZE_X = 10;
     public final static int SIZE_Y = 10;
     public final static int[] SHIP_SIZES = {5, 4, 3, 3, 2};
+    public final static String[] SHIP_NAMES = {"Aircraft Carrier", "Battleship",
+            "Submarine", "Cruiser", "Destroyer"};
 
     // Ensures before the game runs that all the ships can
     // fit on the grid side by side without issue and
@@ -67,11 +69,11 @@ public abstract class Game {
         }
     }
 
-    public void setNextPlayerShips(boolean[][] ships) {
+    public void setNextPlayerShips(ShipData[][] ships) {
         if (!player1.shipsSet()) {
-            player1.setBoolShips(ships);
+            player1.setShips(ships);
             return;
         }
-        player2.setBoolShips(ships);
+        player2.setShips(ships);
     }
 }

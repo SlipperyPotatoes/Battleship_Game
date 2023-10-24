@@ -21,35 +21,43 @@ public class MainMenuPanel extends BasePanel implements ActionListener {
         super(main, GameState.MAIN_MENU);
         this.setBackground(Color.BLUE);
 
+        botAlgorithm = BotAlgorithm.SIMPLE;
+
+        this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+
         JLabel title = new JLabel();
-        URL titleUrl = getClass().getClassLoader().getResource("com/battleship/game/assets/title_pixelart.png");
+        URL titleUrl = getClass().getClassLoader().getResource("com/battleship/game/assets/title_pixel_art.png");
         assert titleUrl != null;
         ImageIcon icon = new ImageIcon(titleUrl);
         title.setIcon(icon);
         title.setPreferredSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
+        title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         newBotGameButton = new JButton();
         newBotGameButton.setText("New Human vs. Bot Game");
+        newBotGameButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         newBotGameButton.addActionListener(this);
 
         loadBotGameButton = new JButton();
         loadBotGameButton.setText("Load Human vs. Bot Game");
+        loadBotGameButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         loadBotGameButton.addActionListener(this);
 
         changeAlgorithmButton = new JButton();
-        botAlgorithm = BotAlgorithm.SIMPLE;
         changeAlgorithmButton.setText("Current Algorithm: \n" + botAlgorithm);
+        changeAlgorithmButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         changeAlgorithmButton.addActionListener(this);
 
         JButton exitButton = new JButton();
         exitButton.setText("Exit");
+        exitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         exitButton.addActionListener((e) -> System.exit(0));
 
         this.add(title);
-        this.add(newBotGameButton);
-        this.add(loadBotGameButton);
-        this.add(changeAlgorithmButton);
-        this.add(exitButton);
+        this.add(newBotGameButton, BorderLayout.CENTER);
+        this.add(loadBotGameButton, BorderLayout.CENTER);
+        this.add(changeAlgorithmButton, BorderLayout.CENTER);
+        this.add(exitButton, BorderLayout.CENTER);
     }
 
     @Override

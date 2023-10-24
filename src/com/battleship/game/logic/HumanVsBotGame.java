@@ -36,7 +36,7 @@ public class HumanVsBotGame extends Game {
 
     @Override
     public void nextPlacement() {
-        player2.setBoolShips(bot.generateShipPositions());
+        setNextPlayerShips(bot.generateShipPositions());
 
         main.changeGameState(GameState.PLAYER_1_ATTACK);
     }

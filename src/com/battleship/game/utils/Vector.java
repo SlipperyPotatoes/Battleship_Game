@@ -1,5 +1,7 @@
 package com.battleship.game.utils;
 
+import com.battleship.game.logic.ShipData;
+
 public class Vector {
     private int x;
     private int y;
@@ -65,13 +67,23 @@ public class Vector {
     }
 
     // Converts the vector object into the format "x y"
+    // Checks is this vector is within an array at array[y][x]
+
+    public boolean isWithinArray(int[][] array) {
+        return !(x < 0 || y < 0 || y >= array.length || x >= array[0].length);
+    }
+    public boolean isWithinArray(ShipData[][] array) {
+        return !(x < 0 || y < 0 || y >= array.length || x >= array[0].length);
+    }
+
     @Override
     public String toString() {
         return x + " " + y;
     }
 
-    // Checks is this vector is within an array at array[y][x]
-    public boolean isWithinArray(int[][] array) {
-        return !(x < 0 || y < 0 || y >= array.length || x >= array[0].length);
+    @Override
+    public boolean equals(Object obj) {
+        Vector vec = (Vector) obj;
+        return vec.getX() == x && vec.getY() == y;
     }
 }

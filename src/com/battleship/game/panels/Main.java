@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class Main implements ActionListener {
     /** 
-    URL titleUrl = getClass().getClassLoader().getResource("com/battleship/game/assets/title_pixelart.png");
+    URL titleUrl = getClass().getClassLoader().getResource("com/battleship/game/assets/title_pixel_art.png");
     assert titleUrl != null;
 
     URL crossUrl = getClass().getClassLoader().getResource("com/battleship/game/assets/Cross.png");

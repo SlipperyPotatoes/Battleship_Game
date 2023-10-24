@@ -17,22 +17,24 @@ public class Bot {
     }
 
     // Completely random positions for now
-    public boolean[][] generateShipPositions() {
-        int[] shipSizes = Game.SHIP_SIZES;
-        int[][] ships = new int[Game.SIZE_Y][Game.SIZE_X];
+    public ShipData[][] generateShipPositions() {
+        ShipData[][] ships = new ShipData[Game.SIZE_Y][Game.SIZE_X];
         Random random = new Random();
 
         Vector position = new Vector();
         Direction direction;
-        for (int shipSize : shipSizes) {
+        for (int i = 0; i < Game.SHIP_SIZES.length; i++) {
+            int shipSize = Game.SHIP_SIZES[i];
+
             while (true) {
                 position.setX(random.nextInt(Game.SIZE_X));
                 position.setY(random.nextInt(Game.SIZE_Y));
                 direction = Direction.getRandomDirection(random);
                 if (canPlaceAt(ships, shipSize, position, direction)) {
-                    //TODO: Add check for if follows rules
+                    //TODO: Add check for if follows bot rules
+                    ShipData ship = new ShipData(position, direction, shipSize, Game.SHIP_NAMES[i]);
                     for (int l = 0; l < shipSize; l++) {
-                        ships[position.getY()][position.getX()] = shipSize;
+                        ships[position.getY()][position.getX()] = ship;
                         position.add(direction.getVec());
                     }
 
@@ -41,13 +43,24 @@ public class Bot {
             }
         }
 
-        System.out.println(convertIntArrayToString(ships));
-
-        return convertIntToBoolArray(ships);
+        return ships;
     }
 
     public Vector findNextAttackPos(boolean[][] placesAttacked) {
         //TODO: Implement both simple and advanced attack algorithms
+        switch (algorithm) {
+            case SIMPLE: {
+                break;
+            }
+            case ADVANCED: {
+                break;
+            }
+            default: {
+                throw new RuntimeException("No bot algorithm selected");
+            }
+        }
+
+
         return new Vector();
     }
 }

@@ -23,9 +23,11 @@ public class Main {
     void run() {
         frame = new JFrame();
 
-
         cardLayout = new CardLayout();
         mainPanel = new JPanel(cardLayout);
+
+        mainPanel.setPreferredSize(new Dimension(800, 700));
+
 
         MainMenuPanel mainMenuPanel = new MainMenuPanel(this);
         mainPanel.add(mainMenuPanel, mainMenuPanel.getPanelState().toString());
@@ -35,7 +37,7 @@ public class Main {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("GUI");
         frame.pack();
-        frame.setLocationByPlatform(true);
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
         // Show menu

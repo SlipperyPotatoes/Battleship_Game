@@ -8,12 +8,15 @@ public class ShipData {
     private Direction direction;
     private final int size;
     private int hp;
+    private final String name;
 
-    public ShipData(Vector position, Direction direction, int size) {
+
+    public ShipData(Vector position, Direction direction, int size, String name) {
         this.position = position;
         this.direction = direction;
         this.size = size;
         this.hp = size;
+        this.name = name;
     }
 
     public void rotateShip() {
@@ -36,6 +39,15 @@ public class ShipData {
         this.position = position;
     }
 
+    public Vector getAltPosition() {
+        return position.iAdd(direction.getVec().scale(size - 1));
+    }
+
+    @Override
+    public String toString() {
+        return "Pos: " + position.toString() + ", Direction: " + direction.getVec().toString() + ", Size: " + size;
+    }
+
     public Direction getDirection() {
         return direction;
     }
@@ -48,4 +60,7 @@ public class ShipData {
         return size;
     }
 
+    public String getName() {
+        return name;
+    }
 }

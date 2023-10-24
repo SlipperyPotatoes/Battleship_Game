@@ -2,6 +2,8 @@ package com.battleship.game.utils;
 
 import com.battleship.game.enums.Direction;
 
+import javax.swing.*;
+
 public class Test {
 
     private void run() {
@@ -10,13 +12,7 @@ public class Test {
         assert Direction.HORIZONTAL.getVec().add(Direction.HORIZONTAL.getVec()).getX() ==
                 Direction.HORIZONTAL.getVec().scale(2).getX();
 
-        assert !ShipUtils.canPlaceAt(new int[][]
-                {{2, 2, 0},
-                 {0, 0, 0},
-                 {0, 0, 0}},
-                2,
-                new Vector(1, 1),
-                Direction.HORIZONTAL);
+
     }
 
     public static void main(String[] args) {
