@@ -18,39 +18,72 @@ import java.util.Random;
  * 
  * 
  */
-
-
 public class BotGuessingRandom {
+    
+    private boolean firstTime = true;
 
-    Random random = new Random();
-
-    private boolean firstShipAttack = true;
-    private boolean attackingShip = false;
-    private boolean attackDirectionFound = false;
-
+    private boolean firstShipAttack;
+    private boolean attackingShip;
+    private boolean attackDirectionFound;
     private String currentDirection;
-
-    private int totalShips = 5;
-
-    Point currentAttack = new Point();
-    Point firstHit = new Point();
-
-
-    Ship[][] enemyShips = new BotPlacingAlgorithm().botPlacingAlgorithm();
-    int[][] currentSquares;
-    boolean[][] botAttacks = new boolean[10][10];
-
+    private int totalShips;
+    Point currentAttack;
+    Point firstHit;
+    // with the hp of the objects in it
+    Ship[][] enemyShips;
+    boolean[][] botAttacks;
     List<String> nextDirection;
 
+    //things that do not need to be saved
+    Random random = new Random();
     Vector currentBotAttack;
+
+    private void whenNewGame() {
+        firstShipAttack = true;
+        attackingShip = false;
+        attackDirectionFound = false;
+        totalShips = 5;
+        currentAttack = new Point();
+        firstHit = new Point();
+        enemyShips = new BotPlacingRandom().botPlacingRandom();
+        botAttacks = new boolean[10][10];
+    }
+
+    private void whenLoadGame() {
+        /** 
+         * LOAD THESE
+         * 
+        firstShipAttack;
+        attackingShip;
+        attackDirectionFound;
+        currentDirection;
+        totalShips;
+    
+        currentAttack;
+        firstHit;
+        enemyShips;
+        currentSquares;
+        botAttacks;
+        List<String> nextDirection;
+        */
+    }
 
     /**
      * 
      * 
      * 
      */
-    public Vector botGuessingRandom() {
 
+    public Vector botGuessingRandom() {
+        if (firstTime) {
+            //if ("still need to add"){
+               //whenLoadGame();
+           //} else {
+               whenNewGame();
+           //}
+           firstTime = false;
+        }
+ 
         if (attackingShip) {
             if (firstShipAttack) {
                 firstShipAttack = false;
@@ -182,7 +215,6 @@ public class BotGuessingRandom {
                 break;
         } 
     }
-
 
     private void randomAttack() {
         boolean foundNewHit = false;
