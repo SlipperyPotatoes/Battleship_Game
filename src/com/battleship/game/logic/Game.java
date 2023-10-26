@@ -55,11 +55,12 @@ public abstract class Game {
                     JOptionPane.ERROR_MESSAGE);
             return;
         }
-        //TODO: Load game data using url
+        //TODO: Load game data using url, storing PlayerData for players 1 and 2 in their variables
     }
 
     public void saveGame() {
-        //TODO: Save game data to text file with .save extension
+        //TODO: Save game data to text file with .save extension,
+        // the only thing that needs to be saved is the both player's PlayerData
         main.endGame();
     }
 
@@ -73,7 +74,7 @@ public abstract class Game {
     }
 
     public void setNextPlayerShips(Ship[][] ships) {
-        if (!player1.shipsSet()) {
+        if (!player1.areShipsSet()) {
             player1.setShips(ships);
             return;
         }

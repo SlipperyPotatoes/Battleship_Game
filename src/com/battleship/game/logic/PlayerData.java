@@ -32,7 +32,9 @@ public class PlayerData {
         return ships;
     }
 
-    public boolean shipsSet() {
+    public boolean[][] getPlacesAttacked() { return placesAttacked; }
+
+    public boolean areShipsSet() {
         return shipsSet;
     }
 

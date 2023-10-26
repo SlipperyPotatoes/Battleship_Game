@@ -1,19 +1,23 @@
 package com.battleship.game.botfiles;
 
+import com.battleship.game.logic.PlayerData;
+import com.battleship.game.utils.Vector;
+
 import java.awt.*;
-import java.util.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * 
  * todo shipsizestuff and dont hit next to sunk ship.
  */
 
-    public class BotGuessingAlgorithm {
+public class BotGuessingAlgorithm extends BotGuessing{
 
     // things that do not need to be saved
     Random random = new Random();
-    Vector<Integer> currentBotAttack;
+    Vector currentBotAttack;
 
     private boolean firstAttack;
     private boolean firstShipAttack;
@@ -27,9 +31,7 @@ import java.util.List;
     private boolean cruiserSunk;
     private boolean submarineSunk;
     private boolean battleshipSunk;
-    private boolean aircraftcarrierSunk;
-
-    private boolean firstTime = true;
+    private boolean aircraftCarrierSunk;
 
     Point currentAttack;
     Point firstHit;
@@ -39,8 +41,19 @@ import java.util.List;
     boolean[][] shipBorders;
     List<String> nextDirection;
 
+    // Used for creating a bot when starting a new game
+    public BotGuessingAlgorithm(Ship[][] enemyShips) {
+        whenNewGame(enemyShips);
+    }
+
+    // Used for creating a bot based on saved data
+    public BotGuessingAlgorithm(Ship[][] enemyShips, PlayerData botData) {
+        whenLoadGame(enemyShips, botData);
+    }
+
+
     //when doing a new game:
-    private void whenNewGame() {
+    private void whenNewGame(Ship[][] enemyShips) {
         smallestShipSize = 2;
         firstAttack = true;
         firstShipAttack = true;
@@ -50,7 +63,7 @@ import java.util.List;
 
         currentAttack = new Point();
         firstHit = new Point();
-        enemyShips = new BotPlacingRandom().botPlacingRandom();
+        this.enemyShips = enemyShips;
         botAttacks = new boolean[10][10];
         shipBorders = new boolean[10][10];
 
@@ -58,11 +71,11 @@ import java.util.List;
         cruiserSunk = false;
         submarineSunk = false;
         battleshipSunk = false;
-        aircraftcarrierSunk = false;
+        aircraftCarrierSunk = false;
 
     }
 
-    private void whenLoadGame() {
+    private void whenLoadGame(Ship[][] enemyShips, PlayerData botData) {
         /** 
          * LOAD THESE
          * 
@@ -84,7 +97,7 @@ import java.util.List;
         cruiserSunk;
         submarineSunk;
         battleshipSunk;
-        aircraftcarrierSunk;
+        aircraftCarrierSunk;
         smallestShipSize;
         */
     }
@@ -95,17 +108,8 @@ import java.util.List;
      * 
      * 
      */
-    public Vector botGuessingAlgorithm() {
-
-        if (firstTime) {
-             //if ("still need to add"){
-                //whenLoadGame();
-            //} else {
-                whenNewGame();
-            //}
-            firstTime = false;
-        }
-        
+    @Override
+    public Vector findNextAttack() {
         if (firstAttack) {
             firstAttack();
             firstAttack = false;
@@ -330,7 +334,7 @@ import java.util.List;
 
     private void attack() {
 
-        currentBotAttack = new Vector<Integer>(currentAttack.x, currentAttack.y);
+        currentBotAttack = new Vector(currentAttack.x, currentAttack.y);
         
         Ship currentShip = enemyShips[currentAttack.y][currentAttack.x];
 
@@ -430,9 +434,9 @@ import java.util.List;
             } else if (shipName.equals("Battleship")) {
                 battleshipSunk = true;
             } else if (shipName.equals("Aircraft Carrier")) {
-                aircraftcarrierSunk = true;
+                aircraftCarrierSunk = true;
             }
-            if (!aircraftcarrierSunk) {
+            if (!aircraftCarrierSunk) {
                 smallestShipSize = 5;
             }
             if (!battleshipSunk) {
@@ -493,6 +497,8 @@ import java.util.List;
         return false;
     }
 
-
-    
+    @Override
+    public boolean[][] getPlacesAttacked() {
+        return botAttacks;
+    }
 }

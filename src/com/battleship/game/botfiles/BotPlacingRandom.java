@@ -21,7 +21,7 @@ public class BotPlacingRandom {
     Ship cruiser = new Ship(3, "Cruiser", true);
     Ship submarine = new Ship(3, "Submarine", true);
     Ship battleship = new Ship(4, "Battleship", true);
-    Ship aircraftcarrier = new Ship(5, "Aircraft Carrier", true);
+    Ship aircraftCarrier = new Ship(5, "Aircraft Carrier", true);
     Ship currentShip;
 
     List<Ship> list = new ArrayList<>();
@@ -35,7 +35,7 @@ public class BotPlacingRandom {
 
     Random random = new Random();
 
-    Ship[][] botPlacingRandom() {
+    public Ship[][] botPlacingRandom() {
 
         boolean foundsolution = false;
         
@@ -48,7 +48,7 @@ public class BotPlacingRandom {
             list.add(cruiser);
             list.add(submarine);
             list.add(battleship);
-            list.add(aircraftcarrier);
+            list.add(aircraftCarrier);
 
             shipPlacingTries = 0;
             int randomAttacks = 0;

@@ -1,10 +1,7 @@
 package com.battleship.game.logic;
 
 
-import com.battleship.game.botfiles.BotGuessingAlgorithm;
-import com.battleship.game.botfiles.BotGuessingRandom;
-import com.battleship.game.botfiles.BotPlacingAlgorithm;
-import com.battleship.game.botfiles.Ship;
+import com.battleship.game.botfiles.*;
 import com.battleship.game.enums.BotAlgorithm;
 import com.battleship.game.enums.Direction;
 import com.battleship.game.utils.Vector;
@@ -15,17 +12,37 @@ import static com.battleship.game.utils.ShipUtils.*;
 
 public class Bot {
     BotAlgorithm algorithm;
-    BotGuessingRandom botGuessingRandom;
-    BotGuessingAlgorithm botGuessingAlgorithm;
+    BotGuessing botGuessing;
 
     public Bot(BotAlgorithm algorithm, Ship[][] enemyShips) {
         this.algorithm = algorithm;
-        this.botGuessingRandom = new BotGuessingRandom();
-        this.botGuessingAlgorithm = new BotGuessingAlgorithm();
+        switch (algorithm) {
+            case SIMPLE -> botGuessing = new BotGuessingRandom(enemyShips);
+            case ADVANCED -> botGuessing = new BotGuessingAlgorithm(enemyShips);
+            default -> throw new IllegalStateException("BotAlgorithm not simple nor advanced");
+        }
     }
 
+    public Bot(BotAlgorithm algorithm, Ship[][] enemyShips, PlayerData botData) {
+        this.algorithm = algorithm;
+        switch (algorithm) {
+            case SIMPLE -> botGuessing = new BotGuessingRandom(enemyShips, botData);
+            case ADVANCED -> botGuessing = new BotGuessingAlgorithm(enemyShips, botData);
+            default -> throw new IllegalStateException("BotAlgorithm not simple nor advanced");
+        }
+    }
+
+
     public Ship[][] generateShipPositions() {
-        return new BotPlacingAlgorithm().botPlacingAlgorithm();
+        switch (algorithm) {
+            case SIMPLE -> {
+                return new BotPlacingRandom().botPlacingRandom();
+            }
+            case ADVANCED -> {
+                return new BotPlacingAlgorithm().botPlacingAlgorithm();
+            }
+            default -> throw new IllegalStateException("BotAlgorithm not simple nor advanced");
+        }
     }
 
 
@@ -59,22 +76,7 @@ public class Bot {
         return ships;
     }*/
 
-    public Vector findNextAttackPos(boolean[][] placesAttacked) {
-        //TODO: Implement both simple and advanced attack algorithms
-        switch (algorithm) {
-            case SIMPLE: {
-                Vector attackPos = botGuessingRandom.botGuessingRandom();
-                break;
-            }
-            case ADVANCED: {
-                break;
-            }
-            default: {
-                throw new RuntimeException("No bot algorithm selected");
-            }
-        }
-
-
-        return new Vector();
+    public Vector findNextAttackPos() {
+        return botGuessing.findNextAttack();
     }
 }

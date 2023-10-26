@@ -32,7 +32,7 @@ public class HumanVsHumanGame extends Game {
 
     @Override
     public void nextPlacement() {
-        if (player2.shipsSet()) {
+        if (player2.areShipsSet()) {
             main.changeGameState(GameState.PLAYER_1_ATTACK);
             return;
         }
