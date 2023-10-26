@@ -10,11 +10,11 @@ import com.battleship.game.panels.ShipPlacementPanel;
 // The human will always be player 1 and the bot always player 2
 public class HumanVsBotGame extends Game {
     Bot bot;
-
+    BotAlgorithm algorithm;
 
     public HumanVsBotGame(Main main, BotAlgorithm algorithm) {
         super(main);
-        this.bot = new Bot(algorithm);
+        this.algorithm = algorithm;
     }
 
     @Override
@@ -35,7 +35,15 @@ public class HumanVsBotGame extends Game {
     }
 
     @Override
+    public void startSavedGame(String saveString) {
+        super.startSavedGame(saveString);
+        bot = new Bot(algorithm, player1.getShips());
+    }
+
+    @Override
     public void nextPlacement() {
+        this.bot = new Bot(algorithm, player1.getShips());
+
         setNextPlayerShips(bot.generateShipPositions());
 
         main.changeGameState(GameState.PLAYER_1_ATTACK);

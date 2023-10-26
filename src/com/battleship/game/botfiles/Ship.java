@@ -1,5 +1,8 @@
 package com.battleship.game.botfiles;
 
+import com.battleship.game.enums.Direction;
+import com.battleship.game.logic.ShipData;
+
 import java.awt.*;
 import java.util.Random;
 //true value means vertical
@@ -12,6 +15,13 @@ public class Ship {
     int hp;
     String name;
     boolean randomRotation;
+
+    public Ship(ShipData shipData) {
+        this.length = shipData.getSize();
+        this.hp = length;
+        this.name = shipData.getName();
+        this.rotation = Direction.VERTICAL == shipData.getDirection();
+    }
 
     Ship(int length, String name, boolean randomRotation) {
         this.length = length;

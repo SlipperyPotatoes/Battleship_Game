@@ -31,7 +31,7 @@ public class Main implements ActionListener {
     */
     
 
-
+    /*
     int totalShips = 5;
 
     JFrame mainFrame;
@@ -174,10 +174,14 @@ public class Main implements ActionListener {
         new Main().createScreen();
     }
 
+
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
-        checkButton(e);
+        //checkButton(e);
     }
+
+
 }
 
 

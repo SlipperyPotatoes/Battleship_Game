@@ -18,8 +18,6 @@ import java.util.Random;
  * 
  * 
  */
-
-
 public class BotGuessingRandom {
 
     Random random = new Random();
@@ -27,7 +25,6 @@ public class BotGuessingRandom {
     private boolean firstShipAttack = true;
     private boolean attackingShip = false;
     private boolean attackDirectionFound = false;
-
     private String currentDirection;
 
     private int totalShips = 5;
@@ -35,8 +32,9 @@ public class BotGuessingRandom {
     Point currentAttack = new Point();
     Point firstHit = new Point();
 
-
+    // here the users input will be a ship array, right now.
     Ship[][] enemyShips = new BotPlacingAlgorithm().botPlacingAlgorithm();
+
     int[][] currentSquares;
     boolean[][] botAttacks = new boolean[10][10];
 

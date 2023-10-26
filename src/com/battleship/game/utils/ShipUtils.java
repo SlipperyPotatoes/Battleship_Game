@@ -1,8 +1,8 @@
 package com.battleship.game.utils;
 
-import com.battleship.game.logic.Game;
-import com.battleship.game.logic.ShipData;
+import com.battleship.game.botfiles.Ship;
 import com.battleship.game.enums.Direction;
+import com.battleship.game.logic.ShipData;
 
 import java.util.ArrayList;
 
@@ -82,8 +82,8 @@ public class ShipUtils {
                 }
 
                 boolean notInArray = true;
-                for (int i = 0; i < shipArray.size(); i++) {
-                    if (shipArray.get(i).getPosition().equals(gridShip.getPosition())) {
+                for (ShipData ship : shipArray) {
+                    if (ship.getPosition().equals(gridShip.getPosition())) {
                         notInArray = false;
                         break;
                     }
@@ -98,7 +98,20 @@ public class ShipUtils {
         return shipArray;
     }
 
-    public static String convertShipGridToString(ShipData[][] ships) {
+    public static Ship[][] convertShipDataGridToShipGrid(ShipData[][] shipDataGrid) {
+        Ship[][] shipGrid = new Ship[shipDataGrid.length][shipDataGrid[0].length];
+
+        for (int y = 0; y < shipGrid.length; y++) {
+            for (int x = 0; x < shipGrid[0].length; x++) {
+                ShipData shipData = shipDataGrid[y][x];
+                shipGrid[y][x] = shipData == null ? null : new Ship(shipData);
+            }
+        }
+
+        return shipGrid;
+    }
+
+    public static String convertShipDataGridToString(ShipData[][] ships) {
         StringBuilder builder = new StringBuilder();
         for (ShipData[] row : ships) {
             for (ShipData ship : row) {

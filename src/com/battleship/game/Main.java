@@ -66,6 +66,10 @@ public class Main {
         game.startSavedGame("game");
     }
 
+    public void endGame() {
+
+    }
+
     public void finishGame(String winner) {
         //TODO: Add popup or something that says who won the game
         game = null;

@@ -1,6 +1,7 @@
 package com.battleship.game.logic;
 
 import com.battleship.game.Main;
+import com.battleship.game.botfiles.Ship;
 import com.battleship.game.enums.GameState;
 
 import javax.swing.*;
@@ -52,24 +53,26 @@ public abstract class Game {
                     "No existing save found",
                     "Load Error",
                     JOptionPane.ERROR_MESSAGE);
+            return;
         }
         //TODO: Load game data using url
     }
 
     public void saveGame() {
         //TODO: Save game data to text file with .save extension
+        main.endGame();
     }
 
     public void nextAttack() {
         switch (main.getGameState()) {
             case PLAYER_1_ATTACK -> main.changeGameState(GameState.PLAYER_2_ATTACK);
             case PLAYER_2_ATTACK -> main.changeGameState(GameState.PLAYER_1_ATTACK);
-            default -> throw new RuntimeException
+            default -> throw new IllegalStateException
                     ("Illegal state reached, nextAttack called on: " + main.getGameState().toString());
         }
     }
 
-    public void setNextPlayerShips(ShipData[][] ships) {
+    public void setNextPlayerShips(Ship[][] ships) {
         if (!player1.shipsSet()) {
             player1.setShips(ships);
             return;

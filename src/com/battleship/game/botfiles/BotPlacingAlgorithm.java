@@ -32,7 +32,7 @@ public class BotPlacingAlgorithm {
     int shipPlacingTries = 0;
     Random random = new Random();
 
-    Ship[][] botPlacingAlgorithm() {
+    public Ship[][] botPlacingAlgorithm() {
 
         boolean foundsolution = false;
         

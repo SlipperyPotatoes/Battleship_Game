@@ -122,7 +122,7 @@ public class ShipPlacementPanel extends BasePanel implements ActionListener {
 
                     @Override
                     public void mouseEntered(MouseEvent e) {
-                        gridButton.setBackground(Color.CYAN);
+                        gridButton.setBackground(Color.BLUE.darker());
                     }
 
                     @Override
@@ -153,7 +153,7 @@ public class ShipPlacementPanel extends BasePanel implements ActionListener {
         updateSelectedShipLabels();
 
 
-        GridLayout gridLayout = new GridLayout(0, 10);
+        GridLayout gridLayout = new GridLayout(0, Game.SIZE_X);
         this.setLayout(gridLayout);
 
         this.setBackground(Color.GRAY);
@@ -198,9 +198,8 @@ public class ShipPlacementPanel extends BasePanel implements ActionListener {
                         JOptionPane.WARNING_MESSAGE);
                 return;
             }
-            System.out.println(convertShipGridToString(shipGrid));
 
-            main.getCurrentGame().setNextPlayerShips(shipGrid);
+            main.getCurrentGame().setNextPlayerShips(convertShipDataGridToShipGrid(shipGrid));
             main.getMainPanel().remove(this);
             main.getCurrentGame().nextPlacement();
         } else if (rotateShipButton == object) {

@@ -1,18 +1,20 @@
 package com.battleship.game.logic;
 
+import com.battleship.game.botfiles.Ship;
+
 // Player can be a user (referred to as humans) or bot
 public class PlayerData {
     private boolean shipsSet;
-    private ShipData[][] ships;
+    private Ship[][] ships;
     private boolean[][] placesAttacked;
 
     PlayerData() {
         shipsSet = false;
-        ships = new ShipData[Game.SIZE_Y][Game.SIZE_X];
+        ships = new Ship[Game.SIZE_Y][Game.SIZE_X];
         placesAttacked = new boolean[Game.SIZE_Y][Game.SIZE_X];
     }
 
-    public void setShips(ShipData[][] ships) {
+    public void setShips(Ship[][] ships) {
         if (shipsSet) {
             throw new RuntimeException("Ships positions shouldn't be changed");
         }
@@ -20,7 +22,7 @@ public class PlayerData {
         this.ships = ships;
     }
 
-    public ShipData[][] getShips() {
+    public Ship[][] getShips() {
         return ships;
     }
 
