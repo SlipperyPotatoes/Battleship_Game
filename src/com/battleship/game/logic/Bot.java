@@ -3,12 +3,8 @@ package com.battleship.game.logic;
 
 import com.battleship.game.botfiles.*;
 import com.battleship.game.enums.BotAlgorithm;
-import com.battleship.game.enums.Direction;
+
 import com.battleship.game.utils.Vector;
-
-import java.util.Random;
-
-import static com.battleship.game.utils.ShipUtils.*;
 
 public class Bot {
     BotAlgorithm algorithm;
@@ -23,11 +19,11 @@ public class Bot {
         }
     }
 
-    public Bot(BotAlgorithm algorithm, Ship[][] enemyShips, PlayerData botData) {
+    public Bot(BotAlgorithm algorithm, PlayerData enemyData) {
         this.algorithm = algorithm;
         switch (algorithm) {
-            case SIMPLE -> botGuessing = new BotGuessingRandom(enemyShips, botData);
-            case ADVANCED -> botGuessing = new BotGuessingAlgorithm(enemyShips, botData);
+            case SIMPLE -> botGuessing = new BotGuessingRandom(enemyData);
+            case ADVANCED -> botGuessing = new BotGuessingAlgorithm(enemyData);
             default -> throw new IllegalStateException("BotAlgorithm not simple nor advanced");
         }
     }

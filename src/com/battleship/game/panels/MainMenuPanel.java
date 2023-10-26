@@ -10,6 +10,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
 
+import static com.battleship.game.utils.assetsUtils.loadIcon;
+
 //TODO: Fix button placement, maybe add an option to select a save file or load from save name
 public class MainMenuPanel extends BasePanel implements ActionListener {
     private final JButton newBotGameButton;
@@ -26,9 +28,7 @@ public class MainMenuPanel extends BasePanel implements ActionListener {
         this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
         JLabel title = new JLabel();
-        URL titleUrl = getClass().getClassLoader().getResource("com/battleship/game/assets/title_pixel_art.png");
-        assert titleUrl != null;
-        ImageIcon icon = new ImageIcon(titleUrl);
+        ImageIcon icon = loadIcon("title_pixel_art.png");
         title.setIcon(icon);
         title.setPreferredSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
         title.setAlignmentX(Component.CENTER_ALIGNMENT);

@@ -98,6 +98,32 @@ public class ShipUtils {
         return shipArray;
     }
 
+    public static ArrayList<Ship> convertShipGridToShipArray(Ship[][] grid) {
+        ArrayList<Ship> shipArray = new ArrayList<>();
+
+        for (Ship[] row : grid) {
+            for (Ship gridShip : row) {
+                if (gridShip == null) {
+                    continue;
+                }
+
+                boolean notInArray = true;
+                for (Ship ship : shipArray) {
+                    if (ship.getPosition().equals(gridShip.getPosition())) {
+                        notInArray = false;
+                        break;
+                    }
+                }
+
+                if (notInArray) {
+                    shipArray.add(gridShip);
+                }
+            }
+        }
+
+        return shipArray;
+    }
+
     public static Ship[][] convertShipDataGridToShipGrid(ShipData[][] shipDataGrid) {
         Ship[][] shipGrid = new Ship[shipDataGrid.length][shipDataGrid[0].length];
 

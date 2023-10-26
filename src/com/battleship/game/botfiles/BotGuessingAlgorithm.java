@@ -47,8 +47,8 @@ public class BotGuessingAlgorithm extends BotGuessing{
     }
 
     // Used for creating a bot based on saved data
-    public BotGuessingAlgorithm(Ship[][] enemyShips, PlayerData botData) {
-        whenLoadGame(enemyShips, botData);
+    public BotGuessingAlgorithm(PlayerData enemyData) {
+        whenLoadGame(enemyData);
     }
 
 
@@ -75,7 +75,7 @@ public class BotGuessingAlgorithm extends BotGuessing{
 
     }
 
-    private void whenLoadGame(Ship[][] enemyShips, PlayerData botData) {
+    private void whenLoadGame(PlayerData enemyData) {
         /** 
          * LOAD THESE
          * 

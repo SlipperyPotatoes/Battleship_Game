@@ -2,6 +2,7 @@ package com.battleship.game.botfiles;
 
 import com.battleship.game.enums.Direction;
 import com.battleship.game.logic.ShipData;
+import com.battleship.game.utils.Vector;
 
 import java.awt.*;
 import java.util.Random;
@@ -16,11 +17,14 @@ public class Ship {
     String name;
     boolean randomRotation;
 
+    private final Vector position;
+
     public Ship(ShipData shipData) {
         this.length = shipData.getSize();
         this.hp = length;
         this.name = shipData.getName();
         this.rotation = Direction.VERTICAL == shipData.getDirection();
+        this.position = shipData.getPosition();
     }
 
     Ship(int length, String name, boolean randomRotation) {
@@ -29,6 +33,7 @@ public class Ship {
         this.name = name;
         this.randomRotation = randomRotation;
         this.rotation = rotateShips();
+        this.position = Vector.ZERO;
     }
 
     private boolean rotateShips() {
@@ -54,5 +59,33 @@ public class Ship {
         }  else {
             return (random.nextBoolean());
         }  
+    }
+
+    public void hit() {
+        hp--;
+    }
+
+    public boolean isDead() {
+        return hp <= 0;
+    }
+
+    public boolean isVertical() {
+        return rotation;
+    }
+
+    public Vector getPosition() {
+        return position;
+    }
+
+    public Vector getAltPosition() {
+        return position.iAdd(getDirection().getVec().scale(length - 1));
+    }
+
+    public int getLength() {
+        return length;
+    }
+
+    public Direction getDirection() {
+        return rotation ? Direction.VERTICAL : Direction.HORIZONTAL;
     }
 }

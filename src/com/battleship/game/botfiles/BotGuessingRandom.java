@@ -43,8 +43,8 @@ public class BotGuessingRandom extends BotGuessing {
     }
 
     // Used for creating a bot based on saved data
-    public BotGuessingRandom(Ship[][] enemyShips, PlayerData botData) {
-        whenLoadGame(enemyShips, botData);
+    public BotGuessingRandom(PlayerData enemyData) {
+        whenLoadGame(enemyData);
     }
 
     private void whenNewGame(Ship[][] enemyShips) {
@@ -58,7 +58,7 @@ public class BotGuessingRandom extends BotGuessing {
         botAttacks = new boolean[10][10];
     }
 
-    private void whenLoadGame(Ship[][] enemyShips, PlayerData botData) {
+    private void whenLoadGame(PlayerData enemyData) {
         /** 
          * LOAD THESE
          * 

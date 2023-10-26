@@ -12,30 +12,31 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.net.URL;
 
+import static com.battleship.game.utils.assetsUtils.loadIcon;
+import static com.battleship.game.utils.assetsUtils.scaleImage;
+
 public abstract class AttackPanel extends BasePanel {
-    private final ImageIcon attackHit;
-    private final ImageIcon attackMiss;
+    final ImageIcon attackHit;
+    final ImageIcon attackMiss;
 
     ImageIcon attackHitScaled;
     ImageIcon attackMissScaled;
+    PlayerData enemyPlayerData;
 
-    private PlayerData playerData;
-    private PlayerData enemyPlayerData;
+    JLabel shipsSunkLabel;
+    JLabel numOfHitsLabel;
+    JLabel numOfMissesLabel;
 
-    public AttackPanel(Main main, GameState gameState) {
+    public AttackPanel(Main main, GameState gameState, PlayerData enemyPlayerData) {
         super(main, gameState);
 
         this.setBackground(Color.BLUE);
         this.setLayout(new GridLayout(0, Game.SIZE_X));
 
-        URL attackHitURL = getClass().getClassLoader()
-                .getResource("com/battleship/game/assets/boat_middle_horizontal.png");
-        assert attackHitURL != null;
-        attackHit = new ImageIcon(attackHitURL);
-        URL attackMissURL = getClass().getClassLoader()
-                .getResource("com/battleship/game/assets/boat_middle_horizontal.png");
-        assert attackMissURL != null;
-        attackMiss = new ImageIcon(attackMissURL);
+        this.enemyPlayerData = enemyPlayerData;
+
+        attackHit = loadIcon("attack_hit.png");
+        attackMiss = loadIcon("attack_miss.png");
 
         this.addComponentListener(new ComponentListener() {
             @Override
@@ -60,21 +61,7 @@ public abstract class AttackPanel extends BasePanel {
         });
     }
 
-    void attackEnemyAt(Vector pos) {
-
-    }
-
-
     abstract void updateGridImages();
 
-    void scaleImages() {
-        Dimension dimensions = this.getSize();
-        int w = (int) (dimensions.width * 1f);
-        int h = (int) (dimensions.height * 1f);
-
-        attackHitScaled = new ImageIcon(attackHit
-                .getImage().getScaledInstance(w, h, 8));
-        attackMissScaled = new ImageIcon(attackMiss
-                .getImage().getScaledInstance(w, h, 8));
-    }
+    abstract void scaleImages();
 }

@@ -3,6 +3,8 @@ package com.battleship.game.utils;
 import com.battleship.game.logic.ShipData;
 
 public class Vector {
+    public static Vector ZERO = new Vector(0, 0);
+
     private int x;
     private int y;
 

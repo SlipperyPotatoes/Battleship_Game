@@ -14,10 +14,11 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import static com.battleship.game.utils.ShipUtils.*;
+import static com.battleship.game.utils.assetsUtils.loadIcon;
+import static com.battleship.game.utils.assetsUtils.scaleImage;
 
 public class ShipPlacementPanel extends BasePanel implements ActionListener {
     ShipData[][] shipGrid;
-    ArrayList<ShipData> shipArrayList;
     boolean shipSelected;
     ShipData selectedShip;
     JButton[][] gridButtons;
@@ -46,30 +47,12 @@ public class ShipPlacementPanel extends BasePanel implements ActionListener {
         super(main, GameState.PLACE_SHIPS);
 
         // Loads the images for the different parts of the boat
-        URL boatMiddleHorizontalURL = getClass().getClassLoader()
-                .getResource("com/battleship/game/assets/boat_middle_horizontal.png");
-        assert boatMiddleHorizontalURL != null;
-        boatMiddleHorizontal = new ImageIcon(boatMiddleHorizontalURL);
-        URL boatMiddleVerticalURL = getClass().getClassLoader()
-                .getResource("com/battleship/game/assets/boat_middle_vertical.png");
-        assert boatMiddleVerticalURL != null;
-        boatMiddleVertical = new ImageIcon(boatMiddleVerticalURL);
-        URL boatEndLeftURL = getClass().getClassLoader()
-                .getResource("com/battleship/game/assets/boat_end_left.png");
-        assert boatEndLeftURL != null;
-        boatEndLeft = new ImageIcon(boatEndLeftURL);
-        URL boatEndRightURL = getClass().getClassLoader()
-                .getResource("com/battleship/game/assets/boat_end_right.png");
-        assert boatEndRightURL != null;
-        boatEndRight = new ImageIcon(boatEndRightURL);
-        URL boatEndDownURL = getClass().getClassLoader()
-                .getResource("com/battleship/game/assets/boat_end_down.png");
-        assert boatEndDownURL != null;
-        boatEndDown = new ImageIcon(boatEndDownURL);
-        URL boatEndUpURL = getClass().getClassLoader()
-                .getResource("com/battleship/game/assets/boat_end_up.png");
-        assert boatEndUpURL != null;
-        boatEndUp = new ImageIcon(boatEndUpURL);
+        boatMiddleHorizontal = loadIcon("boat_middle_horizontal.png");
+        boatMiddleVertical = loadIcon("boat_middle_vertical.png");
+        boatEndLeft = loadIcon("boat_end_left.png");
+        boatEndRight = loadIcon("boat_end_right.png");
+        boatEndDown = loadIcon("boat_end_down.png");
+        boatEndUp = loadIcon("boat_end_up.png");
 
 
 
@@ -92,8 +75,6 @@ public class ShipPlacementPanel extends BasePanel implements ActionListener {
                 }
             }
         }
-        
-        updateShipArray();
         
         gridButtons = new JButton[Game.SIZE_Y][Game.SIZE_X];
         for (int y = 0; y < Game.SIZE_Y; y++) {
@@ -226,7 +207,6 @@ public class ShipPlacementPanel extends BasePanel implements ActionListener {
 
                 selectedShip = null;
 
-                updateShipArray();
                 updateGridImages();
                 updateSelectedShipLabels();
 
@@ -243,16 +223,12 @@ public class ShipPlacementPanel extends BasePanel implements ActionListener {
                     checkPos.add(selectedShip.getDirection().getVec());
                 }
 
-                updateShipArray();
                 updateGridImages();
                 updateSelectedShipLabels();
             }
         }
     }
 
-    private void updateShipArray() {
-        shipArrayList = convertShipGridToShipArray(shipGrid);
-    }
 
     private void updateGridImages() {
         for (JButton[] row : gridButtons) {
@@ -260,6 +236,8 @@ public class ShipPlacementPanel extends BasePanel implements ActionListener {
                 gridButton.setIcon(null);
             }
         }
+
+        ArrayList<ShipData> shipArrayList = convertShipGridToShipArray(shipGrid);
 
         for (ShipData ship : shipArrayList) {
             Vector checkPos = new Vector(ship.getPosition());
@@ -324,19 +302,12 @@ public class ShipPlacementPanel extends BasePanel implements ActionListener {
         int w = (int) (dimensions.width * 1.2f);
         int h = (int) (dimensions.height * 1.2f);
 
-
-        boatMiddleHorizontalScaled = new ImageIcon(boatMiddleHorizontal
-                .getImage().getScaledInstance(w, h, 8));
-        boatMiddleVerticalScaled = new ImageIcon(boatMiddleVertical
-                .getImage().getScaledInstance(w, h, 8));
-        boatEndLeftScaled = new ImageIcon(boatEndLeft
-                .getImage().getScaledInstance(w, h, 8));
-        boatEndRightScaled = new ImageIcon(boatEndRight
-                .getImage().getScaledInstance(w, h, 8));
-        boatEndDownScaled = new ImageIcon(boatEndDown
-                .getImage().getScaledInstance(w, h, 8));
-        boatEndUpScaled = new ImageIcon(boatEndUp
-                .getImage().getScaledInstance(w, h, 8));
+        boatMiddleHorizontalScaled = scaleImage(boatMiddleHorizontal, w, h);
+        boatMiddleVerticalScaled = scaleImage(boatMiddleVertical, w, h);
+        boatEndLeftScaled = scaleImage(boatEndLeft, w, h);
+        boatEndRightScaled = scaleImage(boatEndRight, w, h);
+        boatEndDownScaled = scaleImage(boatEndDown, w, h);
+        boatEndUpScaled = scaleImage(boatEndUp, w, h);
 
         updateGridImages();
     }

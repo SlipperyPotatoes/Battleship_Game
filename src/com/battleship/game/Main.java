@@ -67,13 +67,20 @@ public class Main {
     }
 
     public void endGame() {
-
+        changeGameState(GameState.MAIN_MENU);
+        for (int i = 0; i < mainPanel.getComponentCount(); i++) {
+            if (!mainPanel.getComponent(i).getClass().isAssignableFrom(MainMenuPanel.class)) {
+                mainPanel.remove(i);
+                i--;
+            }
+        }
+        game = null;
     }
 
     public void finishGame(String winner) {
         //TODO: Add popup or something that says who won the game
-        game = null;
-        changeGameState(GameState.MAIN_MENU);
+        endGame();
+        System.out.println("Winner: " + winner);
     }
 
     public JFrame getFrame() {
