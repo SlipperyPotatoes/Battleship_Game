@@ -17,8 +17,8 @@ public class BotPlacingAlgorithm {
     Ship destroyer = new Ship(2, "Destroyer", false);
     Ship cruiser = new Ship(3, "Cruiser", false);
     Ship submarine = new Ship(3, "Submarine", false);
-    Ship battleship = new Ship(4, "Battleship",false);
-    Ship aircraftcarrier = new Ship(5, "Aircraft Carrier",false);
+    Ship battleship = new Ship(4, "Battleship", false);
+    Ship aircraftcarrier = new Ship(5, "Aircraft Carrier", false);
     Ship currentShip;
 
     List<Ship> list = new ArrayList<>();
@@ -59,7 +59,7 @@ public class BotPlacingAlgorithm {
                 }
             }
 
-            if (randomAttacks == 4){
+            if (randomAttacks == 4) {
                 foundsolution = true;
             }
         }

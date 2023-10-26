@@ -85,11 +85,11 @@ public class BotPlacingRandom {
 
         while (!foundLocation) {
             if (currentShip.rotation) {
-                currentShip.locationStart.y = getRandomNumber(1, 9 - currentShip.length);
-                currentShip.locationStart.x = getRandomNumber(1, 8);
+                currentShip.locationStart.y = getRandomNumber(0, 10 - currentShip.length);
+                currentShip.locationStart.x = getRandomNumber(0, 9);
             } else {
-                currentShip.locationStart.x = getRandomNumber(1, 9 - currentShip.length);
-                currentShip.locationStart.y = getRandomNumber(1, 8);
+                currentShip.locationStart.x = getRandomNumber(0, 10 - currentShip.length);
+                currentShip.locationStart.y = getRandomNumber(0, 9);
             }
 
             if (checkCollide(currentShip)) {
@@ -108,36 +108,58 @@ public class BotPlacingRandom {
     private boolean checkCollide(Ship currentShip) {
         int startY = currentShip.locationStart.y;
         int startX = currentShip.locationStart.x;
+        int shipLength = currentShip.length;
+
         if (currentShip.rotation) {
-            for (int i = 0; i < currentShip.length; i++) {
+            for (int i = 0; i < shipLength; i++) {
                 if (collisionMap[startY + i][startX]) {
                     return false;
                 }
-                if ((collisionMap[startY + i][startX - 1]) 
-                    || (collisionMap[startY + i][startX + 1])) {
-                    return false;
+                if (currentShip.locationStart.x != 0) {
+                    if (collisionMap[startY + i][startX - 1]) {
+                        return false;
+                    }
                 }
-                if ((collisionMap[startY + currentShip.length][startX]) 
-                    || (collisionMap[startY - 1][startX])) {
-                    return false;
+                if (currentShip.locationStart.x != 9) {
+                    if (collisionMap[startY + i][startX + 1]) {
+                        return false;
+                    }
                 }
-            }
+                if (startY != 0) {
+                    if (collisionMap[startY - 1][startX]) {
+                        return false;
+                    }
+                }
+                if ((startY + shipLength) != 10) {
+                    if (collisionMap[startY + currentShip.length][startX]) {
+                        return false;
+                    }
+                }               
+            }     
         } else {
-            for (int i = 0; i < currentShip.length; i++) {
+            for (int i = 0; i < shipLength; i++) {
                 if (collisionMap[startY][startX + i]) {
                     return false;
                 }
-                if (collisionMap[startY + 1][startX + i]) {
-                    return false;
+                if (startY != 9) {
+                    if (collisionMap[startY + 1][startX + i]) {
+                        return false;
+                    }
                 }
-                if (collisionMap[startY - 1][startX + i]) {
-                    return false;
+                if (startY != 0) {
+                    if (collisionMap[startY - 1][startX + i]) {
+                        return false;
+                    }
                 }
-                if (collisionMap[startY][startX - 1]) {
-                    return false;
+                if (startX != 0) {
+                    if (collisionMap[startY][startX - 1]) {
+                        return false;
+                    }
                 }
-                if (collisionMap[startY][startX + currentShip.length]) {
-                    return false;
+                if (startX + currentShip.length != 10) {
+                    if (collisionMap[startY][startX + currentShip.length]) {
+                        return false;
+                    }
                 }
             }
         }
