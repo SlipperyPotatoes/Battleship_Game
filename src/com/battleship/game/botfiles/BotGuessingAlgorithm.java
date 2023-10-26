@@ -9,41 +9,107 @@ import java.util.List;
  * todo shipsizestuff and dont hit next to sunk ship.
  */
 
-public class BotGuessingAlgorithm {
+    public class BotGuessingAlgorithm {
 
+    // things that do not need to be saved
     Random random = new Random();
-
-    private boolean firstAttack = true;
-    private boolean isUnevenSquares;
-    private boolean firstShipAttack = true;
-    private boolean attackingShip = false;
-    private boolean attackDirectionFound = false;
-
-    private String currentDirection;
-
-    private int totalShips = 5;
-
-    Point currentAttack = new Point();
-    Point firstHit = new Point();
-
-    Ship[][] enemyShips = new BotPlacingRandom().botPlacingRandom();
-    int[][] currentSquares;
-
-    boolean[][] botAttacks = new boolean[10][10];
-    List<String> nextDirection;
-
     Vector<Integer> currentBotAttack;
 
+    private boolean firstAttack;
+    private boolean firstShipAttack;
+    private boolean attackingShip;
+    private boolean attackDirectionFound;
+    private String currentDirection;
+    private int totalShips;
+    private int smallestShipSize;
+
+    private boolean destroyerSunk;
+    private boolean cruiserSunk;
+    private boolean submarineSunk;
+    private boolean battleshipSunk;
+    private boolean aircraftcarrierSunk;
+
+    private boolean firstTime = true;
+
+    Point currentAttack;
+    Point firstHit;
+    Ship[][] enemyShips;
+    int[][] currentSquares;
+    boolean[][] botAttacks;
+    boolean[][] shipBorders;
+    List<String> nextDirection;
+
+    //when doing a new game:
+    private void whenNewGame() {
+        smallestShipSize = 2;
+        firstAttack = true;
+        firstShipAttack = true;
+        attackingShip = false;
+        attackDirectionFound = false;
+        totalShips = 5;
+
+        currentAttack = new Point();
+        firstHit = new Point();
+        enemyShips = new BotPlacingRandom().botPlacingRandom();
+        botAttacks = new boolean[10][10];
+        shipBorders = new boolean[10][10];
+
+        destroyerSunk = false;
+        cruiserSunk = false;
+        submarineSunk = false;
+        battleshipSunk = false;
+        aircraftcarrierSunk = false;
+
+    }
+
+    private void whenLoadGame() {
+        /** 
+         * LOAD THESE
+         * 
+        firstAttack;
+        firstShipAttack;
+        attackingShip;
+        attackDirectionFound;
+        currentDirection;
+        totalShips;
+    
+        currentAttack;
+        firstHit;
+        enemyShips;
+        currentSquares;
+        botAttacks;
+        List<String> nextDirection;
+        
+        destroyerSunk;
+        cruiserSunk;
+        submarineSunk;
+        battleshipSunk;
+        aircraftcarrierSunk;
+        smallestShipSize;
+        */
+    }
+    
+    
     /**
      * 
      * 
      * 
      */
-    public Vector<Integer> botGuessingAlgorithm() {
+    public Vector botGuessingAlgorithm() {
 
+        if (firstTime) {
+             //if ("still need to add"){
+                //whenLoadGame();
+            //} else {
+                whenNewGame();
+            //}
+            firstTime = false;
+        }
+        
         if (firstAttack) {
-            firstAttack = false;
             firstAttack();
+            firstAttack = false;
+
         } else if (attackingShip) {
             if (firstShipAttack) {
                 firstShipAttack = false;
@@ -63,6 +129,7 @@ public class BotGuessingAlgorithm {
 
 
     private void firstAttack() {
+        boolean isUnevenSquares;
         // first randomly hit 1 of the 4 squares in the center and creates an attack pattern
         switch (getRandomNumber(1, 4)) {
             case 1:
@@ -86,6 +153,7 @@ public class BotGuessingAlgorithm {
                 isUnevenSquares = false;
                 break;
             default:
+                isUnevenSquares = true;
                 break;
         }
 
@@ -253,7 +321,7 @@ public class BotGuessingAlgorithm {
             currentAttack.y = getRandomNumber(0, 9);
             currentAttack.x = currentSquares[currentAttack.y][getRandomNumber(0, 4)];
 
-            if (checkCollide()) {
+            if (checkCollide() && (checkX() || checkY())) {
                 foundNewHit = true;
             }
         }
@@ -315,9 +383,70 @@ public class BotGuessingAlgorithm {
         return true;
     }
 
+    private void addBorder(Ship currentShip) {
+        if (currentShip.rotation) {
+            for (int i = 0; i < currentShip.length; i++) {
+                if (currentShip.locationStart.x != 9) {
+                    botAttacks[currentShip.locationStart.y + i][currentShip.locationStart.x + 1] = true;
+                }
+                if (currentShip.locationStart.x != 0) {
+                    botAttacks[currentShip.locationStart.y + i][currentShip.locationStart.x - 1] = true;
+                }
+            }
+            if (currentShip.locationStart.y != 0) {
+                botAttacks[currentShip.locationStart.y - 1][currentShip.locationStart.x] = true;
+            }
+            if (currentShip.locationStart.y != 9) {
+                botAttacks[currentShip.locationStart.y + 1][currentShip.locationStart.x] = true;
+            }
+        } else {
+            for (int i = 0; i < currentShip.length; i++) {
+                if (currentShip.locationStart.y != 9) {
+                    botAttacks[currentShip.locationStart.y + 1][currentShip.locationStart.x + i] = true;
+                }
+                if (currentShip.locationStart.y != 0) {
+                    botAttacks[currentShip.locationStart.y - 1][currentShip.locationStart.x + i] = true;
+                }
+            }
+            if (currentShip.locationStart.x != 0) {
+                botAttacks[currentShip.locationStart.y][currentShip.locationStart.x - 1] = true;
+            }
+            if (currentShip.locationStart.x != 9) {
+                botAttacks[currentShip.locationStart.y][currentShip.locationStart.x + 1] = true;
+            }
+        }
+    }
+
     private boolean checkSunk(Ship currentShip) {
         if (currentShip.hp == 0) {
             totalShips--;
+            String shipName = currentShip.name;
+            if (shipName.equals("Destroyer")) {
+                destroyerSunk = true;
+            } else if (shipName.equals("Cruiser")) {
+                cruiserSunk = true;
+            } else if (shipName.equals("Submarine")) {
+                submarineSunk = true;
+            } else if (shipName.equals("Battleship")) {
+                battleshipSunk = true;
+            } else if (shipName.equals("Aircraft Carrier")) {
+                aircraftcarrierSunk = true;
+            }
+            if (!aircraftcarrierSunk) {
+                smallestShipSize = 5;
+            }
+            if (!battleshipSunk) {
+                smallestShipSize = 4;
+            }
+            if (!cruiserSunk) {
+                smallestShipSize = 3;
+            }
+            if (!submarineSunk) {
+                smallestShipSize = 3;
+            }
+            if (!destroyerSunk) {
+                smallestShipSize = 2;
+            }
             if (totalShips == 0) {
                 endGame();
             }
@@ -329,4 +458,41 @@ public class BotGuessingAlgorithm {
     private void endGame() {
         System.out.println("yahoo");
     }
+
+    private boolean checkX() {
+        int test = 0;
+        for (int p = 0; p < smallestShipSize; p++) {
+            for (int i = 0; i < smallestShipSize; i++) {
+                if (((currentAttack.x - smallestShipSize + 1 + i) >= 0) && (currentAttack.x + p) <= 9) {
+                    if (!botAttacks[currentAttack.y][currentAttack.x - smallestShipSize + 1 + i + p]) {
+                        test++;
+                    }
+                }
+                if (test == smallestShipSize) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean checkY() {
+        int test = 0;
+        for (int p = 0; p < smallestShipSize; p++) {
+            for (int i = 0; i < smallestShipSize; i++) {
+                if (((currentAttack.y - smallestShipSize + 1 + i) >= 0) && (currentAttack.y + p) <= 9) {
+                    if (!botAttacks[currentAttack.y - smallestShipSize + 1 + i + p][currentAttack.x]) {
+                        test++;
+                    }
+                }
+                if (test == smallestShipSize) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+
+    
 }

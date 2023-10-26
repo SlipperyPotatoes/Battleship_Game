@@ -8,10 +8,16 @@ public class PlayerData {
     private Ship[][] ships;
     private boolean[][] placesAttacked;
 
-    PlayerData() {
+    public PlayerData() {
         shipsSet = false;
         ships = new Ship[Game.SIZE_Y][Game.SIZE_X];
         placesAttacked = new boolean[Game.SIZE_Y][Game.SIZE_X];
+    }
+
+    public PlayerData(Ship[][] ships, boolean[][] placesAttacked) {
+        shipsSet = true;
+        this.ships = ships;
+        this.placesAttacked = placesAttacked;
     }
 
     public void setShips(Ship[][] ships) {
