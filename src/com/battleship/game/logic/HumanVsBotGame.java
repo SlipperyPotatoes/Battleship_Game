@@ -37,12 +37,12 @@ public class HumanVsBotGame extends Game {
     @Override
     public void startSavedGame(String saveString) {
         super.startSavedGame(saveString);
-        bot = new Bot(algorithm, player1.getShips());
+        bot = new Bot(algorithm, player1.getShips(), player2);
     }
 
     @Override
     public void nextPlacement() {
-        this.bot = new Bot(algorithm, player1.getShips());
+        bot = new Bot(algorithm, player1.getShips());
 
         setNextPlayerShips(bot.generateShipPositions());
 

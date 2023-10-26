@@ -18,7 +18,7 @@ public class BotPlacingAlgorithm {
     Ship cruiser = new Ship(3, "Cruiser", false);
     Ship submarine = new Ship(3, "Submarine", false);
     Ship battleship = new Ship(4, "Battleship", false);
-    Ship aircraftcarrier = new Ship(5, "Aircraft Carrier", false);
+    Ship aircraftCarrier = new Ship(5, "Aircraft Carrier", false);
     Ship currentShip;
 
     List<Ship> list = new ArrayList<>();
@@ -45,7 +45,7 @@ public class BotPlacingAlgorithm {
             list.add(cruiser);
             list.add(submarine);
             list.add(battleship);
-            list.add(aircraftcarrier);
+            list.add(aircraftCarrier);
 
             shipPlacingTries = 0;
 

@@ -1,5 +1,6 @@
 package com.battleship.game.botfiles;
 
+import com.battleship.game.logic.PlayerData;
 import com.battleship.game.utils.Vector;
 
 import java.awt.*;
@@ -18,9 +19,7 @@ import java.util.Random;
  * 
  * 
  */
-public class BotGuessingRandom {
-    
-    private boolean firstTime = true;
+public class BotGuessingRandom extends BotGuessing {
 
     private boolean firstShipAttack;
     private boolean attackingShip;
@@ -38,18 +37,28 @@ public class BotGuessingRandom {
     Random random = new Random();
     Vector currentBotAttack;
 
-    private void whenNewGame() {
+    // Used for creating a bot when starting a new game
+    public BotGuessingRandom(Ship[][] enemyShips) {
+        whenNewGame(enemyShips);
+    }
+
+    // Used for creating a bot based on saved data
+    public BotGuessingRandom(Ship[][] enemyShips, PlayerData botData) {
+        whenLoadGame(enemyShips, botData);
+    }
+
+    private void whenNewGame(Ship[][] enemyShips) {
         firstShipAttack = true;
         attackingShip = false;
         attackDirectionFound = false;
         totalShips = 5;
         currentAttack = new Point();
         firstHit = new Point();
-        enemyShips = new BotPlacingRandom().botPlacingRandom();
+        this.enemyShips = enemyShips;
         botAttacks = new boolean[10][10];
     }
 
-    private void whenLoadGame() {
+    private void whenLoadGame(Ship[][] enemyShips, PlayerData botData) {
         /** 
          * LOAD THESE
          * 
@@ -74,16 +83,8 @@ public class BotGuessingRandom {
      * 
      */
 
-    public Vector botGuessingRandom() {
-        if (firstTime) {
-            //if ("still need to add"){
-               //whenLoadGame();
-           //} else {
-               whenNewGame();
-           //}
-           firstTime = false;
-        }
- 
+    @Override
+    public Vector findNextAttack() {
         if (attackingShip) {
             if (firstShipAttack) {
                 firstShipAttack = false;
@@ -103,7 +104,7 @@ public class BotGuessingRandom {
 
     private void firstShipAttack() {
         // stores the first attack to a point for later use
-        nextDirection = new ArrayList<String>();
+        nextDirection = new ArrayList<>();
 
         if ((currentAttack.y != 0) && (!botAttacks[currentAttack.y - 1][currentAttack.x])) {
             nextDirection.add("NORTH");
@@ -127,9 +128,9 @@ public class BotGuessingRandom {
             if (nextDirection.size() == 1) {
                 currentDirection = nextDirection.get(0);
             } else {
-                int listplace = getRandomNumber(0, (nextDirection.size() - 1));
-                currentDirection = nextDirection.get(listplace);
-                nextDirection.remove(listplace);
+                int listPlace = getRandomNumber(0, (nextDirection.size() - 1));
+                currentDirection = nextDirection.get(listPlace);
+                nextDirection.remove(listPlace);
             }
             
             switch (currentDirection) {
@@ -148,7 +149,7 @@ public class BotGuessingRandom {
                 default:
                     break;
             } 
-            //if it doesnt collide we can attack
+            //if it doesn't collide we can attack
             if (checkCollide()) {
                 foundNewHit = true;
             } else {
@@ -235,7 +236,7 @@ public class BotGuessingRandom {
 
         Ship currentShip = enemyShips[currentAttack.y][currentAttack.x];
 
-        //add the attack to the attack array so we know what is already attacked
+        //add the attack to the attack array, so we know what is already attacked
         botAttacks[currentAttack.y][currentAttack.x] = true;
         //if the attack is a hit
         if (currentShip != null) {
@@ -249,7 +250,7 @@ public class BotGuessingRandom {
                 // we found the direction
                 attackDirectionFound = true;
             } else {
-                //if we  werent already we start attacking the ship
+                //if we weren't already we start attacking the ship
                 attackingShip = true;
  
                 firstHit.x = currentAttack.x;
