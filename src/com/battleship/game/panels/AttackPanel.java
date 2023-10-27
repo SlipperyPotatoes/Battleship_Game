@@ -41,9 +41,13 @@ public abstract class AttackPanel extends BasePanel {
         attackMiss = loadIcon("attack_miss.png");
 
         shipsSunkLabel = new JLabel();
+        shipsSunkLabel.setBackground(Color.GRAY);
         attackCountLabel = new JLabel();
+        attackCountLabel.setBackground(Color.GRAY);
         hitCountLabel = new JLabel();
+        hitCountLabel.setBackground(Color.GRAY);
         missCountLabel = new JLabel();
+        missCountLabel.setBackground(Color.GRAY);
 
         this.addComponentListener(new ComponentListener() {
             @Override
@@ -72,7 +76,7 @@ public abstract class AttackPanel extends BasePanel {
 
     abstract void scaleImages();
 
-    void updateLabels() {
+    public void updateLabels() {
         int shipsSunk = 0;
         int attacks = 0;
         int hits = 0;
@@ -102,7 +106,7 @@ public abstract class AttackPanel extends BasePanel {
         missCountLabel.setText("<html>" + "Miss count: " + (attacks - hits) + "</html>");
     }
 
-    void addLabels() {
+    void addStatLabels() {
         this.add(shipsSunkLabel);
         this.add(attackCountLabel);
         this.add(hitCountLabel);

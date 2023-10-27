@@ -5,16 +5,12 @@ import com.battleship.game.botfiles.Ship;
 import com.battleship.game.enums.GameState;
 import com.battleship.game.logic.Game;
 import com.battleship.game.logic.PlayerData;
-import com.battleship.game.logic.ShipData;
-import com.battleship.game.utils.ShipUtils;
 import com.battleship.game.utils.Vector;
 
 import javax.swing.*;
 import java.awt.*;
-import java.net.URL;
 import java.util.ArrayList;
 
-import static com.battleship.game.utils.ShipUtils.convertShipGridToShipArray;
 import static com.battleship.game.utils.assetsUtils.loadIcon;
 import static com.battleship.game.utils.assetsUtils.scaleImage;
 
@@ -78,9 +74,13 @@ public class BotAttackPanel extends AttackPanel {
             }
         }
 
-        updateGridImages();
+        JLabel turnLabel = new JLabel("<html>" + "TURN: BOT" + "</html>");
+        this.add(turnLabel);
 
-        addLabels();
+        addStatLabels();
+
+        updateGridImages();
+        updateLabels();
     }
 
     @Override

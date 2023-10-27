@@ -84,6 +84,7 @@ public class HumanVsBotGame extends Game {
         player1.botAttackAt(vec);
         System.out.println(vec);
         botAttackPanel.updateGridImages();
+        botAttackPanel.updateLabels();
 
 
         if (player1.allShipsDead()) {

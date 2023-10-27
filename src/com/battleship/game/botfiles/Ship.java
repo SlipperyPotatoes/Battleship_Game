@@ -88,4 +88,8 @@ public class Ship {
     public Direction getDirection() {
         return rotation ? Direction.VERTICAL : Direction.HORIZONTAL;
     }
+
+    public String getName() {
+        return name;
+    }
 }

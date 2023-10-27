@@ -109,7 +109,7 @@ public class ShipUtils {
 
                 boolean notInArray = true;
                 for (Ship ship : shipArray) {
-                    if (ship.getPosition().equals(gridShip.getPosition())) {
+                    if (ship.getName().equals(gridShip.getName())) {
                         notInArray = false;
                         break;
                     }
@@ -125,12 +125,16 @@ public class ShipUtils {
     }
 
     public static Ship[][] convertShipDataGridToShipGrid(ShipData[][] shipDataGrid) {
+        ArrayList<ShipData> shipDataArray = convertShipGridToShipArray(shipDataGrid);
+
         Ship[][] shipGrid = new Ship[shipDataGrid.length][shipDataGrid[0].length];
 
-        for (int y = 0; y < shipGrid.length; y++) {
-            for (int x = 0; x < shipGrid[0].length; x++) {
-                ShipData shipData = shipDataGrid[y][x];
-                shipGrid[y][x] = shipData == null ? null : new Ship(shipData);
+        for (ShipData shipData : shipDataArray) {
+            Ship ship = new Ship(shipData);
+            Vector setPos = new Vector(shipData.getPosition());
+            for (int i = 0; i < shipData.getSize(); i++) {
+                shipGrid[setPos.getY()][setPos.getX()] = ship;
+                setPos.add(shipData.getDirection().getVec());
             }
         }
 

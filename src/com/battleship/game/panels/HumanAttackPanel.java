@@ -11,7 +11,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.net.URL;
 
 import static com.battleship.game.utils.assetsUtils.loadIcon;
 import static com.battleship.game.utils.assetsUtils.scaleImage;
@@ -52,7 +51,27 @@ public class HumanAttackPanel extends AttackPanel implements ActionListener {
             }
         }
 
+        String playerTurn;
+        switch (gameState) {
+            case PLAYER_1_ATTACK -> playerTurn = "PLAYER 1";
+            case PLAYER_2_ATTACK -> playerTurn = "PLAYER 2";
+            default -> throw new IllegalStateException("Attack panel set to state: " + gameState);
+        }
+        JLabel turnLabel = new JLabel("<html>" + "TURN: " + playerTurn + "</html>");
+        this.add(turnLabel);
+
+        addStatLabels();
+
+        for (int i = 0; i < 4; i++) {
+            this.add(new JLabel());
+        }
+
+        saveGameButton = new JButton("<html>" + "Save game" + "</html>");
+        saveGameButton.addActionListener(this);
+        this.add(saveGameButton);
+
         updateGridImages();
+        updateLabels();
     }
 
     @Override
@@ -73,6 +92,18 @@ public class HumanAttackPanel extends AttackPanel implements ActionListener {
         enemyPlayerData.attackAt(buttonPos);
 
         updateGridImages();
+        updateLabels();
+        if (enemyPlayerData.allShipsDead()) {
+            Timer timer;
+            switch (main.getGameState()) {
+                case PLAYER_1_ATTACK -> timer = new Timer(1500, unused -> main.finishGame("PLAYER 1"));
+                case PLAYER_2_ATTACK -> timer = new Timer(1500, unused -> main.finishGame("PLAYER 2"));
+                default -> throw new IllegalStateException("Attacking with gameState: " + main.getGameState());
+            }
+
+            timer.setRepeats(false);
+            timer.start();
+        }
 
         Timer timer = new Timer(1500, unused -> main.getCurrentGame().nextAttack());
         timer.setRepeats(false);

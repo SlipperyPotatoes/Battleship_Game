@@ -78,7 +78,10 @@ public class Main {
     }
 
     public void finishGame(String winner) {
-        //TODO: Add popup or something that says who won the game
+        JOptionPane.showMessageDialog(frame,
+                winner + " won!",
+                "Winner",
+                JOptionPane.PLAIN_MESSAGE);
         endGame();
         System.out.println("Winner: " + winner);
     }
