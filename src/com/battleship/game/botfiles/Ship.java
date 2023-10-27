@@ -6,18 +6,16 @@ import com.battleship.game.utils.Vector;
 
 import java.awt.*;
 import java.util.Random;
-//true value means vertical
 
 
 public class Ship {
+    private final Vector position;
     int length;
-    boolean rotation;
+    boolean rotation; // true value means vertical
     Point locationStart = new Point();
     int hp;
     String name;
     boolean randomRotation;
-
-    private final Vector position;
 
     public Ship(String shipString) {
         int[] dataStartIndexes = new int[5];
@@ -81,7 +79,7 @@ public class Ship {
                     return false;
                 }
                 BotPlacingAlgorithm.vertical++;
-                return true;    
+                return true;
 
             } else {
                 if (BotPlacingAlgorithm.horizontal == 3) {
@@ -89,11 +87,11 @@ public class Ship {
                 }
                 BotPlacingAlgorithm.horizontal++;
                 return rotate;
-                
-            } 
-        }  else {
+
+            }
+        } else {
             return (random.nextBoolean());
-        }  
+        }
     }
 
     public void hit() {

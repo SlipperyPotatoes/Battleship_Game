@@ -11,9 +11,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
-import static com.battleship.game.utils.assetsUtils.loadIcon;
-import static com.battleship.game.utils.assetsUtils.scaleImage;
+import static com.battleship.game.utils.AssetUtils.loadIcon;
+import static com.battleship.game.utils.AssetUtils.scaleImage;
 
 public class HumanAttackPanel extends AttackPanel implements ActionListener {
     private final ImageIcon attackLineHorizontal;
@@ -41,6 +43,33 @@ public class HumanAttackPanel extends AttackPanel implements ActionListener {
 
                 gridButton.setActionCommand(new Vector(x, y).toString());
                 gridButton.addActionListener(this);
+
+                gridButton.addMouseListener(new MouseListener() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+
+                    }
+
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+
+                    }
+
+                    @Override
+                    public void mouseReleased(MouseEvent e) {
+
+                    }
+
+                    @Override
+                    public void mouseEntered(MouseEvent e) {
+                        gridButton.setBackground(Color.BLUE.darker());
+                    }
+
+                    @Override
+                    public void mouseExited(MouseEvent e) {
+                        gridButton.setBackground(Color.BLUE);
+                    }
+                });
 
                 buttonGrid[y][x] = gridButton;
                 this.add(gridButton);
@@ -76,6 +105,10 @@ public class HumanAttackPanel extends AttackPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         Object object = e.getSource();
 
+        if (!main.getCurrentGame().canDoAction()) {
+            return;
+        }
+
         if (saveGameButton == object) {
             main.getCurrentGame().saveGame();
             return;
@@ -85,6 +118,7 @@ public class HumanAttackPanel extends AttackPanel implements ActionListener {
         if (enemyPlayerData.hasBeenAttackedAt(buttonPos.getX(), buttonPos.getY())) {
             return;
         }
+        main.getCurrentGame().setCanDoAction(false);
 
         enemyPlayerData.attackAt(buttonPos);
 
@@ -93,13 +127,15 @@ public class HumanAttackPanel extends AttackPanel implements ActionListener {
         if (enemyPlayerData.allShipsDead()) {
             Timer timer;
             switch (main.getGameState()) {
-                case PLAYER_1_ATTACK -> timer = new Timer(1500, unused -> main.finishGame("PLAYER 1"));
-                case PLAYER_2_ATTACK -> timer = new Timer(1500, unused -> main.finishGame("PLAYER 2"));
+                case PLAYER_1_ATTACK -> timer = new Timer(1000, unused -> main.finishGame("PLAYER 1"));
+                case PLAYER_2_ATTACK -> timer = new Timer(1000, unused -> main.finishGame("PLAYER 2"));
                 default -> throw new IllegalStateException("Attacking with gameState: " + main.getGameState());
             }
 
             timer.setRepeats(false);
             timer.start();
+
+            return;
         }
 
         Timer timer = new Timer(1500, unused -> main.getCurrentGame().nextAttack());

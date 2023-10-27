@@ -9,13 +9,13 @@ import java.util.Random;
 
 /**
  * This is the algorithm for the attacks of the bot. It has a few rules
- * 
+
  * 1: The first hit is one of the 4 squares in the middle.
  * 2: when looking for a hit attack in a checkerboard pattern
  * 3: you cannot hit a place where it is not possible that the smallest ship fits there
  * 4: you cannot attack a spot that is already attacked
- * 5: when a ship is sunk dont attack around the ship
- * 
+ * 5: when a ship is sunk don't attack around the ship
+
  * 6: when the bot hits a ship, it will check around the ship and attack the
  *    ship until the ship is sunk
  */
@@ -83,7 +83,7 @@ public class BotGuessingAlgorithm extends BotGuessing {
         currentSquares = new int[5][10];
         botAttacks = new boolean[10][10];
         attackMap = new boolean[10][10];
-        nextDirection = new ArrayList<String>();
+        nextDirection = new ArrayList<>();
     }
 
     private void whenLoadGame(PlayerData enemyData) {
@@ -121,7 +121,7 @@ public class BotGuessingAlgorithm extends BotGuessing {
      */
     @Override
     public Vector findNextAttack() {
-        // this checks if its the first attack.
+        // this checks if it's the first attack.
         if (firstAttack) {
             firstAttack();
             firstAttack = false;
@@ -218,7 +218,7 @@ public class BotGuessingAlgorithm extends BotGuessing {
     // if it is the first ship attack this will check what directions of the ship is possible
     private void firstShipAttack() {
         // create a new list with directions
-        nextDirection = new ArrayList<String>();
+        nextDirection = new ArrayList<>();
 
         if (currentAttack.y != 0) {
             if ((!botAttacks[currentAttack.y - 1][currentAttack.x])) {
@@ -252,9 +252,9 @@ public class BotGuessingAlgorithm extends BotGuessing {
             if (nextDirection.size() == 1) {
                 currentDirection = nextDirection.get(0);
             } else {
-                int listplace = getRandomNumber(0, (nextDirection.size() - 1));
-                currentDirection = nextDirection.get(listplace);
-                nextDirection.remove(listplace);
+                int listPlace = getRandomNumber(0, (nextDirection.size() - 1));
+                currentDirection = nextDirection.get(listPlace);
+                nextDirection.remove(listPlace);
             }
             
             switch (currentDirection) {
@@ -273,7 +273,7 @@ public class BotGuessingAlgorithm extends BotGuessing {
                 default:
                     break;
             } 
-            //if it doesnt collide we can attack
+            //if it doesn't collide we can attack
             if (checkCollide()) {
                 foundNewHit = true;
             } else {
@@ -368,10 +368,10 @@ public class BotGuessingAlgorithm extends BotGuessing {
         // create a new vector with the current attack to be able to return it
         currentBotAttack = new Vector(currentAttack.x, currentAttack.y);
         
-        // the currentship is the ship that is attacked.
+        // the currentShip is the ship that is attacked.
         Ship currentShip = enemyShips[currentAttack.y][currentAttack.x];
 
-        ///add the attack to the attack array so we know what is already attacked
+        ///add the attack to the attack array, so we know what is already attacked
         botAttacks[currentAttack.y][currentAttack.x] = true;
         attackMap[currentAttack.y][currentAttack.x] = true;
 
@@ -386,7 +386,7 @@ public class BotGuessingAlgorithm extends BotGuessing {
                 // we found the direction
                 attackDirectionFound = true;
             } else {
-                //if we  werent already we start attacking the ship
+                //if we weren't already we start attacking the ship
                 attackingShip = true;
                 firstHit.x = currentAttack.x;
                 firstHit.y = currentAttack.y;
@@ -409,16 +409,12 @@ public class BotGuessingAlgorithm extends BotGuessing {
 
     // this gives a random number when provided a range.
     private int getRandomNumber(int start, int end) {
-        int number = random.nextInt((end - start) + 1) + start; // see explanation below
-        return number;
+        return random.nextInt((end - start) + 1) + start; // see explanation below
     }
 
     // this checks if the attack collides
     private boolean checkCollide() {
-        if (botAttacks[currentAttack.y][currentAttack.x]) {
-            return false;
-        }
-        return true;
+        return !botAttacks[currentAttack.y][currentAttack.x];
     }
 
     // this adds a border around the ship when the ship is sunk
@@ -458,22 +454,18 @@ public class BotGuessingAlgorithm extends BotGuessing {
         }
     }
     
-    // this checks if a ship is sunk and it checks the smalles ship currently
+    // this checks if a ship is sunk, and it checks the smallest ship currently
     private boolean checkSunk(Ship currentShip) {
         if (currentShip.hp == 0) {
             addBorder(currentShip);
             totalShips--;
             String shipName = currentShip.name;
-            if (shipName.equals("Destroyer")) {
-                destroyerSunk = true;
-            } else if (shipName.equals("Cruiser")) {
-                cruiserSunk = true;
-            } else if (shipName.equals("Submarine")) {
-                submarineSunk = true;
-            } else if (shipName.equals("Battleship")) {
-                battleshipSunk = true;
-            } else if (shipName.equals("Aircraft Carrier")) {
-                aircraftCarrierSunk = true;
+            switch (shipName) {
+                case "Destroyer" -> destroyerSunk = true;
+                case "Cruiser" -> cruiserSunk = true;
+                case "Submarine" -> submarineSunk = true;
+                case "Battleship" -> battleshipSunk = true;
+                case "Aircraft Carrier" -> aircraftCarrierSunk = true;
             }
             if (!aircraftCarrierSunk) {
                 smallestShipSize = 5;
@@ -502,7 +494,7 @@ public class BotGuessingAlgorithm extends BotGuessing {
     private void endGame() {
     }
 
-    // this checks the x axis if a ship can fit
+    // this checks the x-axis if a ship can fit
     private boolean checkX() {
         int fit = 0;
         int currentX = currentAttack.x;
@@ -523,7 +515,7 @@ public class BotGuessingAlgorithm extends BotGuessing {
         return false;
     }
 
-    // this checks the y axis if a ship can fit
+    // this checks the y-axis if a ship can fit
     private boolean checkY() {
         int fit = 0;
         int currentX = currentAttack.x;
@@ -544,9 +536,4 @@ public class BotGuessingAlgorithm extends BotGuessing {
         return false;
     }
 
-    // this returns the previous bot attacks
-    @Override
-    public boolean[][] getPlacesAttacked() {
-        return attackMap;
-    }
 }

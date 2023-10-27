@@ -10,12 +10,11 @@ import com.battleship.game.utils.Vector;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.net.URL;
 import java.util.ArrayList;
 
 import static com.battleship.game.utils.ShipUtils.*;
-import static com.battleship.game.utils.assetsUtils.loadIcon;
-import static com.battleship.game.utils.assetsUtils.scaleImage;
+import static com.battleship.game.utils.AssetUtils.loadIcon;
+import static com.battleship.game.utils.AssetUtils.scaleImage;
 
 public class ShipPlacementPanel extends BasePanel implements ActionListener {
     ShipData[][] shipGrid;

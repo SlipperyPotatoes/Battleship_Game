@@ -59,7 +59,7 @@ public class BotGuessingRandom extends BotGuessing {
     }
 
     private void whenLoadGame(PlayerData enemyData) {
-        /** 
+        /*
          * LOAD THESE
          * 
         firstShipAttack;
@@ -271,15 +271,11 @@ public class BotGuessingRandom extends BotGuessing {
     }
 
     private int getRandomNumber(int start, int end) {
-        int number = random.nextInt((end - start) + 1) + start; // see explanation below
-        return number;
+        return random.nextInt((end - start) + 1) + start; // see explanation below
     }
 
     private boolean checkCollide() {
-        if (botAttacks[currentAttack.y][currentAttack.x]) {
-            return false;
-        }
-        return true;
+        return !botAttacks[currentAttack.y][currentAttack.x];
     }
 
     private boolean checkSunk(Ship currentShip) {
@@ -296,8 +292,4 @@ public class BotGuessingRandom extends BotGuessing {
     private void endGame() {
     }
 
-    @Override
-    public boolean[][] getPlacesAttacked() {
-        return botAttacks;
-    }
 }

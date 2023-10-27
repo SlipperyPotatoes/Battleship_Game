@@ -9,10 +9,10 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class assetsUtils {
-    public static ImageIcon loadIcon(String path) {
-        URL url = assetsUtils.class.getClassLoader()
-                .getResource("com/battleship/game/assets/" + path);
+public class AssetUtils {
+    public static ImageIcon loadIcon(String fileName) {
+        URL url = AssetUtils.class.getClassLoader()
+                .getResource("com/battleship/game/assets/" + fileName);
         assert url != null;
         return new ImageIcon(url);
     }

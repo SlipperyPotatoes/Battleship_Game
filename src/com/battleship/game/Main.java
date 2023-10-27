@@ -5,6 +5,7 @@ import com.battleship.game.enums.GameState;
 import com.battleship.game.logic.Game;
 import com.battleship.game.logic.HumanVsBotGame;
 import com.battleship.game.panels.MainMenuPanel;
+import com.battleship.game.utils.AssetUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -35,7 +36,8 @@ public class Main {
         // Setup frame
         frame.setContentPane(mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setTitle("GUI");
+        frame.setTitle("SUPER AMAZING BATTLESHIP GAME");
+        frame.setIconImage(AssetUtils.loadIcon("pixel_art_is_my_passion.png").getImage());
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
@@ -44,6 +46,7 @@ public class Main {
         changeGameState(GameState.MAIN_MENU);
     }
 
+    // Switches between panels shown
     public void changeGameState(GameState gameState) {
         if (gameState == this.gameState) {
             return;

@@ -4,31 +4,21 @@ import com.battleship.game.enums.Direction;
 import com.battleship.game.utils.Vector;
 
 public class ShipData {
+    private final int size;
+    private final String name;
     private Vector position;
     private Direction direction;
-    private final int size;
-    private int hp;
-    private final String name;
 
 
     public ShipData(Vector position, Direction direction, int size, String name) {
         this.position = position;
         this.direction = direction;
         this.size = size;
-        this.hp = size;
         this.name = name;
     }
 
     public void rotateShip() {
         direction = direction.switchDirection();
-    }
-
-    public void hitShip() {
-        hp--;
-    }
-
-    public boolean isDead() {
-        return hp == 0;
     }
 
     public Vector getPosition() {
@@ -45,15 +35,11 @@ public class ShipData {
 
     @Override
     public String toString() {
-        return "Pos: " + position.toString() + ", Direction: " + direction.getVec().toString() + ", Size: " + size;
+        return "Pos: " + position.toString() + ", Direction: " + direction.getVec() + ", Size: " + size;
     }
 
     public Direction getDirection() {
         return direction;
-    }
-
-    public void setDirection(Direction direction) {
-        this.direction = direction;
     }
 
     public int getSize() {

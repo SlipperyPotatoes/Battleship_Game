@@ -9,9 +9,6 @@ import com.battleship.game.panels.ShipPlacementPanel;
 import com.battleship.game.utils.Vector;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.concurrent.TimeUnit;
 
 // The human will always be player 1 and the bot always player 2
 public class HumanVsBotGame extends Game {
@@ -36,6 +33,10 @@ public class HumanVsBotGame extends Game {
     @Override
     public void startSavedGame(String saveName) {
         super.startSavedGame(saveName);
+        if (player1 == null || player2 == null) {
+            return;
+        }
+
         bot = new Bot(algorithm, player1);
 
         HumanAttackPanel humanAttackPanel = new HumanAttackPanel(main, GameState.PLAYER_1_ATTACK, player2);
@@ -49,6 +50,7 @@ public class HumanVsBotGame extends Game {
         main.changeGameState(GameState.PLAYER_1_ATTACK);
     }
 
+    // Called after the user finishes placing their ships
     @Override
     public void nextPlacement() {
         bot = new Bot(algorithm, player1.getShipGrid());
@@ -73,6 +75,7 @@ public class HumanVsBotGame extends Game {
             return;
         }
 
+        // Adds delay between screen switching to bots attack panel and bot attacking
         Timer timer = new Timer(500, e -> doBotAttack());
         timer.setRepeats(false);
         timer.start();

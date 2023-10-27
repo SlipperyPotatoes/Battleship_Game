@@ -5,14 +5,13 @@ import com.battleship.game.botfiles.Ship;
 import com.battleship.game.enums.GameState;
 
 import javax.swing.*;
-import java.io.*;
-import java.net.URL;
+import java.io.File;
+import java.io.FileWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Scanner;
 
-import static com.battleship.game.utils.assetsUtils.playerDataToSaveString;
-import static com.battleship.game.utils.assetsUtils.saveStringToPlayerData;
+import static com.battleship.game.utils.AssetUtils.playerDataToSaveString;
+import static com.battleship.game.utils.AssetUtils.saveStringToPlayerData;
 
 public abstract class Game {
     public final static int SIZE_X = 10;
@@ -20,6 +19,8 @@ public abstract class Game {
     public final static int[] SHIP_SIZES = {5, 4, 3, 3, 2};
     public final static String[] SHIP_NAMES = {"Aircraft Carrier", "Battleship",
             "Submarine", "Cruiser", "Destroyer"};
+
+    private boolean canDoAction;
 
     PlayerData player1;
     PlayerData player2;
@@ -30,6 +31,7 @@ public abstract class Game {
         this.main = main;
         this.player1 = new PlayerData();
         this.player2 = new PlayerData();
+        this.canDoAction = true;
     }
 
     public abstract void startNewGame();
@@ -37,7 +39,6 @@ public abstract class Game {
     public abstract void nextPlacement();
 
     public void startSavedGame(String saveName) {
-        //TODO: Load game data using url, storing PlayerData for players 1 and 2 in their variables
         try {
             String fileData = new String(Files.readAllBytes(Path.of(saveName + ".txt")));
 
@@ -57,8 +58,6 @@ public abstract class Game {
     }
 
     public void saveGame() {
-        //TODO: Save game data to text file with .save extension,
-        // the only thing that needs to be saved is the both player's PlayerData
         String p1DataString = playerDataToSaveString(player1, "player 1");
         String p2DataString = playerDataToSaveString(player2, "player 2");
 
@@ -70,14 +69,16 @@ public abstract class Game {
             fileWriter.append("\n");
             fileWriter.append(p2DataString);
             fileWriter.close();
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {
+        }
 
         main.endGame();
     }
 
 
-
     public void nextAttack() {
+        canDoAction = true;
+
         switch (main.getGameState()) {
             case PLAYER_1_ATTACK -> main.changeGameState(GameState.PLAYER_2_ATTACK);
             case PLAYER_2_ATTACK -> main.changeGameState(GameState.PLAYER_1_ATTACK);
@@ -92,5 +93,13 @@ public abstract class Game {
             return;
         }
         player2.setShips(ships);
+    }
+
+    public boolean canDoAction() {
+        return canDoAction;
+    }
+
+    public void setCanDoAction(boolean canDoAction) {
+        this.canDoAction = canDoAction;
     }
 }

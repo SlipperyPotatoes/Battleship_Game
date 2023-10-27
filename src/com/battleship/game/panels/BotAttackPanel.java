@@ -11,8 +11,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-import static com.battleship.game.utils.assetsUtils.loadIcon;
-import static com.battleship.game.utils.assetsUtils.scaleImage;
+import static com.battleship.game.utils.AssetUtils.loadIcon;
+import static com.battleship.game.utils.AssetUtils.scaleImage;
 
 public class BotAttackPanel extends AttackPanel {
     private final ImageIcon boatMiddleHorizontal;

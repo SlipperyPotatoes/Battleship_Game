@@ -5,7 +5,10 @@ import com.battleship.game.enums.GameState;
 import com.battleship.game.panels.HumanAttackPanel;
 import com.battleship.game.panels.ShipPlacementPanel;
 
-
+/**
+ * Unused implementation of the Game class for a version of BattleShip
+ * with 2 human players playing against each other
+ */
 public class HumanVsHumanGame extends Game {
 
 

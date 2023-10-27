@@ -42,7 +42,9 @@ public class PlayerData {
     }
 
 
-    public boolean[][] getPlacesBeenAttacked() { return placesBeenAttacked; }
+    public boolean[][] getPlacesBeenAttacked() {
+        return placesBeenAttacked;
+    }
 
     public boolean shipsNotSet() {
         return !shipsSet;
@@ -51,6 +53,7 @@ public class PlayerData {
     public boolean shipAt(Vector vec) {
         return ships[vec.getY()][vec.getX()] != null;
     }
+
     public boolean shipAt(int x, int y) {
         return ships[y][x] != null;
     }

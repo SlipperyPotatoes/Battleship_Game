@@ -9,7 +9,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import static com.battleship.game.utils.assetsUtils.loadIcon;
+import static com.battleship.game.utils.AssetUtils.loadIcon;
 
 public class MainMenuPanel extends BasePanel implements ActionListener {
     private final JButton newBotGameButton;

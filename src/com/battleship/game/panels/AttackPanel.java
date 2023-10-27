@@ -12,7 +12,7 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.util.ArrayList;
 
-import static com.battleship.game.utils.assetsUtils.loadIcon;
+import static com.battleship.game.utils.AssetUtils.loadIcon;
 
 public abstract class AttackPanel extends BasePanel {
     final ImageIcon attackHit;
