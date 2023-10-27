@@ -38,6 +38,9 @@ public class PlayerData {
         return ships;
     }
 
+    public ArrayList<Ship> getShipArray() {
+        return convertShipGridToShipArray(ships);
+    }
 
 
     public boolean[][] getPlacesBeenAttacked() { return placesBeenAttacked; }
@@ -48,6 +51,13 @@ public class PlayerData {
 
     public boolean shipAt(Vector vec) {
         return ships[vec.getY()][vec.getX()] != null;
+    }
+    public boolean shipAt(int x, int y) {
+        return ships[y][x] != null;
+    }
+
+    public void botAttackAt(Vector vec) {
+        placesBeenAttacked[vec.getY()][vec.getX()] = true;
     }
 
     public void attackAt(Vector vec) {

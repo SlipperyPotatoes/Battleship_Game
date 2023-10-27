@@ -8,6 +8,9 @@ import com.battleship.game.panels.HumanAttackPanel;
 import com.battleship.game.panels.ShipPlacementPanel;
 import com.battleship.game.utils.Vector;
 
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.concurrent.TimeUnit;
 
 // The human will always be player 1 and the bot always player 2
@@ -42,6 +45,17 @@ public class HumanVsBotGame extends Game {
 
         setNextPlayerShips(bot.generateShipPositions());
 
+        for (int y = 0; y < Game.SIZE_Y; y++) {
+            for (int x = 0; x < Game.SIZE_X; x++) {
+                if (player2.shipAt(x, y)) {
+                    System.out.print("X");
+                } else {
+                    System.out.print(" ");
+                }
+            }
+            System.out.println();
+        }
+
         HumanAttackPanel humanAttackPanel = new HumanAttackPanel(main, GameState.PLAYER_1_ATTACK, player2);
         main.getMainPanel().add(humanAttackPanel,
                 humanAttackPanel.getPanelState().toString());
@@ -60,18 +74,25 @@ public class HumanVsBotGame extends Game {
             return;
         }
 
-        Vector attackPos = bot.findNextAttackPos();
-        player1.attackAt(attackPos);
+        Timer timer = new Timer(500, e -> doBotAttack());
+        timer.setRepeats(false);
+        timer.start();
+    }
+
+    private void doBotAttack() {
+        Vector vec = bot.findNextAttackPos();
+        player1.botAttackAt(vec);
+        System.out.println(vec);
         botAttackPanel.updateGridImages();
-        try {
-            TimeUnit.SECONDS.sleep(3);
-        } catch (Exception ignored) {}
+
 
         if (player1.allShipsDead()) {
             main.finishGame("BOT");
             return;
         }
 
-        nextAttack();
+        Timer timer = new Timer(1500, e -> nextAttack());
+        timer.setRepeats(false);
+        timer.start();
     }
 }

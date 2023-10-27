@@ -78,13 +78,21 @@ public class BotAttackPanel extends AttackPanel {
             }
         }
 
+        updateGridImages();
 
+        addLabels();
     }
 
     @Override
     public void updateGridImages() {
         boolean[][] placesAttacked = enemyPlayerData.getPlacesBeenAttacked();
-        ArrayList<Ship> shipArray = convertShipGridToShipArray(enemyPlayerData.getShipGrid());
+        ArrayList<Ship> shipArray = enemyPlayerData.getShipArray();
+
+        for (int y = 0; y < Game.SIZE_Y; y++) {
+            for (int x = 0; x < Game.SIZE_X; x++) {
+                gridLabels[y][x].setIcon(placesAttacked[y][x] ? attackMissScaled : null);
+            }
+        }
 
         for (Ship ship : shipArray) {
             Vector checkPos = new Vector(ship.getPosition());
@@ -130,9 +138,6 @@ public class BotAttackPanel extends AttackPanel {
 
         attackHitScaled = scaleImage(attackHit, w, h);
         attackMissScaled = scaleImage(attackMiss, w, h);
-
-        w = (int) (w * 1.2f);
-        h = (int) (h * 1.2f);
 
         boatMiddleHorizontalScaled = scaleImage(boatMiddleHorizontal, w, h);
         boatMiddleVerticalScaled = scaleImage(boatMiddleVertical, w, h);

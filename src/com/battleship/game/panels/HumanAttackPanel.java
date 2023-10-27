@@ -74,7 +74,9 @@ public class HumanAttackPanel extends AttackPanel implements ActionListener {
 
         updateGridImages();
 
-        main.getCurrentGame().nextAttack();
+        Timer timer = new Timer(1500, unused -> main.getCurrentGame().nextAttack());
+        timer.setRepeats(false);
+        timer.start();
     }
 
     @Override
