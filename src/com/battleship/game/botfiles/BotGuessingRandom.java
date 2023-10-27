@@ -294,7 +294,6 @@ public class BotGuessingRandom extends BotGuessing {
     }
 
     private void endGame() {
-        System.out.println("yahoo");
     }
 
     @Override

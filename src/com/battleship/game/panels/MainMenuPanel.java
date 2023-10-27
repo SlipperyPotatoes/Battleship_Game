@@ -8,11 +8,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.net.URL;
 
 import static com.battleship.game.utils.assetsUtils.loadIcon;
 
-//TODO: Fix button placement, maybe add an option to select a save file or load from save name
 public class MainMenuPanel extends BasePanel implements ActionListener {
     private final JButton newBotGameButton;
     private final JButton loadBotGameButton;

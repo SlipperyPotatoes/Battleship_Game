@@ -34,9 +34,19 @@ public class HumanVsBotGame extends Game {
     }
 
     @Override
-    public void startSavedGame(String saveString) {
-        super.startSavedGame(saveString);
+    public void startSavedGame(String saveName) {
+        super.startSavedGame(saveName);
         bot = new Bot(algorithm, player1);
+
+        HumanAttackPanel humanAttackPanel = new HumanAttackPanel(main, GameState.PLAYER_1_ATTACK, player2);
+        main.getMainPanel().add(humanAttackPanel,
+                humanAttackPanel.getPanelState().toString());
+
+        botAttackPanel = new BotAttackPanel(main, player1);
+        main.getMainPanel().add(botAttackPanel,
+                botAttackPanel.getPanelState().toString());
+
+        main.changeGameState(GameState.PLAYER_1_ATTACK);
     }
 
     @Override
@@ -44,17 +54,6 @@ public class HumanVsBotGame extends Game {
         bot = new Bot(algorithm, player1.getShipGrid());
 
         setNextPlayerShips(bot.generateShipPositions());
-
-        for (int y = 0; y < Game.SIZE_Y; y++) {
-            for (int x = 0; x < Game.SIZE_X; x++) {
-                if (player2.shipAt(x, y)) {
-                    System.out.print("X");
-                } else {
-                    System.out.print(" ");
-                }
-            }
-            System.out.println();
-        }
 
         HumanAttackPanel humanAttackPanel = new HumanAttackPanel(main, GameState.PLAYER_1_ATTACK, player2);
         main.getMainPanel().add(humanAttackPanel,
@@ -82,7 +81,6 @@ public class HumanVsBotGame extends Game {
     private void doBotAttack() {
         Vector vec = bot.findNextAttackPos();
         player1.botAttackAt(vec);
-        System.out.println(vec);
         botAttackPanel.updateGridImages();
         botAttackPanel.updateLabels();
 

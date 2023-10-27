@@ -5,7 +5,14 @@ import com.battleship.game.botfiles.Ship;
 import com.battleship.game.enums.GameState;
 
 import javax.swing.*;
+import java.io.*;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Scanner;
+
+import static com.battleship.game.utils.assetsUtils.playerDataToSaveString;
+import static com.battleship.game.utils.assetsUtils.saveStringToPlayerData;
 
 public abstract class Game {
     public final static int SIZE_X = 10;
@@ -13,20 +20,6 @@ public abstract class Game {
     public final static int[] SHIP_SIZES = {5, 4, 3, 3, 2};
     public final static String[] SHIP_NAMES = {"Aircraft Carrier", "Battleship",
             "Submarine", "Cruiser", "Destroyer"};
-
-    // Ensures before the game runs that all the ships can
-    // fit on the grid side by side without issue and
-    // that they are in descending order
-    // Technically not necessary but useful for debugging
-    static {
-        assert SHIP_SIZES.length <= SIZE_Y / 2 : "Too many ships in SHIP_SIZES";
-        for (int i = 0; i < SHIP_SIZES.length; i++) {
-            assert SHIP_SIZES[i] <= SIZE_X : "Ship in SHIP_SIZES larger than width of grid";
-            if (i < SHIP_SIZES.length - 1) {
-                assert SHIP_SIZES[i] >= SHIP_SIZES[i + 1] : "Ships in SHIP_SIZES not in descending order";
-            }
-        }
-    }
 
     PlayerData player1;
     PlayerData player2;
@@ -43,26 +36,46 @@ public abstract class Game {
 
     public abstract void nextPlacement();
 
-    public void startSavedGame(String saveString) {
-        URL saveURL = getClass()
-                .getClassLoader()
-                .getResource("com/battleship/game/assets/" + saveString + ".save");
+    public void startSavedGame(String saveName) {
+        //TODO: Load game data using url, storing PlayerData for players 1 and 2 in their variables
+        try {
+            String fileData = new String(Files.readAllBytes(Path.of(saveName + ".txt")));
 
-        if (saveURL == null) {
+            player1 = saveStringToPlayerData(
+                    fileData.substring(15, fileData.indexOf("player 2")));
+            player2 = saveStringToPlayerData(
+                    fileData.substring(fileData.indexOf("player 2") + 15));
+
+
+        } catch (Exception ignored) {
             JOptionPane.showMessageDialog(main.getFrame(),
                     "No existing save found",
                     "Load Error",
                     JOptionPane.ERROR_MESSAGE);
-            return;
         }
-        //TODO: Load game data using url, storing PlayerData for players 1 and 2 in their variables
+
     }
 
     public void saveGame() {
         //TODO: Save game data to text file with .save extension,
         // the only thing that needs to be saved is the both player's PlayerData
+        String p1DataString = playerDataToSaveString(player1, "player 1");
+        String p2DataString = playerDataToSaveString(player2, "player 2");
+
+        File saveFile = new File("saveGame.txt");
+        try {
+            saveFile.createNewFile();
+            FileWriter fileWriter = new FileWriter(saveFile);
+            fileWriter.append(p1DataString);
+            fileWriter.append("\n");
+            fileWriter.append(p2DataString);
+            fileWriter.close();
+        } catch (Exception ignored) {}
+
         main.endGame();
     }
+
+
 
     public void nextAttack() {
         switch (main.getGameState()) {
@@ -74,7 +87,7 @@ public abstract class Game {
     }
 
     public void setNextPlayerShips(Ship[][] ships) {
-        if (!player1.areShipsSet()) {
+        if (player1.shipsNotSet()) {
             player1.setShips(ships);
             return;
         }

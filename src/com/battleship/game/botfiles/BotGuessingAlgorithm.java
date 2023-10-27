@@ -460,7 +460,6 @@ public class BotGuessingAlgorithm extends BotGuessing{
     }
 
     private void endGame() {
-        System.out.println("yahoo");
     }
 
     private boolean checkX() {

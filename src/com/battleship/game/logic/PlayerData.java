@@ -1,7 +1,6 @@
 package com.battleship.game.logic;
 
 import com.battleship.game.botfiles.Ship;
-import com.battleship.game.utils.ShipUtils;
 import com.battleship.game.utils.Vector;
 
 import java.util.ArrayList;
@@ -45,8 +44,8 @@ public class PlayerData {
 
     public boolean[][] getPlacesBeenAttacked() { return placesBeenAttacked; }
 
-    public boolean areShipsSet() {
-        return shipsSet;
+    public boolean shipsNotSet() {
+        return !shipsSet;
     }
 
     public boolean shipAt(Vector vec) {

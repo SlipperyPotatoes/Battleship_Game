@@ -19,6 +19,41 @@ public class Ship {
 
     private final Vector position;
 
+    public Ship(String shipString) {
+        int[] dataStartIndexes = new int[5];
+        int[] dataEndIndexes = new int[4];
+        for (int c = 0; c < shipString.length(); c++) {
+            if (shipString.charAt(c) == ':') {
+                for (int i = 0; i < 5; i++) {
+                    if (dataStartIndexes[i] != 0) {
+                        continue;
+                    }
+                    dataStartIndexes[i] = c + 2;
+                    break;
+                }
+            }
+            if (shipString.charAt(c) == ',') {
+                for (int i = 0; i < 4; i++) {
+                    if (dataEndIndexes[i] != 0) {
+                        continue;
+                    }
+                    dataEndIndexes[i] = c;
+                    break;
+                }
+            }
+
+        }
+
+        this.length = Integer.parseInt(
+                shipString.substring(dataStartIndexes[0], dataEndIndexes[0]));
+        this.hp = Integer.parseInt(
+                shipString.substring(dataStartIndexes[1], dataEndIndexes[1]));
+        this.name = shipString.substring(dataStartIndexes[2], dataEndIndexes[2]);
+        this.rotation = Boolean.parseBoolean(
+                shipString.substring(dataStartIndexes[3], dataEndIndexes[3]));
+        this.position = new Vector(shipString.substring(dataStartIndexes[4]));
+    }
+
     public Ship(ShipData shipData) {
         this.length = shipData.getSize();
         this.hp = length;
@@ -27,7 +62,7 @@ public class Ship {
         this.position = shipData.getPosition();
     }
 
-    Ship(int length, String name, boolean randomRotation) {
+    public Ship(int length, String name, boolean randomRotation) {
         this.length = length;
         this.hp = length;
         this.name = name;
@@ -91,5 +126,11 @@ public class Ship {
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public String toString() {
+        return "Length: " + length + ", HP: " + hp + ", Name: " + name +
+                ", Vertical: " + rotation + ", Position: " + position;
     }
 }

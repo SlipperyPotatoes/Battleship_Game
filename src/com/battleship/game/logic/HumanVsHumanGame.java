@@ -26,7 +26,7 @@ public class HumanVsHumanGame extends Game {
 
     @Override
     public void nextPlacement() {
-        if (!player2.areShipsSet()) {
+        if (player2.shipsNotSet()) {
             ShipPlacementPanel shipPlacementPanel = new ShipPlacementPanel(main);
             main.getMainPanel().add(shipPlacementPanel,
                     shipPlacementPanel.getPanelState().toString());

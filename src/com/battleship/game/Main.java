@@ -63,7 +63,7 @@ public class Main {
 
     public void loadPreviousBotGame(BotAlgorithm algorithm) {
         game = new HumanVsBotGame(this, algorithm);
-        game.startSavedGame("game");
+        game.startSavedGame("saveGame");
     }
 
     public void endGame() {
@@ -83,7 +83,6 @@ public class Main {
                 "Winner",
                 JOptionPane.PLAIN_MESSAGE);
         endGame();
-        System.out.println("Winner: " + winner);
     }
 
     public JFrame getFrame() {

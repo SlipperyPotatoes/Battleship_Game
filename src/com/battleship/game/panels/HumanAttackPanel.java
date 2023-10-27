@@ -21,10 +21,6 @@ public class HumanAttackPanel extends AttackPanel implements ActionListener {
     private ImageIcon attackLineHorizontalScaled;
     private ImageIcon attackLineVerticalScaled;
 
-
-
-
-
     private JButton[][] buttonGrid;
     private JButton saveGameButton;
 
@@ -66,9 +62,11 @@ public class HumanAttackPanel extends AttackPanel implements ActionListener {
             this.add(new JLabel());
         }
 
-        saveGameButton = new JButton("<html>" + "Save game" + "</html>");
-        saveGameButton.addActionListener(this);
-        this.add(saveGameButton);
+        if (gameState == GameState.PLAYER_1_ATTACK) {
+            saveGameButton = new JButton("<html>" + "Save game" + "</html>");
+            saveGameButton.addActionListener(this);
+            this.add(saveGameButton);
+        }
 
         updateGridImages();
         updateLabels();
@@ -76,7 +74,6 @@ public class HumanAttackPanel extends AttackPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        //TODO: Figure out which button was press and check if its been pressed before and if
         Object object = e.getSource();
 
         if (saveGameButton == object) {
