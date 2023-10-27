@@ -214,6 +214,7 @@ public class BotGuessingAlgorithm extends BotGuessing {
         }
         attack();
     }
+
     // if it is the first ship attack this will check what directions of the ship is possible
     private void firstShipAttack() {
         // create a new list with directions
@@ -456,6 +457,7 @@ public class BotGuessingAlgorithm extends BotGuessing {
             }
         }
     }
+    
     // this checks if a ship is sunk and it checks the smalles ship currently
     private boolean checkSunk(Ship currentShip) {
         if (currentShip.hp == 0) {
