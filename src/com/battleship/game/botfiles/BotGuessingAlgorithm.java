@@ -89,11 +89,13 @@ public class BotGuessingAlgorithm extends BotGuessing {
     private void whenLoadGame(PlayerData enemyData) {
 
         //Load and save all these:
-
         /*
-        firstAttack;
-        firstShipAttack;
-        attackingShip;
+        firstAttack = enemyData.firstAttack;
+
+        firstShipAttack = enemyData.firstShipAttack;
+
+        attackingShip = enemyData.attackingShip;
+        
         attackDirectionFound;
         currentDirection;
         totalShips;
@@ -112,7 +114,7 @@ public class BotGuessingAlgorithm extends BotGuessing {
         botAttacks;
         attackMap;
         nextDirection;
-         */
+        */
     }
     
     
