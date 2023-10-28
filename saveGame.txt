@@ -1,0 +1,66 @@
+player 1 data:
+	places been attacked:
+	0000000000
+	0000000000
+	0000000000
+	0000000000
+	0000000000
+	0000000000
+	0000000000
+	0000000000
+	0000000000
+	0000000000
+	ship data:
+	0 - Empty
+	1 - Length: 5, HP: 5, Name: Aircraft Carrier, Vertical: false, Position: 0 0
+	2 - Length: 4, HP: 4, Name: Battleship, Vertical: false, Position: 0 2
+	3 - Length: 3, HP: 3, Name: Submarine, Vertical: false, Position: 0 4
+	4 - Length: 3, HP: 3, Name: Cruiser, Vertical: false, Position: 0 6
+	5 - Length: 2, HP: 2, Name: Destroyer, Vertical: false, Position: 0 8
+	ship grid:
+	1111100000
+	0000000000
+	2222000000
+	0000000000
+	3330000000
+	0000000000
+	4440000000
+	0000000000
+	5500000000
+	0000000000
+	
+player 2 data:
+	places been attacked:
+	0000000000
+	0000000000
+	0000000000
+	0000000000
+	0000000000
+	0000000000
+	0000000000
+	0000000000
+	0000000000
+	0000000000
+	ship data:
+	0 - Empty
+	1 - Length: 2, HP: 2, Name: Destroyer, Vertical: true, Position: 0 0
+	2 - Length: 5, HP: 5, Name: Aircraft Carrier, Vertical: false, Position: 0 0
+	3 - Length: 3, HP: 3, Name: Cruiser, Vertical: false, Position: 0 0
+	4 - Length: 4, HP: 4, Name: Battleship, Vertical: true, Position: 0 0
+	5 - Length: 3, HP: 3, Name: Submarine, Vertical: false, Position: 0 0
+	ship grid:
+	0000000001
+	0022222001
+	0000000000
+	3330000000
+	0000000000
+	0000004000
+	5550004000
+	0000004000
+	0000004000
+	0000000000
+	
+bot data:
+	First attack: true
+	First ship attack: true
+	Attacking ship: false

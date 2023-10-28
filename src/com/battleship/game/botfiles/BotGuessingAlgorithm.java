@@ -55,8 +55,8 @@ public class BotGuessingAlgorithm extends BotGuessing {
     }
 
     // Used for creating a bot based on saved data
-    public BotGuessingAlgorithm(PlayerData enemyData) {
-        whenLoadGame(enemyData);
+    public BotGuessingAlgorithm(PlayerData enemyData, BotSaveData botSaveData) {
+        whenLoadGame(enemyData, botSaveData);
     }
 
 
@@ -86,16 +86,12 @@ public class BotGuessingAlgorithm extends BotGuessing {
         nextDirection = new ArrayList<>();
     }
 
-    private void whenLoadGame(PlayerData enemyData) {
-
+    private void whenLoadGame(PlayerData enemyData, BotSaveData botSaveData) {
+        firstAttack = botSaveData.getFirstAttack();
+        firstShipAttack = botSaveData.getFirstShipAttack();
+        attackingShip = botSaveData.getAttackingShip();
         //Load and save all these:
         /*
-        firstAttack = enemyData.firstAttack;
-
-        firstShipAttack = enemyData.firstShipAttack;
-
-        attackingShip = enemyData.attackingShip;
-        
         attackDirectionFound;
         currentDirection;
         totalShips;
@@ -528,5 +524,10 @@ public class BotGuessingAlgorithm extends BotGuessing {
             }
         }
         return false;
+    }
+
+    @Override
+    public BotSaveData toSaveData() {
+        return new BotSaveData(firstAttack, firstShipAttack, attackingShip);
     }
 }

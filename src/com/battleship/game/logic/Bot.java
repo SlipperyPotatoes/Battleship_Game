@@ -18,11 +18,11 @@ public class Bot {
         }
     }
 
-    public Bot(BotAlgorithm algorithm, PlayerData enemyData) {
+    public Bot(BotAlgorithm algorithm, PlayerData enemyData, BotSaveData botSaveData) {
         this.algorithm = algorithm;
         switch (algorithm) {
-            case SIMPLE -> botGuessing = new BotGuessingRandom(enemyData);
-            case ADVANCED -> botGuessing = new BotGuessingAlgorithm(enemyData);
+            case SIMPLE -> botGuessing = new BotGuessingRandom(enemyData, botSaveData);
+            case ADVANCED -> botGuessing = new BotGuessingAlgorithm(enemyData, botSaveData);
             default -> throw new IllegalStateException("BotAlgorithm not simple nor advanced");
         }
     }
@@ -42,5 +42,9 @@ public class Bot {
 
     public Vector findNextAttackPos() {
         return botGuessing.findNextAttack();
+    }
+
+    public BotSaveData getBotSaveData() {
+        return botGuessing.toSaveData();
     }
 }
