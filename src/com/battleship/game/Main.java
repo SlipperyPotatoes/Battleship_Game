@@ -6,9 +6,9 @@ import com.battleship.game.logic.Game;
 import com.battleship.game.logic.HumanVsBotGame;
 import com.battleship.game.panels.MainMenuPanel;
 import com.battleship.game.utils.AssetUtils;
-
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
+
 
 public class Main {
     private JFrame frame;

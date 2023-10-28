@@ -222,25 +222,17 @@ public class BotGuessingAlgorithm extends BotGuessing {
         // create a new list with directions
         nextDirection = new ArrayList<>();
 
-        if (currentAttack.y != 0) {
-            if ((!botAttacks[currentAttack.y - 1][currentAttack.x])) {
-                nextDirection.add("NORTH");
-            }
+        if ((currentAttack.y != 0) && (!botAttacks[currentAttack.y - 1][currentAttack.x])) {
+            nextDirection.add("NORTH");
         }
-        if (currentAttack.x != 9) {
-            if (!botAttacks[currentAttack.y][currentAttack.x + 1]) {
-                nextDirection.add("EAST");        
-            }
+        if ((currentAttack.x != 9) && (!botAttacks[currentAttack.y][currentAttack.x + 1])) {
+            nextDirection.add("EAST");        
         }
-        if (currentAttack.y != 9) {
-            if (!botAttacks[currentAttack.y + 1][currentAttack.x]) {
-                nextDirection.add("SOUTH");
-            }
+        if ((currentAttack.y != 9) && (!botAttacks[currentAttack.y + 1][currentAttack.x])) {
+            nextDirection.add("SOUTH");
         }
-        if (currentAttack.x != 0) {
-            if (!botAttacks[currentAttack.y][currentAttack.x - 1]) {
-                nextDirection.add("WEST");
-            }
+        if ((currentAttack.x != 0) && (!botAttacks[currentAttack.y][currentAttack.x - 1])) {
+            nextDirection.add("WEST");
         }
         attackAroundShip();
     }
@@ -411,7 +403,7 @@ public class BotGuessingAlgorithm extends BotGuessing {
 
     // this gives a random number when provided a range.
     private int getRandomNumber(int start, int end) {
-        return random.nextInt((end - start) + 1) + start; // see explanation below
+        return random.nextInt((end - start) + 1) + start;
     }
 
     // this checks if the attack collides
@@ -537,5 +529,4 @@ public class BotGuessingAlgorithm extends BotGuessing {
         }
         return false;
     }
-
 }

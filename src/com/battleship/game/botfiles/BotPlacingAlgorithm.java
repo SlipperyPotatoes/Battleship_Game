@@ -1,19 +1,22 @@
 package com.battleship.game.botfiles;
 
-import java.util.*;
 import java.awt.*;
+import java.util.*;
 import java.util.List;
 
-/** Basic Rules for ship placement for the bot.
+/** this file places the ships of the bot on a map with an algorithm
+ * 
+ * Basic Rules for ship placement for the bot.
  * 
  * -5 ships. 1x2 2x3 1x4 1x5
  * -NOT more then 3 the same rotation.
  * -Ships can not touch eachother
- * -1 ship on the border perpendicular to the border
+ * -1 ship on the border parrellel to the border
  */
 
 public class BotPlacingAlgorithm {
 
+    // this creates 5 new ships to put in the map
     Ship destroyer = new Ship(2, "Destroyer", false);
     Ship cruiser = new Ship(3, "Cruiser", false);
     Ship submarine = new Ship(3, "Submarine", false);
@@ -21,6 +24,7 @@ public class BotPlacingAlgorithm {
     Ship aircraftCarrier = new Ship(5, "Aircraft Carrier", false);
     Ship currentShip;
 
+    // this creates a list for the ships
     List<Ship> list = new ArrayList<>();
     
     boolean[][] collisionMap;
@@ -32,15 +36,20 @@ public class BotPlacingAlgorithm {
     int shipPlacingTries = 0;
     Random random = new Random();
 
+    /**
+     * this outputs an array with the correct ships at some positions.
+     */
     public Ship[][] botPlacingAlgorithm() {
 
         boolean foundsolution = false;
         
         while (!foundsolution) {
+            // this creates new maps
             collisionMap = new boolean[10][10];
             botShipPlacement = new Ship[10][10];
             list = new ArrayList<>();
 
+            // this adds the ships to a list
             list.add(destroyer);
             list.add(cruiser);
             list.add(submarine);
@@ -49,16 +58,20 @@ public class BotPlacingAlgorithm {
 
             shipPlacingTries = 0;
 
+            // this places the first ship
             placeFirstShip();
 
             int randomAttacks = 0;
 
+            // this tries to place 4 ships
             for (randomAttacks = 0; randomAttacks < 4; randomAttacks++) {
+                // if it cant find a place for ship break the loop
                 if (!getRandomPosition()) {
                     break;
                 }
             }
 
+            // if it was successfull in placing 4 ships, break the loop
             if (randomAttacks == 4) {
                 foundsolution = true;
             }
@@ -67,6 +80,7 @@ public class BotPlacingAlgorithm {
     }
 
 
+    // this takes a random ship from the list and removes it from the list.
     private Ship getRandomShip() {
         int listplace = getRandomNumber(0, (list.size() - 1));
         Ship currentShip = list.get(listplace);
@@ -74,11 +88,13 @@ public class BotPlacingAlgorithm {
         return currentShip;
     }
 
+    // this gives a random number from a provided range
     private int getRandomNumber(int start, int end) {
         int number = random.nextInt((end - start) + 1) + start; // see explanation below
         return number;
     }
 
+    // this tries to find a new location for a ship
     private boolean getRandomPosition() {
         boolean foundLocation = false;
         currentShip = getRandomShip();
@@ -92,10 +108,13 @@ public class BotPlacingAlgorithm {
                 currentShip.locationStart.y = getRandomNumber(1, 8);
             }
 
+            // if the ships do not collide with eachother
             if (checkCollide(currentShip)) {
                 foundLocation = true;
             }
+
             shipPlacingTries++;
+            // if it takes too long to find a new ship try again with a new map
             if (shipPlacingTries >= 25) {
                 return false;
             }
@@ -104,6 +123,7 @@ public class BotPlacingAlgorithm {
         return true;
     }
 
+    // this checks if a ship collides with another ship
     private boolean checkCollide(Ship currentShip) {
         int startY = currentShip.locationStart.y;
         int startX = currentShip.locationStart.x;
@@ -112,10 +132,12 @@ public class BotPlacingAlgorithm {
                 if (collisionMap[startY + i][startX]) {
                     return false;
                 }
-                if ((collisionMap[startY + i][startX - 1]) || (collisionMap[startY + i][startX + 1])) {
+                if ((collisionMap[startY + i][startX - 1]) 
+                    || (collisionMap[startY + i][startX + 1])) {
                     return false;
                 }
-                if ((collisionMap[startY + currentShip.length][startX]) || (collisionMap[startY - 1][startX])) {
+                if ((collisionMap[startY + currentShip.length][startX]) 
+                    || (collisionMap[startY - 1][startX])) {
                     return false;
                 }
             }
@@ -142,6 +164,7 @@ public class BotPlacingAlgorithm {
         return true;
     }
 
+    //this places the first ship in the map parrelel to the border
     private void placeFirstShip() {
 
         currentShip = getRandomShip();
@@ -164,6 +187,7 @@ public class BotPlacingAlgorithm {
         placeShip(currentShip); 
     }
 
+    // this places a ship on the map with a given location
     private void placeShip(Ship currentShip) {
 
         Point startPoint = currentShip.locationStart;
@@ -180,11 +204,7 @@ public class BotPlacingAlgorithm {
             }
             collisionMap[currentPoint.y][currentPoint.x] = true;
             botShipPlacement[currentPoint.y][currentPoint.x] = currentShip;
-
         }
-    }
-    public static void main(String[] args) {
-        new BotPlacingAlgorithm().botPlacingAlgorithm();
     }
 }
 

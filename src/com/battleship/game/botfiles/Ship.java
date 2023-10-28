@@ -3,11 +3,13 @@ package com.battleship.game.botfiles;
 import com.battleship.game.enums.Direction;
 import com.battleship.game.logic.ShipData;
 import com.battleship.game.utils.Vector;
-
 import java.awt.*;
 import java.util.Random;
 
 
+/**
+ * this is for creating ships as objects
+ */
 public class Ship {
     private final Vector position;
     int length;
@@ -128,7 +130,7 @@ public class Ship {
 
     @Override
     public String toString() {
-        return "Length: " + length + ", HP: " + hp + ", Name: " + name +
-                ", Vertical: " + rotation + ", Position: " + position;
+        return "Length: " + length + ", HP: " + hp + ", Name: " + name 
+            + ", Vertical: " + rotation + ", Position: " + position;
     }
 }

@@ -4,19 +4,12 @@ import java.awt.*;
 import java.util.*;
 import java.util.List;
 
-/** Basic Rules for ship placement for the bot.
- * 
- * -5 ships. 1x2 2x3 1x4 1x5
- * -NOT more then 3 the same rotation.
- * -Ships can not touch eachother
- * -1 ship on the border perpendicular to the border
- * 
- * 
- * TODO currently doesnt place any ship on the border
- */
 
+/** this file places ships randomly on a map.
+ */
 public class BotPlacingRandom {
 
+    // this creates 5 new ships to put in the map
     Ship destroyer = new Ship(2, "Destroyer", true);
     Ship cruiser = new Ship(3, "Cruiser", true);
     Ship submarine = new Ship(3, "Submarine", true);
@@ -24,26 +17,32 @@ public class BotPlacingRandom {
     Ship aircraftCarrier = new Ship(5, "Aircraft Carrier", true);
     Ship currentShip;
 
+    // this creates a list for the ships
     List<Ship> list = new ArrayList<>();
     
     boolean[][] collisionMap;
     Ship[][] botShipPlacement;
-    int shipPlacingTries;
+    private int shipPlacingTries;
 
     static int horizontal = 0;
     static int vertical = 0;
 
     Random random = new Random();
 
+    /**
+     * this outputs an array with the correct ships at some positions.
+     */
     public Ship[][] botPlacingRandom() {
 
         boolean foundsolution = false;
         
         while (!foundsolution) {
+            // this creates new maps
             collisionMap = new boolean[10][10];
             botShipPlacement = new Ship[10][10];
             list = new ArrayList<>();
 
+            // add the ships to a list
             list.add(destroyer);
             list.add(cruiser);
             list.add(submarine);
@@ -53,12 +52,14 @@ public class BotPlacingRandom {
             shipPlacingTries = 0;
             int randomAttacks = 0;
 
+            // this tries to place 5 ships
             for (randomAttacks = 0; randomAttacks < 5; randomAttacks++) {
+                // if it cant find a place for ship break the loop
                 if (!getRandomPosition()) {
                     break;
                 }
             }
-
+            // if it was successfull in placing 5 ships, break the loop
             if (randomAttacks == 5) {
                 foundsolution = true;
             }
@@ -66,7 +67,7 @@ public class BotPlacingRandom {
         return botShipPlacement;
     }
 
-
+    // this takes a random ship from the list and removes it from the list.
     private Ship getRandomShip() {
         int listplace = getRandomNumber(0, (list.size() - 1));
         Ship currentShip = list.get(listplace);
@@ -74,11 +75,13 @@ public class BotPlacingRandom {
         return currentShip;
     }
 
+    // this gives a random number from a provided range
     private int getRandomNumber(int start, int end) {
-        int number = random.nextInt((end - start) + 1) + start; // see explanation below
+        int number = random.nextInt((end - start) + 1) + start;
         return number;
     }
 
+    // this tries to find a new location for a ship
     private boolean getRandomPosition() {
         boolean foundLocation = false;
         currentShip = getRandomShip();
@@ -91,11 +94,12 @@ public class BotPlacingRandom {
                 currentShip.locationStart.x = getRandomNumber(0, 10 - currentShip.length);
                 currentShip.locationStart.y = getRandomNumber(0, 9);
             }
-
+            // if the ships do not collide with eachother
             if (checkCollide(currentShip)) {
                 foundLocation = true;
             }
 
+            // if it takes too long to find a new ship try again with a new map
             shipPlacingTries++;
             if (shipPlacingTries >= 25) {
                 return false;
@@ -105,6 +109,7 @@ public class BotPlacingRandom {
         return true;
     }
 
+    // this checks if a ship collides with another ship
     private boolean checkCollide(Ship currentShip) {
         int startY = currentShip.locationStart.y;
         int startX = currentShip.locationStart.x;
@@ -166,6 +171,7 @@ public class BotPlacingRandom {
         return true;
     }
 
+    // this places a ship on the map with a given location
     private void placeShip(Ship currentShip) {
 
         Point startPoint = currentShip.locationStart;
@@ -182,12 +188,7 @@ public class BotPlacingRandom {
             }
             collisionMap[currentPoint.y][currentPoint.x] = true;
             botShipPlacement[currentPoint.y][currentPoint.x] = currentShip;
-
         }
-    }
-
-    public static void main(String[] args) {
-        new BotPlacingRandom().botPlacingRandom();
     }
 }
 

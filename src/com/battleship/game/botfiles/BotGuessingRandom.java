@@ -2,7 +2,6 @@ package com.battleship.game.botfiles;
 
 import com.battleship.game.logic.PlayerData;
 import com.battleship.game.utils.Vector;
-
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,17 +9,18 @@ import java.util.Random;
 
 
 /**
- * This bot guesses a random
- * 
- * 
- * 
- * 
- * 
- * 
- * 
+ * This is the random algorithm for the attacks of the bot. It has a few rules
+ * 1: randomly attack on the board
+ * 2: when the bot hits a ship, it will check around the ship and attack the
+ *    ship until the ship is sunk
  */
 public class BotGuessingRandom extends BotGuessing {
 
+    //things that do not need to be saved
+    Random random = new Random();
+    Vector currentBotAttack;
+
+    //things that do need to be saved
     private boolean firstShipAttack;
     private boolean attackingShip;
     private boolean attackDirectionFound;
@@ -33,9 +33,7 @@ public class BotGuessingRandom extends BotGuessing {
     boolean[][] botAttacks;
     List<String> nextDirection;
 
-    //things that do not need to be saved
-    Random random = new Random();
-    Vector currentBotAttack;
+    
 
     // Used for creating a bot when starting a new game
     public BotGuessingRandom(Ship[][] enemyShips) {
@@ -79,16 +77,20 @@ public class BotGuessingRandom extends BotGuessing {
 
     /**
      * 
-     * 
+     * This method outputs the attack of the bot as a vector.   
      * 
      */
-
     @Override
     public Vector findNextAttack() {
+        // this checks if the bot is currently attacking a ship.
         if (attackingShip) {
+
+            //this checks if the bot hit a ship for the first time.
             if (firstShipAttack) {
                 firstShipAttack = false;
                 firstShipAttack();
+            
+            //this checks if the direction of the ship is found.
             } else if (attackDirectionFound) {
                 //if the direction is found we attack in that direction
                 attackShipInDirection();
@@ -96,14 +98,19 @@ public class BotGuessingRandom extends BotGuessing {
                 //if the direction is not found we attack around the ship
                 attackAroundShip();
             }
+
+        //if the bot is not attacking a ship it will try to find a new ship.
         } else {
             randomAttack();
         }
+
+        // this returns the bot attack as a vector.
         return currentBotAttack;
     }
 
+    // if it is the first ship attack this will check what directions of the ship is possible
     private void firstShipAttack() {
-        // stores the first attack to a point for later use
+        // create a new list with directions
         nextDirection = new ArrayList<>();
 
         if ((currentAttack.y != 0) && (!botAttacks[currentAttack.y - 1][currentAttack.x])) {
@@ -121,6 +128,7 @@ public class BotGuessingRandom extends BotGuessing {
         attackAroundShip();
     }
 
+    // this will attack a square around the ship with the given directions possible
     private void attackAroundShip() {
 
         boolean foundNewHit = false;
@@ -161,6 +169,7 @@ public class BotGuessingRandom extends BotGuessing {
         attack();
     }
 
+    // if the direction is found the bot fill attack in that same direction
     private void attackShipInDirection() {
         boolean foundNewHit = false;
 
@@ -174,23 +183,24 @@ public class BotGuessingRandom extends BotGuessing {
                 case "EAST":
                     if (currentAttack.x != 9) {
                         currentAttack.x++;
-                        }
-                        break;
-                    case "SOUTH":
+                    }
+                    break;
+                case "SOUTH":
                     if (currentAttack.y != 9) {
                         currentAttack.y++;
                     }
-                        break;
-                    case "WEST":
+                    break;
+                case "WEST":
                     if (currentAttack.x != 0) {
                         currentAttack.x--;
                     }
-                        break;
-                    default:
-                        break;
+                    break;
+                default:
+                    break;
             }
             if (checkCollide()) {
                 foundNewHit = true;
+            // if the bot can not attack in the direction it will switch direction
             } else {
                 currentAttack.x = firstHit.x;
                 currentAttack.y = firstHit.y;
@@ -200,6 +210,7 @@ public class BotGuessingRandom extends BotGuessing {
         attack();
     }
 
+    // this switches the direction to the opposite
     private void switchDirection() {
         switch (currentDirection) {
             case "NORTH":
@@ -214,15 +225,19 @@ public class BotGuessingRandom extends BotGuessing {
             case "WEST":
                 currentDirection = "EAST";
                 break;
+            default:
+                break;
         } 
     }
 
+    // this attacks a "random" square on the board
     private void randomAttack() {
         boolean foundNewHit = false;
         while (!foundNewHit) {
             currentAttack.y = getRandomNumber(0, 9);
             currentAttack.x = getRandomNumber(0, 9);
 
+            // this checks if the spot is not already attacked
             if (checkCollide()) {
                 foundNewHit = true;
             }
@@ -230,10 +245,13 @@ public class BotGuessingRandom extends BotGuessing {
         attack();
     }
 
+    // this will attack a given square in the array
     private void attack() {
 
+        // create a new vector with the current attack to be able to return it
         currentBotAttack = new Vector(currentAttack.x, currentAttack.y);
 
+        // the currentShip is the ship that is attacked.
         Ship currentShip = enemyShips[currentAttack.y][currentAttack.x];
 
         //add the attack to the attack array, so we know what is already attacked
@@ -243,8 +261,7 @@ public class BotGuessingRandom extends BotGuessing {
             
             //hp of the ship goes down
             currentShip.hp--;
-            // if the ship is sunk we stop attacking the ship
-            
+
             // if we were attacking a ship and we hit it
             if (attackingShip) {
                 // we found the direction
@@ -270,14 +287,17 @@ public class BotGuessingRandom extends BotGuessing {
         }
     }
 
+    // this gives a random number when provided a range.
     private int getRandomNumber(int start, int end) {
-        return random.nextInt((end - start) + 1) + start; // see explanation below
+        return random.nextInt((end - start) + 1) + start;
     }
 
+    // this checks if the attack collides
     private boolean checkCollide() {
         return !botAttacks[currentAttack.y][currentAttack.x];
     }
 
+    // this checks if a ship is sunk.
     private boolean checkSunk(Ship currentShip) {
         if (currentShip.hp == 0) {
             totalShips--;
@@ -291,5 +311,4 @@ public class BotGuessingRandom extends BotGuessing {
 
     private void endGame() {
     }
-
 }
