@@ -52,6 +52,7 @@ public class Ship {
         this.rotation = Boolean.parseBoolean(
                 shipString.substring(dataStartIndexes[3], dataEndIndexes[3]));
         this.position = new Vector(shipString.substring(dataStartIndexes[4]));
+        this.locationStart.setLocation(position.getX(), position.getY());
     }
 
     public Ship(ShipData shipData) {

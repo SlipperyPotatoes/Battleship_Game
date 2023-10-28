@@ -2,8 +2,10 @@ package com.battleship.game.utils;
 
 import com.battleship.game.botfiles.Ship;
 import com.battleship.game.enums.Direction;
+import com.battleship.game.logic.PlayerData;
 import com.battleship.game.logic.ShipData;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public class ShipUtils {
@@ -134,5 +136,25 @@ public class ShipUtils {
         }
 
         return shipGrid;
+    }
+
+    public static boolean isShipSunk(PlayerData playerData, String shipName) {
+        for (Ship ship : playerData.getShipArray()) {
+            if (ship.getName().equals(shipName)) {
+                return ship.isDead();
+            }
+        }
+        throw new IllegalArgumentException("Ship name, " + shipName + ", does not exist");
+    }
+
+    public static String pointToStr(Point point) {
+        return point.x + " " + point.y;
+    }
+
+    public static Point strToPoint(String str) {
+        int spaceIndex = str.indexOf(" ");
+        int x = Integer.parseInt(str.substring(0, spaceIndex));
+        int y = Integer.parseInt(str.substring(spaceIndex + 1));
+        return new Point(x, y);
     }
 }

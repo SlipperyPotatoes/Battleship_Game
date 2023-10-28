@@ -19,8 +19,6 @@ public class Test {
         Ship ship = new Ship(5, "cool name", false);
         assert ship.toString().equals(new Ship(ship.toString()).toString());
 
-        BotSaveData botSaveData = new BotSaveData(false, true, false);
-        assert botSaveData.toString().equals(new BotSaveData(botSaveData.toString()).toString());
     }
 
 }

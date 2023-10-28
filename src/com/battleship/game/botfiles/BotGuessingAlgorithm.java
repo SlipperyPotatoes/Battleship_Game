@@ -1,6 +1,7 @@
 package com.battleship.game.botfiles;
 
 import com.battleship.game.logic.PlayerData;
+import com.battleship.game.utils.ShipUtils;
 import com.battleship.game.utils.Vector;
 import java.awt.*;
 import java.util.ArrayList;
@@ -31,6 +32,7 @@ public class BotGuessingAlgorithm extends BotGuessing {
     private boolean firstShipAttack;
     private boolean attackingShip;
     private boolean attackDirectionFound;
+    private boolean isUnevenSquares;
     private String currentDirection;
     private int totalShips;
     private int smallestShipSize;
@@ -45,8 +47,8 @@ public class BotGuessingAlgorithm extends BotGuessing {
     Point firstHit;
     Ship[][] enemyShips;
     int[][] currentSquares;
-    boolean[][] botAttacks;
     boolean[][] attackMap;
+    boolean[][] botAttacks;
     List<String> nextDirection;
 
     // Used for creating a bot when starting a new game
@@ -66,6 +68,7 @@ public class BotGuessingAlgorithm extends BotGuessing {
         firstShipAttack = true;
         attackingShip = false;
         attackDirectionFound = false;
+        isUnevenSquares = false;
         currentDirection = "";
         totalShips = 5;
         smallestShipSize = 2;
@@ -81,8 +84,8 @@ public class BotGuessingAlgorithm extends BotGuessing {
         firstHit = new Point();
         this.enemyShips = enemyShips;
         currentSquares = new int[5][10];
-        botAttacks = new boolean[10][10];
         attackMap = new boolean[10][10];
+        botAttacks = new boolean[10][10];
         nextDirection = new ArrayList<>();
     }
 
@@ -90,27 +93,31 @@ public class BotGuessingAlgorithm extends BotGuessing {
         firstAttack = botSaveData.getFirstAttack();
         firstShipAttack = botSaveData.getFirstShipAttack();
         attackingShip = botSaveData.getAttackingShip();
-        //Load and save all these:
-        /*
-        attackDirectionFound;
-        currentDirection;
-        totalShips;
-        smallestShipSize;
 
-        destroyerSunk;
-        cruiserSunk;
-        submarineSunk;
-        battleshipSunk;
-        aircraftCarrierSunk;
+        attackDirectionFound = botSaveData.getAttackDirectionFound();
+        currentDirection = botSaveData.getCurrentDirection();
+        totalShips = 5;
+        smallestShipSize = 2;
 
-        currentAttack;
-        firstHit;
-        this.enemyShips;
-        currentSquares;
-        botAttacks;
-        attackMap;
-        nextDirection;
-        */
+        destroyerSunk = ShipUtils.isShipSunk(enemyData, "Destroyer");
+        cruiserSunk = ShipUtils.isShipSunk(enemyData, "Cruiser");
+        submarineSunk = ShipUtils.isShipSunk(enemyData, "Submarine");
+        battleshipSunk = ShipUtils.isShipSunk(enemyData, "Battleship");
+        aircraftCarrierSunk = ShipUtils.isShipSunk(enemyData, "Aircraft Carrier");
+
+        currentAttack = botSaveData.getCurrentAttack();
+        firstHit = botSaveData.getFirstHit();
+        this.enemyShips = enemyData.getShipGrid();
+        currentSquares = botSaveData.getCurrentSquares();
+        attackMap = enemyData.getPlacesBeenAttacked();
+        botAttacks = attackMap.clone();
+        for (Ship ship : enemyData.getShipArray()) {
+            if (ship.isDead()) {
+                addBorder(ship);
+            }
+        }
+        nextDirection = botSaveData.getNextDirection();
+
     }
     
     
@@ -155,7 +162,6 @@ public class BotGuessingAlgorithm extends BotGuessing {
     // this will attack 1 of the 4 squares in the middle 
     // and create an attack that belongs to the square.
     private void firstAttack() {
-        boolean isUnevenSquares;
         // first randomly hit 1 of the 4 squares in the center and creates an attack pattern
         switch (getRandomNumber(1, 4)) {
             case 1:
@@ -528,6 +534,8 @@ public class BotGuessingAlgorithm extends BotGuessing {
 
     @Override
     public BotSaveData toSaveData() {
-        return new BotSaveData(firstAttack, firstShipAttack, attackingShip);
+        return new BotSaveData(firstAttack, firstShipAttack, attackingShip,
+                attackDirectionFound, currentDirection, isUnevenSquares,
+                currentAttack, firstHit, nextDirection);
     }
 }

@@ -84,8 +84,7 @@ public class HumanVsBotGame extends Game {
             fileWriter.append(bot.getBotSaveData().toString());
             fileWriter.append("\n");
             fileWriter.close();
-        } catch (Exception ignored) {
-        }
+        } catch (Exception ignored) {}
 
         main.endGame();
     }

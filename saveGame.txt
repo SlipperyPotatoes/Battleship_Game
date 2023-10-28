@@ -1,21 +1,21 @@
 player 1 data:
 	places been attacked:
+	1111111110
+	1101101001
 	0000000000
-	0000000000
-	0000000000
-	0000000000
-	0000000000
-	0000000000
-	0000000000
-	0000000000
-	0000000000
-	0000000000
+	1000100111
+	0000110000
+	0110111101
+	1111010000
+	0100001000
+	0000000100
+	0111010001
 	ship data:
 	0 - Empty
-	1 - Length: 5, HP: 5, Name: Aircraft Carrier, Vertical: false, Position: 0 0
+	1 - Length: 5, HP: 0, Name: Aircraft Carrier, Vertical: false, Position: 0 0
 	2 - Length: 4, HP: 4, Name: Battleship, Vertical: false, Position: 0 2
 	3 - Length: 3, HP: 3, Name: Submarine, Vertical: false, Position: 0 4
-	4 - Length: 3, HP: 3, Name: Cruiser, Vertical: false, Position: 0 6
+	4 - Length: 3, HP: 0, Name: Cruiser, Vertical: false, Position: 0 6
 	5 - Length: 2, HP: 2, Name: Destroyer, Vertical: false, Position: 0 8
 	ship grid:
 	1111100000
@@ -31,36 +31,42 @@ player 1 data:
 	
 player 2 data:
 	places been attacked:
-	0000000000
-	0000000000
-	0000000000
-	0000000000
-	0000000000
-	0000000000
-	0000000000
-	0000000000
-	0000000000
-	0000000000
+	0100100100
+	1011011100
+	0100100110
+	0010011110
+	1000100101
+	0101010101
+	1001000011
+	1010101000
+	1111100100
+	1000000000
 	ship data:
 	0 - Empty
-	1 - Length: 2, HP: 2, Name: Destroyer, Vertical: true, Position: 0 0
-	2 - Length: 5, HP: 5, Name: Aircraft Carrier, Vertical: false, Position: 0 0
-	3 - Length: 3, HP: 3, Name: Cruiser, Vertical: false, Position: 0 0
-	4 - Length: 4, HP: 4, Name: Battleship, Vertical: true, Position: 0 0
-	5 - Length: 3, HP: 3, Name: Submarine, Vertical: false, Position: 0 0
+	1 - Length: 5, HP: 0, Name: Aircraft Carrier, Vertical: true, Position: 0 0
+	2 - Length: 2, HP: 0, Name: Destroyer, Vertical: true, Position: 0 0
+	3 - Length: 4, HP: 4, Name: Battleship, Vertical: false, Position: 0 0
+	4 - Length: 3, HP: 0, Name: Submarine, Vertical: true, Position: 0 0
+	5 - Length: 3, HP: 0, Name: Cruiser, Vertical: false, Position: 0 0
 	ship grid:
-	0000000001
-	0022222001
-	0000000000
-	3330000000
-	0000000000
-	0000004000
-	5550004000
-	0000004000
-	0000004000
-	0000000000
+	0000000100
+	0000000100
+	0000000100
+	0000000100
+	0000000100
+	0000000002
+	0000333302
+	4000000000
+	4055500000
+	4000000000
 	
 bot data:
-	First attack: true
+	First attack: false
 	First ship attack: true
 	Attacking ship: false
+	Attack direction found: false
+	Current direction: WEST
+	Uneven squares: false
+	Current Attack: 4 1
+	First hit: 3 0
+	Next direction(s): SOUTH, WEST

@@ -1,6 +1,7 @@
 package com.battleship.game.botfiles;
 
 import com.battleship.game.logic.PlayerData;
+import com.battleship.game.utils.ShipUtils;
 import com.battleship.game.utils.Vector;
 import java.awt.*;
 import java.util.ArrayList;
@@ -49,32 +50,27 @@ public class BotGuessingRandom extends BotGuessing {
         firstShipAttack = true;
         attackingShip = false;
         attackDirectionFound = false;
+        currentDirection = "";
         totalShips = 5;
         currentAttack = new Point();
         firstHit = new Point();
         this.enemyShips = enemyShips;
         botAttacks = new boolean[10][10];
+        nextDirection = new ArrayList<>();
     }
 
     private void whenLoadGame(PlayerData enemyData, BotSaveData botSaveData) {
         firstShipAttack = botSaveData.getFirstShipAttack();
         attackingShip = botSaveData.getAttackingShip();
-        /*
-         * LOAD THESE
-         * 
+        attackDirectionFound = botSaveData.getAttackDirectionFound();
+        currentDirection = botSaveData.getCurrentDirection();
+        totalShips = 5;
 
-
-        attackDirectionFound;
-        currentDirection;
-        totalShips;
-    
-        currentAttack;
-        firstHit;
-        enemyShips;
-        currentSquares;
-        botAttacks;
-        List<String> nextDirection;
-        */
+        currentAttack = botSaveData.getCurrentAttack();
+        firstHit = botSaveData.getFirstHit();
+        this.enemyShips = enemyData.getShipGrid();
+        botAttacks = enemyData.getPlacesBeenAttacked();
+        nextDirection = botSaveData.getNextDirection();
     }
 
     /**
@@ -324,6 +320,8 @@ public class BotGuessingRandom extends BotGuessing {
             }
         }
 
-        return new BotSaveData(firstAttack, firstShipAttack, attackingShip);
+        return new BotSaveData(firstAttack, firstShipAttack, attackingShip,
+                attackDirectionFound, currentDirection, false,
+                currentAttack, firstHit, nextDirection);
     }
 }
