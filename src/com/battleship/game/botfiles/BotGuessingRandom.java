@@ -41,8 +41,8 @@ public class BotGuessingRandom extends BotGuessing {
     }
 
     // Used for creating a bot based on saved data
-    public BotGuessingRandom(PlayerData enemyData) {
-        whenLoadGame(enemyData);
+    public BotGuessingRandom(PlayerData enemyData, BotSaveData botSaveData) {
+        whenLoadGame(enemyData, botSaveData);
     }
 
     private void whenNewGame(Ship[][] enemyShips) {
@@ -56,12 +56,14 @@ public class BotGuessingRandom extends BotGuessing {
         botAttacks = new boolean[10][10];
     }
 
-    private void whenLoadGame(PlayerData enemyData) {
+    private void whenLoadGame(PlayerData enemyData, BotSaveData botSaveData) {
+        firstShipAttack = botSaveData.getFirstShipAttack();
+        attackingShip = botSaveData.getAttackingShip();
         /*
          * LOAD THESE
          * 
-        firstShipAttack;
-        attackingShip;
+
+
         attackDirectionFound;
         currentDirection;
         totalShips;
@@ -310,5 +312,18 @@ public class BotGuessingRandom extends BotGuessing {
     }
 
     private void endGame() {
+    }
+
+    @Override
+    public BotSaveData toSaveData() {
+        boolean firstAttack = true;
+
+        for (int y = 0; y < botAttacks.length; y++) {
+            for (int x = 0; x < botAttacks[0].length; x++) {
+                firstAttack = firstAttack && !botAttacks[y][x];
+            }
+        }
+
+        return new BotSaveData(firstAttack, firstShipAttack, attackingShip);
     }
 }

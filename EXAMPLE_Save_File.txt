@@ -1,0 +1,30 @@
+save data file example...:
+
+
+player 1 data:
+	places been attacked:
+	0000000000000
+	0000000000000
+	0100000010000
+...
+	0001011100100
+	ship data:
+	0 - Empty
+	1 - Length: 2, .....
+...
+	7 - .....
+	ship grid:
+	0000033330000
+	1000000000700
+	1000000000700
+...
+	0020000000000
+
+player 2 data:
+//same stuff as p1
+
+bot data:
+	First attack: true
+	First ship attack: true
+	Attacking ship: false
+	
