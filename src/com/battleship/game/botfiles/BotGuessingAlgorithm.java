@@ -120,7 +120,6 @@ public class BotGuessingAlgorithm extends BotGuessing {
             }
         }
         nextDirection = botSaveData.getNextDirection();
-
     }
     
     
@@ -420,6 +419,7 @@ public class BotGuessingAlgorithm extends BotGuessing {
     private void addBorder(Ship currentShip) {
         int startX = currentShip.locationStart.x;
         int startY = currentShip.locationStart.y;
+        
         if (currentShip.rotation) {
             for (int i = 0; i < currentShip.length; i++) {
                 if (startX != 9) {
@@ -483,16 +483,9 @@ public class BotGuessingAlgorithm extends BotGuessing {
             if (!destroyerSunk) {
                 smallestShipSize = 2;
             }
-            if (totalShips == 0) {
-                endGame();
-            }
             return true;
         }
         return false;
-    }
-
-    // if the game has ended
-    private void endGame() {
     }
 
     // this checks the x-axis if a ship can fit

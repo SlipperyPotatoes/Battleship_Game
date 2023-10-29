@@ -67,6 +67,9 @@ public class Ship {
         this.name = shipData.getName();
         this.rotation = Direction.VERTICAL == shipData.getDirection();
         this.position = shipData.getPosition();
+
+        this.locationStart.x = this.position.getX();
+        this.locationStart.y = this.position.getY();
     }
 
     /**

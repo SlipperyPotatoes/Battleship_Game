@@ -2,7 +2,7 @@
 Student project made by Stephan Salvi (1922866) and Cas van Meel (1998900) for the CBL at TUe
 
 **RULES FOR PLAYING THE GAME:**
-- Ships cannot touch edges (diagonal corners don't matter)
+- Ships cannot touch eachothers edges (diagonal corners don't matter)
 - The first player to destroy 5 ships wins.
 - Attacks that hit a ship are shown as a red X
 - Attacks that hit no ship are shown as a black X 

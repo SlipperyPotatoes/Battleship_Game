@@ -1,0 +1,72 @@
+player 1 data:
+	places been attacked:
+	0000000000
+	0000000000
+	0000000000
+	0000000000
+	0000000000
+	0000100000
+	0000000000
+	0000000000
+	0000000000
+	0000000000
+	ship data:
+	0 - Empty
+	1 - Length: 5, HP: 5, Name: Aircraft Carrier, Vertical: false, Position: 3 0
+	2 - Length: 4, HP: 4, Name: Battleship, Vertical: false, Position: 2 3
+	3 - Length: 3, HP: 3, Name: Submarine, Vertical: false, Position: 5 5
+	4 - Length: 3, HP: 3, Name: Cruiser, Vertical: false, Position: 0 6
+	5 - Length: 2, HP: 2, Name: Destroyer, Vertical: false, Position: 0 8
+	ship grid:
+	0001111100
+	0000000000
+	0000000000
+	0022220000
+	0000000000
+	0000033300
+	4440000000
+	0000000000
+	5500000000
+	0000000000
+	
+player 2 data:
+	places been attacked:
+	0000000000
+	0000000000
+	0000000000
+	0000000000
+	0000000000
+	0000100000
+	0000000000
+	0000000000
+	0000000000
+	0000000000
+	ship data:
+	0 - Empty
+	1 - Length: 5, HP: 5, Name: Aircraft Carrier, Vertical: true, Position: 0 0
+	2 - Length: 4, HP: 3, Name: Battleship, Vertical: true, Position: 0 0
+	3 - Length: 3, HP: 3, Name: Cruiser, Vertical: true, Position: 0 0
+	4 - Length: 3, HP: 3, Name: Submarine, Vertical: true, Position: 0 0
+	5 - Length: 2, HP: 2, Name: Destroyer, Vertical: true, Position: 0 0
+	ship grid:
+	0000000000
+	0000000010
+	0000000010
+	0000200010
+	3000200010
+	3000200010
+	3000200400
+	0005000400
+	0005000400
+	0000000000
+	
+bot data:
+	First attack: false
+	First ship attack: true
+	Attacking ship: false
+	Attack direction found: false
+	Current direction: 
+	Uneven squares: true
+	Current Attack: 4 5
+	First hit: 0 0
+	Next direction(s): EMPTY
