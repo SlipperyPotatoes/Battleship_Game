@@ -3,6 +3,9 @@ package com.battleship.game.logic;
 import com.battleship.game.enums.Direction;
 import com.battleship.game.utils.Vector;
 
+/**
+ * TODO ADD COMMENT.
+ */
 public class ShipData {
     private final int size;
     private final String name;
@@ -10,6 +13,9 @@ public class ShipData {
     private Direction direction;
 
 
+    /**
+    * TODO ADD COMMENT.
+    */
     public ShipData(Vector position, Direction direction, int size, String name) {
         this.position = position;
         this.direction = direction;
@@ -35,7 +41,8 @@ public class ShipData {
 
     @Override
     public String toString() {
-        return "Pos: " + position.toString() + ", Direction: " + direction.getVec() + ", Size: " + size;
+        return "Pos: " + position.toString() 
+            + ", Direction: " + direction.getVec() + ", Size: " + size;
     }
 
     public Direction getDirection() {

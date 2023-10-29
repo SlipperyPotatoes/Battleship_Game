@@ -1,19 +1,23 @@
 package com.battleship.game.panels;
 
+import static com.battleship.game.utils.AssetUtils.loadIcon;
+import static com.battleship.game.utils.AssetUtils.scaleImage;
+
 import com.battleship.game.Main;
 import com.battleship.game.botfiles.Ship;
 import com.battleship.game.enums.GameState;
 import com.battleship.game.logic.Game;
 import com.battleship.game.logic.PlayerData;
 import com.battleship.game.utils.Vector;
-
-import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import javax.swing.*;
 
-import static com.battleship.game.utils.AssetUtils.loadIcon;
-import static com.battleship.game.utils.AssetUtils.scaleImage;
 
+
+/**
+ * TODO ADD COMMENT.
+ */
 public class BotAttackPanel extends AttackPanel {
     private final ImageIcon boatMiddleHorizontal;
     private final ImageIcon boatMiddleVertical;
@@ -45,6 +49,9 @@ public class BotAttackPanel extends AttackPanel {
 
     JLabel[][] gridLabels;
 
+    /**
+     * TODO ADD COMMENT.
+     */
     public BotAttackPanel(Main main, PlayerData enemyPlayerData) {
         super(main, GameState.PLAYER_2_ATTACK, enemyPlayerData);
         // Loads the images for the different parts of the boat
@@ -108,7 +115,8 @@ public class BotAttackPanel extends AttackPanel {
                                     .setIcon(hit ? boatEndDownXScaled : boatEndDownScaled);
                         } else {
                             gridLabels[checkPos.getY()][checkPos.getX()]
-                                    .setIcon(hit ? boatMiddleVerticalXScaled : boatMiddleVerticalScaled);
+                                    .setIcon(hit ? boatMiddleVerticalXScaled
+                                        : boatMiddleVerticalScaled);
                         }
                         break;
                     case HORIZONTAL:
@@ -120,8 +128,11 @@ public class BotAttackPanel extends AttackPanel {
                                     .setIcon(hit ? boatEndRightXScaled : boatEndRightScaled);
                         } else {
                             gridLabels[checkPos.getY()][checkPos.getX()]
-                                    .setIcon(hit ? boatMiddleHorizontalXScaled : boatMiddleHorizontalScaled);
+                                    .setIcon(hit ? boatMiddleHorizontalXScaled
+                                        : boatMiddleHorizontalScaled);
                         }
+                        break;
+                    default:
                         break;
                 }
                 checkPos.add(ship.getDirection().getVec());
@@ -131,6 +142,9 @@ public class BotAttackPanel extends AttackPanel {
     }
 
 
+    /**
+     * TODO ADD COMMENT.
+     */
     void scaleImages() {
         Dimension dimensions = gridLabels[0][0].getSize();
         int w = dimensions.width;

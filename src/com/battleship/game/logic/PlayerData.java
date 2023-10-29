@@ -1,30 +1,43 @@
 package com.battleship.game.logic;
 
-import com.battleship.game.botfiles.Ship;
-import com.battleship.game.utils.Vector;
-
-import java.util.ArrayList;
-
 import static com.battleship.game.utils.ShipUtils.convertShipGridToShipArray;
 
+import com.battleship.game.botfiles.Ship;
+import com.battleship.game.utils.Vector;
+import java.util.ArrayList;
+
+
+
 // Player can be a user (referred to as humans) or bot
+/**
+* TODO ADD COMMENT.
+*/
 public class PlayerData {
     private boolean shipsSet;
     private Ship[][] ships;
     private boolean[][] placesBeenAttacked;
 
+    /**
+     * TODO ADD COMMENT.
+     */
     public PlayerData() {
         shipsSet = false;
         ships = new Ship[Game.SIZE_Y][Game.SIZE_X];
         placesBeenAttacked = new boolean[Game.SIZE_Y][Game.SIZE_X];
     }
 
+    /**
+     * TODO ADD COMMENT.
+     */
     public PlayerData(Ship[][] ships, boolean[][] placesBeenAttacked) {
         shipsSet = true;
         this.ships = ships;
         this.placesBeenAttacked = placesBeenAttacked;
     }
 
+    /**
+     * TODO ADD COMMENT.
+     */
     public void setShips(Ship[][] ships) {
         if (shipsSet) {
             throw new RuntimeException("Ships positions shouldn't be changed");
@@ -62,6 +75,9 @@ public class PlayerData {
         placesBeenAttacked[vec.getY()][vec.getX()] = true;
     }
 
+    /**
+     * TODO ADD COMMENT.
+     */
     public void attackAt(Vector vec) {
         placesBeenAttacked[vec.getY()][vec.getX()] = true;
         if (shipAt(vec)) {
@@ -73,6 +89,9 @@ public class PlayerData {
         return placesBeenAttacked[y][x];
     }
 
+    /**
+     * TODO ADD COMMENT.
+     */
     public boolean allShipsDead() {
         for (int y = 0; y < ships.length; y++) {
             for (int x = 0; x < ships[0].length; x++) {

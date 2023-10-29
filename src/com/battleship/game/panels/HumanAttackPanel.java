@@ -1,22 +1,26 @@
 package com.battleship.game.panels;
 
+import static com.battleship.game.utils.AssetUtils.loadIcon;
+import static com.battleship.game.utils.AssetUtils.scaleImage;
+
 import com.battleship.game.Main;
 import com.battleship.game.botfiles.Ship;
 import com.battleship.game.enums.GameState;
 import com.battleship.game.logic.Game;
 import com.battleship.game.logic.PlayerData;
 import com.battleship.game.utils.Vector;
-
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import javax.swing.*;
 
-import static com.battleship.game.utils.AssetUtils.loadIcon;
-import static com.battleship.game.utils.AssetUtils.scaleImage;
 
+
+/**
+* TODO ADD COMMENT.
+*/
 public class HumanAttackPanel extends AttackPanel implements ActionListener {
     private final ImageIcon attackLineHorizontal;
     private final ImageIcon attackLineVertical;
@@ -27,6 +31,9 @@ public class HumanAttackPanel extends AttackPanel implements ActionListener {
     private JButton saveGameButton;
 
 
+    /**
+    * TODO ADD COMMENT.
+    */
     public HumanAttackPanel(Main main, GameState gameState, PlayerData enemyPlayerData) {
         super(main, gameState, enemyPlayerData);
 
@@ -127,9 +134,12 @@ public class HumanAttackPanel extends AttackPanel implements ActionListener {
         if (enemyPlayerData.allShipsDead()) {
             Timer timer;
             switch (main.getGameState()) {
-                case PLAYER_1_ATTACK -> timer = new Timer(1000, unused -> main.finishGame("PLAYER 1"));
-                case PLAYER_2_ATTACK -> timer = new Timer(1000, unused -> main.finishGame("PLAYER 2"));
-                default -> throw new IllegalStateException("Attacking with gameState: " + main.getGameState());
+                case PLAYER_1_ATTACK -> timer 
+                    = new Timer(1000, unused -> main.finishGame("PLAYER 1"));
+                case PLAYER_2_ATTACK -> timer 
+                    = new Timer(1000, unused -> main.finishGame("PLAYER 2"));
+                default -> throw new
+                     IllegalStateException("Attacking with gameState: " + main.getGameState());
             }
 
             timer.setRepeats(false);
@@ -155,7 +165,8 @@ public class HumanAttackPanel extends AttackPanel implements ActionListener {
                     if (ship == null) {
                         attackImage = attackMissScaled;
                     } else if (ship.isDead()) {
-                        attackImage = ship.isVertical() ? attackLineVerticalScaled : attackLineHorizontalScaled;
+                        attackImage = ship.isVertical() 
+                            ? attackLineVerticalScaled : attackLineHorizontalScaled;
                     } else {
                         attackImage = attackHitScaled;
                     }

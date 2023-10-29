@@ -1,5 +1,7 @@
 package com.battleship.game.logic;
 
+import static com.battleship.game.utils.AssetUtils.playerDataToSaveString;
+
 import com.battleship.game.Main;
 import com.battleship.game.botfiles.BotSaveData;
 import com.battleship.game.enums.BotAlgorithm;
@@ -8,21 +10,25 @@ import com.battleship.game.panels.BotAttackPanel;
 import com.battleship.game.panels.HumanAttackPanel;
 import com.battleship.game.panels.ShipPlacementPanel;
 import com.battleship.game.utils.Vector;
-
-import javax.swing.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import javax.swing.*;
 
-import static com.battleship.game.utils.AssetUtils.playerDataToSaveString;
 
 // The human will always be player 1 and the bot always player 2
+/**
+ * TODO ADD COMMENT.
+ */
 public class HumanVsBotGame extends Game {
     Bot bot;
     BotAlgorithm algorithm;
     BotAttackPanel botAttackPanel;
 
+    /**
+     * TODO ADD COMMENT.
+     */
     public HumanVsBotGame(Main main, BotAlgorithm algorithm) {
         super(main);
         this.algorithm = algorithm;
@@ -56,7 +62,9 @@ public class HumanVsBotGame extends Game {
 
         bot = new Bot(algorithm, player1, botSaveData);
 
-        HumanAttackPanel humanAttackPanel = new HumanAttackPanel(main, GameState.PLAYER_1_ATTACK, player2);
+        HumanAttackPanel humanAttackPanel =
+            new HumanAttackPanel(main, GameState.PLAYER_1_ATTACK, player2);
+
         main.getMainPanel().add(humanAttackPanel,
                 humanAttackPanel.getPanelState().toString());
 
@@ -84,7 +92,9 @@ public class HumanVsBotGame extends Game {
             fileWriter.append(bot.getBotSaveData().toString());
             fileWriter.append("\n");
             fileWriter.close();
-        } catch (Exception ignored) {}
+        // TODO DONT KNOW WHAT TO CHANGE HERE
+        } catch (Exception ignored) {
+        }
 
         main.endGame();
     }
@@ -96,7 +106,9 @@ public class HumanVsBotGame extends Game {
 
         setNextPlayerShips(bot.generateShipPositions());
 
-        HumanAttackPanel humanAttackPanel = new HumanAttackPanel(main, GameState.PLAYER_1_ATTACK, player2);
+        HumanAttackPanel humanAttackPanel = 
+            new HumanAttackPanel(main, GameState.PLAYER_1_ATTACK, player2);
+
         main.getMainPanel().add(humanAttackPanel,
                 humanAttackPanel.getPanelState().toString());
 
@@ -127,11 +139,13 @@ public class HumanVsBotGame extends Game {
         botAttackPanel.updateLabels();
 
 
+        // if all the players ships are destroyed the bot wins
         if (player1.allShipsDead()) {
             main.finishGame("BOT");
             return;
         }
 
+        // this delays the attack so that the player can see what the bot attacked.
         Timer timer = new Timer(1500, e -> nextAttack());
         timer.setRepeats(false);
         timer.start();

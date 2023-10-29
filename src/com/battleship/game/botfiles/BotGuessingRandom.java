@@ -1,7 +1,6 @@
 package com.battleship.game.botfiles;
 
 import com.battleship.game.logic.PlayerData;
-import com.battleship.game.utils.ShipUtils;
 import com.battleship.game.utils.Vector;
 import java.awt.*;
 import java.util.ArrayList;

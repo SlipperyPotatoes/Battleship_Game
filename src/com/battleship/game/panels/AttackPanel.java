@@ -1,19 +1,22 @@
 package com.battleship.game.panels;
 
+import static com.battleship.game.utils.AssetUtils.loadIcon;
+
 import com.battleship.game.Main;
 import com.battleship.game.botfiles.Ship;
 import com.battleship.game.enums.GameState;
 import com.battleship.game.logic.Game;
 import com.battleship.game.logic.PlayerData;
-
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.util.ArrayList;
+import javax.swing.*;
 
-import static com.battleship.game.utils.AssetUtils.loadIcon;
 
+/**
+ * TODO ADD COMMENT.
+ */
 public abstract class AttackPanel extends BasePanel {
     final ImageIcon attackHit;
     final ImageIcon attackMiss;
@@ -29,6 +32,9 @@ public abstract class AttackPanel extends BasePanel {
 
 
 
+    /**
+     * TODO ADD COMMENT.
+     */
     public AttackPanel(Main main, GameState gameState, PlayerData enemyPlayerData) {
         super(main, gameState);
 
@@ -76,6 +82,9 @@ public abstract class AttackPanel extends BasePanel {
 
     abstract void scaleImages();
 
+    /**
+     * TODO ADD COMMENT.
+     */
     public void updateLabels() {
         int shipsSunk = 0;
         int attacks = 0;
@@ -106,6 +115,9 @@ public abstract class AttackPanel extends BasePanel {
         missCountLabel.setText("<html>" + "Miss count: " + (attacks - hits) + "</html>");
     }
 
+    /**
+     * TODO ADD COMMENT.
+     */
     void addStatLabels() {
         this.add(shipsSunkLabel);
         this.add(attackCountLabel);

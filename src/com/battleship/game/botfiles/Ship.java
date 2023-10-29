@@ -8,7 +8,7 @@ import java.util.Random;
 
 
 /**
- * this is for creating ships as objects
+ * this is for creating ships as objects.
  */
 public class Ship {
     private final Vector position;
@@ -19,6 +19,10 @@ public class Ship {
     String name;
     boolean randomRotation;
 
+    /**
+     * 
+     * TODO ADD COMMENT.
+     */
     public Ship(String shipString) {
         int[] dataStartIndexes = new int[5];
         int[] dataEndIndexes = new int[4];
@@ -55,6 +59,9 @@ public class Ship {
         this.locationStart.setLocation(position.getX(), position.getY());
     }
 
+    /**
+     *  TODO ADD COMMENT.
+     */
     public Ship(ShipData shipData) {
         this.length = shipData.getSize();
         this.hp = length;
@@ -63,6 +70,9 @@ public class Ship {
         this.position = shipData.getPosition();
     }
 
+    /**
+     * TODO ADD COMMENT.
+     */
     public Ship(int length, String name, boolean randomRotation) {
         this.length = length;
         this.hp = length;
@@ -72,6 +82,10 @@ public class Ship {
         this.position = Vector.ZERO;
     }
 
+    /*this method will give rotaion to a ship for the algorithm so that there cannot be,
+     * more than 3 ships rotated the same way.
+     * for the random algortihm it just ganerates a random rotation
+    */
     private boolean rotateShips() {
         Random random = new Random();
         boolean rotate = random.nextBoolean();

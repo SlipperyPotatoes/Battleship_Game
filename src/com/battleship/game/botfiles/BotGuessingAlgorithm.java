@@ -462,6 +462,8 @@ public class BotGuessingAlgorithm extends BotGuessing {
                 case "Submarine" -> submarineSunk = true;
                 case "Battleship" -> battleshipSunk = true;
                 case "Aircraft Carrier" -> aircraftCarrierSunk = true;
+                default -> {
+                }
             }
             if (!aircraftCarrierSunk) {
                 smallestShipSize = 5;

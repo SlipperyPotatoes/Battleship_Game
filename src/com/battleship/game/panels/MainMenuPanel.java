@@ -1,22 +1,28 @@
 package com.battleship.game.panels;
 
+import static com.battleship.game.utils.AssetUtils.loadIcon;
+
 import com.battleship.game.Main;
 import com.battleship.game.enums.BotAlgorithm;
 import com.battleship.game.enums.GameState;
-
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.*;
 
-import static com.battleship.game.utils.AssetUtils.loadIcon;
 
+/**
+ * TODO ADD COMMENT.
+ */
 public class MainMenuPanel extends BasePanel implements ActionListener {
     private final JButton newBotGameButton;
     private final JButton loadBotGameButton;
     private final JButton changeAlgorithmButton;
     private BotAlgorithm botAlgorithm;
 
+    /**
+    * TODO ADD COMMENT.
+    */
     public MainMenuPanel(Main main) {
         super(main, GameState.MAIN_MENU);
         this.setBackground(Color.BLUE);

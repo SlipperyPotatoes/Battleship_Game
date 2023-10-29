@@ -2,6 +2,9 @@ package com.battleship.game.enums;
 
 import com.battleship.game.utils.Vector;
 
+/**
+ * TODO ADD CODMMENT.
+ */
 public enum Direction {
     VERTICAL(new Vector(0, 1)),
     HORIZONTAL(new Vector(1, 0));

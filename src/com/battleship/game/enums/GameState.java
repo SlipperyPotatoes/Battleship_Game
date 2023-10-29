@@ -1,5 +1,8 @@
 package com.battleship.game.enums;
 
+/**
+ * TODO ADD COMMENT.
+ */
 public enum GameState {
     MAIN_MENU("main menu"),
     PLAYER_1_ATTACK("player 1 attack"),

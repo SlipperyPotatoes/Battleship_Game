@@ -4,11 +4,17 @@ import com.battleship.game.botfiles.Ship;
 import com.battleship.game.enums.Direction;
 import com.battleship.game.logic.PlayerData;
 import com.battleship.game.logic.ShipData;
-
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * TODO ADD COMMENT.
+ */
 public class ShipUtils {
+
+    /**
+    * TODO ADD COMMENT.
+    */
     public static boolean canPlaceAt(ShipData[][] currentShips, int shipSize,
                                      Vector pos, Direction direction) {
         // Check if ship's main position lands out of bounds
@@ -58,10 +64,13 @@ public class ShipUtils {
             checkPos.add(direction.getVec());
         }
 
-        // checkPos is already at the cell in front of the end of the boat due to the loop's structure before it
+        // checkPos is already at the cell in front 
+        // of the end of the boat due to the loop's structure before it
+
         // Checks if there is any boats in front of this boat
         if (checkPos.isWithinArray(currentShips)) {
-            // Since this is the last statement, the value can be returned instead of checked then returned
+            // Since this is the last statement,
+            // the value can be returned instead of checked then returned
             return currentShips[checkPos.getY()][checkPos.getX()] == null;
         }
 
@@ -69,6 +78,9 @@ public class ShipUtils {
         return true;
     }
 
+    /**
+    * TODO ADD COMMENT.
+    */
     public static ArrayList<ShipData> convertShipGridToShipArray(ShipData[][] grid) {
         ArrayList<ShipData> shipArray = new ArrayList<>();
 
@@ -95,6 +107,9 @@ public class ShipUtils {
         return shipArray;
     }
 
+    /**
+    * TODO ADD COMMENT.
+    */
     public static ArrayList<Ship> convertShipGridToShipArray(Ship[][] grid) {
         ArrayList<Ship> shipArray = new ArrayList<>();
 
@@ -121,6 +136,9 @@ public class ShipUtils {
         return shipArray;
     }
 
+    /**
+    * TODO ADD COMMENT.
+    */
     public static Ship[][] convertShipDataGridToShipGrid(ShipData[][] shipDataGrid) {
         ArrayList<ShipData> shipDataArray = convertShipGridToShipArray(shipDataGrid);
 
@@ -138,6 +156,9 @@ public class ShipUtils {
         return shipGrid;
     }
 
+    /**
+    * TODO ADD COMMENT.
+    */
     public static boolean isShipSunk(PlayerData playerData, String shipName) {
         for (Ship ship : playerData.getShipArray()) {
             if (ship.getName().equals(shipName)) {
@@ -147,10 +168,16 @@ public class ShipUtils {
         throw new IllegalArgumentException("Ship name, " + shipName + ", does not exist");
     }
 
+    /**
+    * TODO ADD COMMENT.
+    */
     public static String pointToStr(Point point) {
         return point.x + " " + point.y;
     }
 
+    /**
+    * TODO ADD COMMENT.
+    */
     public static Point strToPoint(String str) {
         int spaceIndex = str.indexOf(" ");
         int x = Integer.parseInt(str.substring(0, spaceIndex));

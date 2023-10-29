@@ -1,13 +1,15 @@
 package com.battleship.game.botfiles;
 
 import com.battleship.game.utils.ShipUtils;
-
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * TODO ADD COMMENT.
+ */
 public class BotSaveData {
     private final boolean firstAttack;
     private final boolean firstShipAttack;
@@ -19,6 +21,9 @@ public class BotSaveData {
     private final Point firstHit;
     private final List<String> nextDirection;
 
+    /**
+     * TODO ADD COMMENT.
+     */
     public BotSaveData(boolean firstAttack, boolean firstShipAttack, boolean attackingShip,
                        boolean attackDirectionFound, String currentDirection, boolean unevenSquares,
                        Point currentAttack, Point firstHit, List<String> nextDirection) {
@@ -33,6 +38,10 @@ public class BotSaveData {
         this.nextDirection = nextDirection;
     }
 
+    /**
+     * 
+     * TODO ADD COMMENT.
+     */
     public BotSaveData(String str) {
         Scanner reader = new Scanner(str);
         firstAttack = Boolean.parseBoolean(reader.nextLine().substring(14));
@@ -52,6 +61,9 @@ public class BotSaveData {
         reader.close();
     }
 
+    /**
+     * this checks what pattern is currently followed and returns an array for that pattern.
+     */
     public int[][] getCurrentSquares() {
         if (unevenSquares) {
             return new int[][]{
@@ -145,7 +157,6 @@ public class BotSaveData {
             }
             builder.delete(builder.length() - 2, builder.length());
         }
-
         return builder.toString();
     }
 }

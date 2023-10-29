@@ -1,5 +1,8 @@
 package com.battleship.game.enums;
 
+/**
+ * TODO ADD COMMENT.
+ */
 public enum BotAlgorithm {
     SIMPLE("simple"),
     ADVANCED("advanced");
@@ -10,6 +13,9 @@ public enum BotAlgorithm {
         this.val = val;
     }
 
+    /**
+     *  TODO ADD COMMENT.
+     */
     public BotAlgorithm next() {
         BotAlgorithm[] values = BotAlgorithm.values();
         return values[(this.ordinal() + 1) % values.length];

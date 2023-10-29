@@ -3,13 +3,19 @@ package com.battleship.game.utils;
 import com.battleship.game.botfiles.Ship;
 import com.battleship.game.logic.Game;
 import com.battleship.game.logic.PlayerData;
-
-import javax.swing.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Scanner;
+import javax.swing.*;
 
+/**
+ * TODO ADD COMMENT.
+ */
 public class AssetUtils {
+
+    /**
+    * TODO ADD COMMENT.
+    */
     public static ImageIcon loadIcon(String fileName) {
         URL url = AssetUtils.class.getClassLoader()
                 .getResource("com/battleship/game/assets/" + fileName);
@@ -21,6 +27,9 @@ public class AssetUtils {
         return new ImageIcon(image.getImage().getScaledInstance(w, h, 8));
     }
 
+    /**
+    * TODO ADD COMMENT.
+    */
     public static String playerDataToSaveString(PlayerData data, String playerName) {
         Ship[][] shipGrid = data.getShipGrid();
 
@@ -85,7 +94,11 @@ public class AssetUtils {
         return builder.toString();
     }
 
+    /**
+    * TODO ADD COMMENT.
+    */
     public static PlayerData saveStringToPlayerData(String saveString) {
+        // TODO DONT KNOW WHEN TO CLOSE THIS?!?
         Scanner reader = new Scanner(saveString);
         reader.nextLine();
 

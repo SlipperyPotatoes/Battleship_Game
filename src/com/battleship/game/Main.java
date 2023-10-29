@@ -9,7 +9,9 @@ import com.battleship.game.utils.AssetUtils;
 import java.awt.*;
 import javax.swing.*;
 
-
+/**
+ * TODO ADD COMMENT.
+ */
 public class Main {
     private JFrame frame;
     private CardLayout cardLayout;
@@ -46,7 +48,9 @@ public class Main {
         changeGameState(GameState.MAIN_MENU);
     }
 
-    // Switches between panels shown
+    /**  
+     * Switches between panels shown.
+     */
     public void changeGameState(GameState gameState) {
         if (gameState == this.gameState) {
             return;
@@ -59,16 +63,25 @@ public class Main {
         return gameState;
     }
 
+    /**
+     * TODO ADD COMMENT.
+     */
     public void startNewBotGame(BotAlgorithm algorithm) {
         game = new HumanVsBotGame(this, algorithm);
         game.startNewGame();
     }
 
+    /**
+     * TODO ADD COMMENT.
+     */
     public void loadPreviousBotGame(BotAlgorithm algorithm) {
         game = new HumanVsBotGame(this, algorithm);
         game.startSavedGame("saveGame");
     }
 
+    /**
+     * TODO ADD COMMENT.
+     */
     public void endGame() {
         changeGameState(GameState.MAIN_MENU);
         for (int i = 0; i < mainPanel.getComponentCount(); i++) {
@@ -80,6 +93,9 @@ public class Main {
         game = null;
     }
 
+    /**
+     * when a player or bot wins the game show a message that the player or bot has won.
+     */
     public void finishGame(String winner) {
         JOptionPane.showMessageDialog(frame,
                 winner + " won!",
