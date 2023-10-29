@@ -4,7 +4,7 @@ import com.battleship.game.botfiles.Ship;
 import com.battleship.game.enums.Direction;
 
 /**
- * TODO ADD COMMENT.
+ * Tests for checking things are working, is run independently of rest of project.
  */
 public class Test {
 
@@ -15,8 +15,8 @@ public class Test {
     private void run() {
         assert Direction.VERTICAL.getNVec().getY() == -1 : "getNVec not working";
 
-        assert Direction.HORIZONTAL.getVec().iAdd(Direction.HORIZONTAL.getVec()).getX()
-            == Direction.HORIZONTAL.getVec().iScale(2).getX();
+        assert Direction.HORIZONTAL.getVec().indAdd(Direction.HORIZONTAL.getVec()).getX()
+            == Direction.HORIZONTAL.getVec().indScale(2).getX();
 
         Ship ship = new Ship(5, "cool name", false);
         assert ship.toString().equals(new Ship(ship.toString()).toString());

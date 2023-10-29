@@ -8,7 +8,7 @@ import java.util.Random;
 
 
 /**
- * this is for creating ships as objects.
+ * This is for creating ships as objects.
  */
 public class Ship {
     private final Vector position;
@@ -20,8 +20,7 @@ public class Ship {
     boolean randomRotation;
 
     /**
-     * 
-     * TODO ADD COMMENT.
+     * Loads the data for this ship object from a formatted string.
      */
     public Ship(String shipString) {
         int[] dataStartIndexes = new int[5];
@@ -60,7 +59,7 @@ public class Ship {
     }
 
     /**
-     *  TODO ADD COMMENT.
+     *  Converts a ShipData object into this Ship object.
      */
     public Ship(ShipData shipData) {
         this.length = shipData.getSize();
@@ -71,7 +70,7 @@ public class Ship {
     }
 
     /**
-     * TODO ADD COMMENT.
+     * Creates a Ship object using the passed parameters.
      */
     public Ship(int length, String name, boolean randomRotation) {
         this.length = length;
@@ -82,10 +81,11 @@ public class Ship {
         this.position = Vector.ZERO;
     }
 
-    /*this method will give rotaion to a ship for the algorithm so that there cannot be,
+    /** 
+     * This method will give rotation to a ship for the algorithm so that there cannot be,
      * more than 3 ships rotated the same way.
-     * for the random algortihm it just ganerates a random rotation
-    */
+     * or the random algorithm it just generates a random rotation
+     */
     private boolean rotateShips() {
         Random random = new Random();
         boolean rotate = random.nextBoolean();
@@ -103,7 +103,7 @@ public class Ship {
                     return true;
                 }
                 BotPlacingAlgorithm.horizontal++;
-                return rotate;
+                return false;
 
             }
         } else {
@@ -128,7 +128,7 @@ public class Ship {
     }
 
     public Vector getAltPosition() {
-        return position.iAdd(getDirection().getVec().scale(length - 1));
+        return position.indAdd(getDirection().getVec().scale(length - 1));
     }
 
     public int getLength() {

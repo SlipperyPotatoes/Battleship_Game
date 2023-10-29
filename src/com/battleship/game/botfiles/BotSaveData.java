@@ -8,7 +8,8 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * TODO ADD COMMENT.
+ * Represents the data that is stored in the saveFile 
+ * that specifically pertains to the bots' functionality.
  */
 public class BotSaveData {
     private final boolean firstAttack;
@@ -22,7 +23,7 @@ public class BotSaveData {
     private final List<String> nextDirection;
 
     /**
-     * TODO ADD COMMENT.
+     * Creates a new BotSaveData object using the provided info.
      */
     public BotSaveData(boolean firstAttack, boolean firstShipAttack, boolean attackingShip,
                        boolean attackDirectionFound, String currentDirection, boolean unevenSquares,
@@ -39,8 +40,7 @@ public class BotSaveData {
     }
 
     /**
-     * 
-     * TODO ADD COMMENT.
+     * Creates a new object using the formatted String str.
      */
     public BotSaveData(String str) {
         Scanner reader = new Scanner(str);

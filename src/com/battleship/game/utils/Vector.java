@@ -2,9 +2,9 @@ package com.battleship.game.utils;
 
 import com.battleship.game.logic.ShipData;
 
-    /**
-     * TODO ADD COMMENT.
-     */
+/**
+ * Class for creating vector objects with store pair of integers (x,y) and some methods.
+ */
 public class Vector {
     public static Vector ZERO = new Vector(0, 0);
 
@@ -12,7 +12,7 @@ public class Vector {
     private int y;
 
     /**
-     * this creates a vector with x,y as 0.
+     * Creates a vector with x,y as 0.
      */
     public Vector() {
         this.x = 0;
@@ -20,7 +20,7 @@ public class Vector {
     }
 
     /**
-     * this creates a new vector object with the given x and y.
+     * Creates a new vector object with the given x and y.
      */
     public Vector(int x, int y) {
         this.x = x;
@@ -28,7 +28,7 @@ public class Vector {
     }
 
     /**
-     * this Copies an existing vector.
+     * Copies an existing vector.
      */
     public Vector(Vector vec) {
         this.x = vec.getX();
@@ -62,7 +62,7 @@ public class Vector {
     }
 
     /**
-     *  TODO ADD COMMENT.
+     *  Adds a vector to this vector's data.
      */
     public Vector add(Vector vec) {
         x += vec.getX();
@@ -72,16 +72,15 @@ public class Vector {
 
     
     /**
-     *  this adds another vector to this vector and returns a new result,
-     *  not affecting either vector.
+     * Creates a new vector that is this vector added to the Vector vec.
+     * Doesn't affect this object's data (i.e. mitigates side effects)
      */
-    // TODO DONT KNOW THE CONSEQUENSES OF THE CHANGE
-    public Vector iAdd(Vector vec) {
+    public Vector indAdd(Vector vec) {
         return new Vector(x + vec.getX(), y + vec.getY());
     }
 
     /**
-     * TODO ADD COMMENT.
+     * Scales this vector's data by a scalar.
      */
     public Vector scale(int scalar) {
         x *= scalar;
@@ -90,24 +89,29 @@ public class Vector {
     }
 
     /**
-     * TODO ADD COMMENT.
+     * Creates a new vector that is this vector scaled by the scalar.
+     * Doesn't affect this object's data (i.e. mitigates side effects)
      */
-    public Vector iScale(int scalar) {
+    public Vector indScale(int scalar) {
         return new Vector(x * scalar, y * scalar);
     }
 
-    /**  Converts the vector object into the format "x y"
+    /**  
      * Checks is this vector is within an array at array[y][x].
      */
     public boolean isWithinArray(ShipData[][] array) {
         return !(x < 0 || y < 0 || y >= array.length || x >= array[0].length);
     }
 
+    /**
+     * Converts the vector object into a string with the format "x y".
+     */
     @Override
     public String toString() {
         return x + " " + y;
     }
 
+    @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
     @Override
     public boolean equals(Object obj) {
         Vector vec = (Vector) obj;

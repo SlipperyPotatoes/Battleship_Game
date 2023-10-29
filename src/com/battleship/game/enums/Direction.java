@@ -3,7 +3,7 @@ package com.battleship.game.enums;
 import com.battleship.game.utils.Vector;
 
 /**
- * TODO ADD CODMMENT.
+ * Enum used for representing if a ship is vertical or horizontal.
  */
 public enum Direction {
     VERTICAL(new Vector(0, 1)),

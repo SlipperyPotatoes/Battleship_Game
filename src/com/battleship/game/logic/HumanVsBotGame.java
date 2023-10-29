@@ -17,9 +17,12 @@ import java.nio.file.Path;
 import javax.swing.*;
 
 
-// The human will always be player 1 and the bot always player 2
+
 /**
- * TODO ADD COMMENT.
+ * Class for storing and handling all the data associated with a Battleship game between a
+ * human player and a bot player.
+ * <p>
+ * The human will always be player 1 and the bot always player 2.
  */
 public class HumanVsBotGame extends Game {
     Bot bot;
@@ -27,7 +30,9 @@ public class HumanVsBotGame extends Game {
     BotAttackPanel botAttackPanel;
 
     /**
-     * TODO ADD COMMENT.
+     * See superclass constructor. 
+     * 
+     * @param algorithm An enum that indicates which bot difficulty the user chose to play against
      */
     public HumanVsBotGame(Main main, BotAlgorithm algorithm) {
         super(main);
@@ -43,10 +48,25 @@ public class HumanVsBotGame extends Game {
         main.changeGameState(shipPlacementPanel.getPanelState());
     }
 
+    /**
+     * Calls the superclass method which loads the playerData.
+     * <p>
+     * If there was an error the playerData would be null so exits this method as the load has
+     * already failed and the user was already notified by the superclass method.
+     * <p>
+     * If there was no error loading the playerData then the file is loaded again in order to
+     * load the extra botSaveData at the end of the file which is then used to create a new bot.
+     * 
+     * @param saveName Name of the text file with the save
+     */
     @Override
     public void startSavedGame(String saveName) {
         super.startSavedGame(saveName);
         if (player1 == null || player2 == null) {
+            return;
+        }
+
+        if (player1.shipsNotSet() || player2.shipsNotSet()) {
             return;
         }
 
@@ -57,7 +77,11 @@ public class HumanVsBotGame extends Game {
             botSaveData = new BotSaveData(botDataStr);
 
         } catch (Exception e) {
-            throw new RuntimeException("Could not load botSaveData");
+            JOptionPane.showMessageDialog(main.getFrame(),
+                    "No existing human vs bot save found",
+                    "Load Error",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
         }
 
         bot = new Bot(algorithm, player1, botSaveData);
@@ -75,6 +99,16 @@ public class HumanVsBotGame extends Game {
         main.changeGameState(GameState.PLAYER_1_ATTACK);
     }
 
+    /**
+     * Converts both playerData objects and the botSaveData object into strings to be saved.
+     * Then creates a file with the name saveGame.txt if one doesn't already exist and loads
+     * the file into a fileWriter which adds the strings and closes the file.
+     * <p>
+     * The data is saved into a text file in human-readable plain text.
+     * This was done on purpose so that the status of a game can be understood without the
+     * need for this program.
+     */
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     @Override
     public void saveGame() {
         String p1DataString = playerDataToSaveString(player1, "player 1");
@@ -92,8 +126,12 @@ public class HumanVsBotGame extends Game {
             fileWriter.append(bot.getBotSaveData().toString());
             fileWriter.append("\n");
             fileWriter.close();
-        // TODO DONT KNOW WHAT TO CHANGE HERE
         } catch (Exception ignored) {
+            JOptionPane.showMessageDialog(main.getFrame(),
+                    "Failed to save game",
+                    "Save Error",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
         }
 
         main.endGame();

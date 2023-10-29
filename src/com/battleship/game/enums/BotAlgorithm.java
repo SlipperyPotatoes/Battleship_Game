@@ -1,7 +1,7 @@
 package com.battleship.game.enums;
 
 /**
- * TODO ADD COMMENT.
+ * Enum for representing the user's choice for either the simpler or more advanced bot algorithm.
  */
 public enum BotAlgorithm {
     SIMPLE("simple"),
@@ -14,7 +14,8 @@ public enum BotAlgorithm {
     }
 
     /**
-     *  TODO ADD COMMENT.
+     * Returns the next enum in the list of enums. 
+     * Since there are only two entries here, this just switches between simple and advanced.
      */
     public BotAlgorithm next() {
         BotAlgorithm[] values = BotAlgorithm.values();

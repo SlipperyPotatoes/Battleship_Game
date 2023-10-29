@@ -110,7 +110,10 @@ public class BotGuessingAlgorithm extends BotGuessing {
         this.enemyShips = enemyData.getShipGrid();
         currentSquares = botSaveData.getCurrentSquares();
         attackMap = enemyData.getPlacesBeenAttacked();
-        botAttacks = attackMap.clone();
+        botAttacks = new boolean[attackMap.length][];
+        for (int i = 0; i < attackMap.length; i++) {
+            botAttacks[i] = attackMap[i].clone();
+        }
         for (Ship ship : enemyData.getShipArray()) {
             if (ship.isDead()) {
                 addBorder(ship);

@@ -15,7 +15,7 @@ import javax.swing.*;
 
 
 /**
- * TODO ADD COMMENT.
+ * An abstract class that stores data and methods needed for subclass attack panels.
  */
 public abstract class AttackPanel extends BasePanel {
     final ImageIcon attackHit;
@@ -33,7 +33,11 @@ public abstract class AttackPanel extends BasePanel {
 
 
     /**
-     * TODO ADD COMMENT.
+     * Creates an attack panel.
+     * 
+     * @param main Reference to main
+     * @param gameState Panels state to be shown
+     * @param enemyPlayerData Reference to the enemy's playerData for graphics
      */
     public AttackPanel(Main main, GameState gameState, PlayerData enemyPlayerData) {
         super(main, gameState);
@@ -83,7 +87,7 @@ public abstract class AttackPanel extends BasePanel {
     abstract void scaleImages();
 
     /**
-     * TODO ADD COMMENT.
+     * Updates the text on the labels.
      */
     public void updateLabels() {
         int shipsSunk = 0;
@@ -116,7 +120,7 @@ public abstract class AttackPanel extends BasePanel {
     }
 
     /**
-     * TODO ADD COMMENT.
+     * Adds the labels to the panel.
      */
     void addStatLabels() {
         this.add(shipsSunkLabel);

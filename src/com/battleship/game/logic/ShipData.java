@@ -4,7 +4,7 @@ import com.battleship.game.enums.Direction;
 import com.battleship.game.utils.Vector;
 
 /**
- * TODO ADD COMMENT.
+ * Class to represent data of a ship.
  */
 public class ShipData {
     private final int size;
@@ -14,7 +14,7 @@ public class ShipData {
 
 
     /**
-    * TODO ADD COMMENT.
+    * Creates a new ShipData object with the parameters.
     */
     public ShipData(Vector position, Direction direction, int size, String name) {
         this.position = position;
@@ -36,7 +36,7 @@ public class ShipData {
     }
 
     public Vector getAltPosition() {
-        return position.iAdd(direction.getVec().scale(size - 1));
+        return position.indAdd(direction.getVec().scale(size - 1));
     }
 
     @Override

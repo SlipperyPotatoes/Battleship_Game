@@ -19,7 +19,7 @@ import javax.swing.*;
 
 
 /**
-* TODO ADD COMMENT.
+* Panel with buttons for the user to select which place to attack next.
 */
 public class HumanAttackPanel extends AttackPanel implements ActionListener {
     private final ImageIcon attackLineHorizontal;
@@ -32,8 +32,14 @@ public class HumanAttackPanel extends AttackPanel implements ActionListener {
 
 
     /**
-    * TODO ADD COMMENT.
-    */
+     * Creates an attack panel with added buttons on a grid for attacking, labels
+     * for showing extra data, and a save game button to save the game.
+     * 
+     * @param main Reference to main
+     * @param gameState Panels state to be shown
+     * @param enemyPlayerData Reference to the enemy's playerData for graphics and for attacking
+     *      when the user inputs an attack
+     */
     public HumanAttackPanel(Main main, GameState gameState, PlayerData enemyPlayerData) {
         super(main, gameState, enemyPlayerData);
 
@@ -148,7 +154,7 @@ public class HumanAttackPanel extends AttackPanel implements ActionListener {
             return;
         }
 
-        Timer timer = new Timer(1500, unused -> main.getCurrentGame().nextAttack());
+        Timer timer = new Timer(1000, unused -> main.getCurrentGame().nextAttack());
         timer.setRepeats(false);
         timer.start();
     }

@@ -24,7 +24,14 @@ player 2 data:
 //same stuff as p1
 
 bot data:
-	First attack: true
-	First ship attack: true
-	Attacking ship: false
+	First attack: bool
+	First ship attack: bool
+	Attacking ship: bool
+	Attack direction found: bool
+	Current direction: String
+	Uneven squares: bool
+	Current Attack: x y
+	First hit: x y
+	Next direction(s): String, String, ..., String /or/ EMPTY
+
 	

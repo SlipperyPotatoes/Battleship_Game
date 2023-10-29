@@ -9,12 +9,12 @@ import java.util.Scanner;
 import javax.swing.*;
 
 /**
- * TODO ADD COMMENT.
+ * Utility class that stores methods for loading and unloading and manipulating assets.
  */
 public class AssetUtils {
 
     /**
-    * TODO ADD COMMENT.
+    * Loads an image from the assets folder with the name fileName into an ImageIcon object.
     */
     public static ImageIcon loadIcon(String fileName) {
         URL url = AssetUtils.class.getClassLoader()
@@ -23,12 +23,13 @@ public class AssetUtils {
         return new ImageIcon(url);
     }
 
+    
     public static ImageIcon scaleImage(ImageIcon image, int w, int h) {
         return new ImageIcon(image.getImage().getScaledInstance(w, h, 8));
     }
 
     /**
-    * TODO ADD COMMENT.
+    * Converts a playerData object into a string to be saved to a file.
     */
     public static String playerDataToSaveString(PlayerData data, String playerName) {
         Ship[][] shipGrid = data.getShipGrid();
@@ -95,10 +96,9 @@ public class AssetUtils {
     }
 
     /**
-    * TODO ADD COMMENT.
+    * Converts a correctly formatted string into a player data object.
     */
     public static PlayerData saveStringToPlayerData(String saveString) {
-        // TODO DONT KNOW WHEN TO CLOSE THIS?!?
         Scanner reader = new Scanner(saveString);
         reader.nextLine();
 
@@ -128,6 +128,8 @@ public class AssetUtils {
                 shipGrid[y][x] = shipArray.get(Character.getNumericValue(data.charAt(x)));
             }
         }
+
+        reader.close();
 
         return new PlayerData(shipGrid, placesAttacked);
     }

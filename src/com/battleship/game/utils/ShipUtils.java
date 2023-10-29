@@ -8,12 +8,20 @@ import java.awt.*;
 import java.util.ArrayList;
 
 /**
- * TODO ADD COMMENT.
+ * Utility class that stores methods for doing ship related things.
  */
 public class ShipUtils {
 
     /**
-    * TODO ADD COMMENT.
+    * Checks if a ship with the given data can be added to the shipGrid without colliding with other
+    * ships or with the edges of the grid.
+    *
+    * @param currentShips shipGrid before adding the new ship
+    * @param shipSize length of the Ship
+    * @param pos start position of the ship
+    * @param direction whether ship is vertical or horizontal
+    *
+    * @return if ship can be placed
     */
     public static boolean canPlaceAt(ShipData[][] currentShips, int shipSize,
                                      Vector pos, Direction direction) {
@@ -25,15 +33,15 @@ public class ShipUtils {
         // Check if rest of ship lands out of bounds
         // Finds the position of the other end of the ship by adding the main position
         // by the ships direction vector scaled by its size - 1
-        if (!pos.iAdd(direction.getVec().scale(shipSize - 1)).isWithinArray(currentShips)) {
+        if (!pos.indAdd(direction.getVec().scale(shipSize - 1)).isWithinArray(currentShips)) {
             return false;
         }
 
         Vector checkPos = new Vector(pos);
 
         // Checks if there is any boats behind this boat
-        if (checkPos.iAdd(direction.getNVec()).isWithinArray(currentShips)) {
-            Vector behind = checkPos.iAdd(direction.getNVec());
+        if (checkPos.indAdd(direction.getNVec()).isWithinArray(currentShips)) {
+            Vector behind = checkPos.indAdd(direction.getNVec());
             if (currentShips[behind.getY()][behind.getX()] != null) {
                 return false;
             }
@@ -47,15 +55,15 @@ public class ShipUtils {
                 return false;
             }
 
-            if (checkPos.iAdd(altDirection.getVec()).isWithinArray(currentShips)) {
-                Vector leftSide = checkPos.iAdd(altDirection.getVec());
+            if (checkPos.indAdd(altDirection.getVec()).isWithinArray(currentShips)) {
+                Vector leftSide = checkPos.indAdd(altDirection.getVec());
                 if (currentShips[leftSide.getY()][leftSide.getX()] != null) {
                     return false;
                 }
             }
 
-            if (checkPos.iAdd(altDirection.getNVec()).isWithinArray(currentShips)) {
-                Vector rightSide = checkPos.iAdd(altDirection.getNVec());
+            if (checkPos.indAdd(altDirection.getNVec()).isWithinArray(currentShips)) {
+                Vector rightSide = checkPos.indAdd(altDirection.getNVec());
                 if (currentShips[rightSide.getY()][rightSide.getX()] != null) {
                     return false;
                 }
@@ -79,7 +87,11 @@ public class ShipUtils {
     }
 
     /**
-    * TODO ADD COMMENT.
+    * Converts a shipGrid into an ArrayList with all the unique ships that are on the grid.
+    * 
+    * @param grid shipGrid
+    *
+    * @return An ArrayList of all unique ships that exist on the grid
     */
     public static ArrayList<ShipData> convertShipGridToShipArray(ShipData[][] grid) {
         ArrayList<ShipData> shipArray = new ArrayList<>();
@@ -108,7 +120,11 @@ public class ShipUtils {
     }
 
     /**
-    * TODO ADD COMMENT.
+    * Converts a shipGrid into an ArrayList with all the unique ships that are on the grid.
+    * 
+    * @param grid shipGrid
+    *
+    * @return An ArrayList of all unique ships that exist on the grid
     */
     public static ArrayList<Ship> convertShipGridToShipArray(Ship[][] grid) {
         ArrayList<Ship> shipArray = new ArrayList<>();
@@ -137,7 +153,8 @@ public class ShipUtils {
     }
 
     /**
-    * TODO ADD COMMENT.
+    * Converts a shipGrid with ships represented using the shipData object into a shipGrid
+    * with ships represented using the Ship object.
     */
     public static Ship[][] convertShipDataGridToShipGrid(ShipData[][] shipDataGrid) {
         ArrayList<ShipData> shipDataArray = convertShipGridToShipArray(shipDataGrid);
@@ -157,7 +174,7 @@ public class ShipUtils {
     }
 
     /**
-    * TODO ADD COMMENT.
+    * Checks if the ship with the name shipName in the player's ships has been sunk.
     */
     public static boolean isShipSunk(PlayerData playerData, String shipName) {
         for (Ship ship : playerData.getShipArray()) {
@@ -169,14 +186,14 @@ public class ShipUtils {
     }
 
     /**
-    * TODO ADD COMMENT.
+    * Converts a point into a string with the format "x y".
     */
     public static String pointToStr(Point point) {
         return point.x + " " + point.y;
     }
 
     /**
-    * TODO ADD COMMENT.
+    * Converts a string with the format "x y" to a point.
     */
     public static Point strToPoint(String str) {
         int spaceIndex = str.indexOf(" ");

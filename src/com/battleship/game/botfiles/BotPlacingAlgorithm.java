@@ -5,13 +5,13 @@ import java.util.*;
 import java.util.List;
 
 /** this file places the ships of the bot on a map with an algorithm
- * 
+ * <p>
  * Basic Rules for ship placement for the bot.
- * 
+ * <p>
  * -5 ships. 1x2 2x3 1x4 1x5
- * -NOT more then 3 the same rotation.
- * -Ships can not touch eachother
- * -1 ship on the border parrellel to the border
+ * -NOT more than 3 the same rotation.
+ * -Ships can not touch each-other
+ * -1 ship on the border parallel to the border
  */
 
 public class BotPlacingAlgorithm {
@@ -29,8 +29,6 @@ public class BotPlacingAlgorithm {
     
     boolean[][] collisionMap;
     Ship[][] botShipPlacement;
-    String[][] mapString = new String[10][10];
-
     static int horizontal = 0;
     static int vertical = 0;
     int shipPlacingTries = 0;
@@ -41,9 +39,9 @@ public class BotPlacingAlgorithm {
      */
     public Ship[][] botPlacingAlgorithm() {
 
-        boolean foundsolution = false;
+        boolean foundSolution = false;
         
-        while (!foundsolution) {
+        while (!foundSolution) {
             // this creates new maps
             collisionMap = new boolean[10][10];
             botShipPlacement = new Ship[10][10];
@@ -61,7 +59,7 @@ public class BotPlacingAlgorithm {
             // this places the first ship
             placeFirstShip();
 
-            int randomAttacks = 0;
+            int randomAttacks;
 
             // this tries to place 4 ships
             for (randomAttacks = 0; randomAttacks < 4; randomAttacks++) {
@@ -71,9 +69,9 @@ public class BotPlacingAlgorithm {
                 }
             }
 
-            // if it was successfull in placing 4 ships, break the loop
+            // if it was successful in placing 4 ships, break the loop
             if (randomAttacks == 4) {
-                foundsolution = true;
+                foundSolution = true;
             }
         }
         return botShipPlacement;
@@ -82,16 +80,15 @@ public class BotPlacingAlgorithm {
 
     // this takes a random ship from the list and removes it from the list.
     private Ship getRandomShip() {
-        int listplace = getRandomNumber(0, (list.size() - 1));
-        Ship currentShip = list.get(listplace);
-        list.remove(listplace);
+        int listPlace = getRandomNumber(0, (list.size() - 1));
+        Ship currentShip = list.get(listPlace);
+        list.remove(listPlace);
         return currentShip;
     }
 
     // this gives a random number from a provided range
     private int getRandomNumber(int start, int end) {
-        int number = random.nextInt((end - start) + 1) + start; // see explanation below
-        return number;
+        return random.nextInt((end - start) + 1) + start; // see explanation below
     }
 
     // this tries to find a new location for a ship
@@ -108,7 +105,7 @@ public class BotPlacingAlgorithm {
                 currentShip.locationStart.y = getRandomNumber(1, 8);
             }
 
-            // if the ships do not collide with eachother
+            // if the ships do not collide with each-other
             if (checkCollide(currentShip)) {
                 foundLocation = true;
             }
@@ -164,25 +161,25 @@ public class BotPlacingAlgorithm {
         return true;
     }
 
-    //this places the first ship in the map parrelel to the border
+    //this places the first ship in the map parallel to the border
     private void placeFirstShip() {
 
         currentShip = getRandomShip();
-        boolean randommap = random.nextBoolean();
-        int maplocation;
+        boolean randomMap = random.nextBoolean();
+        int mapLocation;
 
-        if (randommap) {
-            maplocation = 9;
+        if (randomMap) {
+            mapLocation = 9;
         } else {
-            maplocation = 0;
+            mapLocation = 0;
         }
 
         if (currentShip.rotation) {
             currentShip.locationStart.y = getRandomNumber(0, 10 - currentShip.length);
-            currentShip.locationStart.x = maplocation;
+            currentShip.locationStart.x = mapLocation;
         } else {
             currentShip.locationStart.x = getRandomNumber(0, 10 - currentShip.length);
-            currentShip.locationStart.y = maplocation;
+            currentShip.locationStart.y = mapLocation;
         }
         placeShip(currentShip); 
     }

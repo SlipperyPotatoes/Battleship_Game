@@ -1,7 +1,7 @@
 package com.battleship.game.enums;
 
 /**
- * TODO ADD COMMENT.
+ * Represents the states that the main class can be in, and in turn the panels that can be shown.
  */
 public enum GameState {
     MAIN_MENU("main menu"),
@@ -14,7 +14,6 @@ public enum GameState {
     GameState(String val) {
         this.val = val;
     }
-
 
     @Override
     public String toString() {

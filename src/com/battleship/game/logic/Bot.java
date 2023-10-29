@@ -1,19 +1,24 @@
 package com.battleship.game.logic;
 
-// TODO DONT KNOW WHAT TO CHANGE HERE.
-import com.battleship.game.botfiles.*;
+import com.battleship.game.botfiles.BotGuessing;
+import com.battleship.game.botfiles.BotGuessingAlgorithm;
+import com.battleship.game.botfiles.BotGuessingRandom;
+import com.battleship.game.botfiles.BotPlacingAlgorithm;
+import com.battleship.game.botfiles.BotPlacingRandom;
+import com.battleship.game.botfiles.BotSaveData;
+import com.battleship.game.botfiles.Ship;
 import com.battleship.game.enums.BotAlgorithm;
 import com.battleship.game.utils.Vector;
 
 /**
- * this is main logic for the bot here the bot creates maps, and finds attacks.
+ * Has the main logic for the bot. Here the bot creates maps and finds attacks.
  */
 public class Bot {
     BotAlgorithm algorithm;
     BotGuessing botGuessing;
 
     /**
-     * this checks what algorithm the player has selected and initialises the corresponding file.
+     * Checks what algorithm the player has selected and initialises the corresponding object.
      */
     public Bot(BotAlgorithm algorithm, Ship[][] enemyShips) {
         this.algorithm = algorithm;
@@ -26,7 +31,7 @@ public class Bot {
 
     /**
      * When the game is loaded it checks what algorithm the player has selected and 
-     * initialises the corresponding file.
+     * initialises the corresponding BotGuessing object.
      */
     public Bot(BotAlgorithm algorithm, PlayerData enemyData, BotSaveData botSaveData) {
         this.algorithm = algorithm;
@@ -39,8 +44,8 @@ public class Bot {
 
 
     /**
-     *  this checks what algorithm the player has selected and generates 
-     *  the ships at the corresponding file.
+     * This checks what algorithm the player has selected and generates
+     * the ships using the corresponding placing algorithm.
      */
     public Ship[][] generateShipPositions() {
         switch (algorithm) {
@@ -55,7 +60,7 @@ public class Bot {
     }
 
     /**
-     * this returns a new attack from the previous created guessingalgorithm.
+     * Returns a new attack from the previous created guessing algorithm.
     */
     public Vector findNextAttackPos() {
         return botGuessing.findNextAttack();

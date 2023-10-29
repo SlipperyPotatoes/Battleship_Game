@@ -24,8 +24,6 @@ public class BotPlacingRandom {
     Ship[][] botShipPlacement;
     private int shipPlacingTries;
 
-    static int horizontal = 0;
-    static int vertical = 0;
 
     Random random = new Random();
 
@@ -34,9 +32,9 @@ public class BotPlacingRandom {
      */
     public Ship[][] botPlacingRandom() {
 
-        boolean foundsolution = false;
+        boolean foundSolution = false;
         
-        while (!foundsolution) {
+        while (!foundSolution) {
             // this creates new maps
             collisionMap = new boolean[10][10];
             botShipPlacement = new Ship[10][10];
@@ -50,7 +48,7 @@ public class BotPlacingRandom {
             list.add(aircraftCarrier);
 
             shipPlacingTries = 0;
-            int randomAttacks = 0;
+            int randomAttacks;
 
             // this tries to place 5 ships
             for (randomAttacks = 0; randomAttacks < 5; randomAttacks++) {
@@ -59,9 +57,9 @@ public class BotPlacingRandom {
                     break;
                 }
             }
-            // if it was successfull in placing 5 ships, break the loop
+            // if it was successfully in placing 5 ships, break the loop
             if (randomAttacks == 5) {
-                foundsolution = true;
+                foundSolution = true;
             }
         }
         return botShipPlacement;
@@ -69,16 +67,15 @@ public class BotPlacingRandom {
 
     // this takes a random ship from the list and removes it from the list.
     private Ship getRandomShip() {
-        int listplace = getRandomNumber(0, (list.size() - 1));
-        Ship currentShip = list.get(listplace);
-        list.remove(listplace);
+        int listPlace = getRandomNumber(0, (list.size() - 1));
+        Ship currentShip = list.get(listPlace);
+        list.remove(listPlace);
         return currentShip;
     }
 
     // this gives a random number from a provided range
     private int getRandomNumber(int start, int end) {
-        int number = random.nextInt((end - start) + 1) + start;
-        return number;
+        return random.nextInt((end - start) + 1) + start;
     }
 
     // this tries to find a new location for a ship
@@ -94,7 +91,7 @@ public class BotPlacingRandom {
                 currentShip.locationStart.x = getRandomNumber(0, 10 - currentShip.length);
                 currentShip.locationStart.y = getRandomNumber(0, 9);
             }
-            // if the ships do not collide with eachother
+            // if the ships do not collide with each-other
             if (checkCollide(currentShip)) {
                 foundLocation = true;
             }

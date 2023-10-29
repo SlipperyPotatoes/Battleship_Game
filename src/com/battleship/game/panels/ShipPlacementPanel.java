@@ -1,31 +1,36 @@
 package com.battleship.game.panels;
 
-import com.battleship.game.logic.Game;
+import static com.battleship.game.utils.AssetUtils.loadIcon;
+import static com.battleship.game.utils.AssetUtils.scaleImage;
+import static com.battleship.game.utils.ShipUtils.canPlaceAt;
+import static com.battleship.game.utils.ShipUtils.convertShipDataGridToShipGrid;
+import static com.battleship.game.utils.ShipUtils.convertShipGridToShipArray;
+
 import com.battleship.game.Main;
-import com.battleship.game.logic.ShipData;
 import com.battleship.game.enums.Direction;
 import com.battleship.game.enums.GameState;
+import com.battleship.game.logic.Game;
+import com.battleship.game.logic.ShipData;
 import com.battleship.game.utils.Vector;
-
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import javax.swing.*;
 
-import static com.battleship.game.utils.ShipUtils.*;
-import static com.battleship.game.utils.AssetUtils.loadIcon;
-import static com.battleship.game.utils.AssetUtils.scaleImage;
-
+/**
+ * Class for a panel that the user(s) interact with in order to manipulate the positions and 
+ * orientations of their ships.
+ */
 public class ShipPlacementPanel extends BasePanel implements ActionListener {
-    ShipData[][] shipGrid;
-    boolean shipSelected;
-    ShipData selectedShip;
-    JButton[][] gridButtons;
-    JButton finishPlacementButton;
-    JButton rotateShipButton;
-    JLabel selectedShipNameLabel;
-    JLabel selectedShipDirectionLabel;
-    JLabel selectedShipSizeLabel;
+    private ShipData[][] shipGrid;
+    private boolean shipSelected;
+    private ShipData selectedShip;
+    private JButton[][] gridButtons;
+    private JButton finishPlacementButton;
+    private JButton rotateShipButton;
+    private JLabel selectedShipNameLabel;
+    private JLabel selectedShipDirectionLabel;
+    private JLabel selectedShipSizeLabel;
 
     private final ImageIcon boatMiddleHorizontal;
     private final ImageIcon boatMiddleVertical;
@@ -41,7 +46,12 @@ public class ShipPlacementPanel extends BasePanel implements ActionListener {
     private ImageIcon boatEndDownScaled;
     private ImageIcon boatEndUpScaled;
 
-
+    /**
+     * Creates a new panel with the ships initially in the grid in the horizontal orientation
+     * placed next to each-other with gaps in between.
+     * 
+     * @param main Reference to main
+     */
     public ShipPlacementPanel(Main main) {
         super(main, GameState.PLACE_SHIPS);
 
@@ -60,7 +70,7 @@ public class ShipPlacementPanel extends BasePanel implements ActionListener {
         shipSelected = false;
         selectedShip = null;
 
-        // Places ships next to each other with gaps in between
+        // Places ships next to each-other with gaps in between
         for (int i = 0; i < Game.SHIP_SIZES.length; i++) {
             int shipSize = Game.SHIP_SIZES[i];
             for (int y = 0; y < Game.SIZE_Y; y++) {
@@ -266,6 +276,9 @@ public class ShipPlacementPanel extends BasePanel implements ActionListener {
                                     .setIcon(boatMiddleHorizontalScaled);
                         }
                         break;
+                    default:
+                        throw new IllegalStateException("Ship direction in illegal state: " 
+                                                        + ship.getDirection());
                 }
                 checkPos.add(ship.getDirection().getVec());
             }

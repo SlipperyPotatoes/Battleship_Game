@@ -16,7 +16,10 @@ import javax.swing.*;
 
 
 /**
- * TODO ADD COMMENT.
+ * Class for showing the attackPanel when the bot is attacking the user.
+ * <p></p>
+ * Does not allow for any user interaction. Only uses timers which exist
+ * in the Game object and call methods in this object to show the bots actions.
  */
 public class BotAttackPanel extends AttackPanel {
     private final ImageIcon boatMiddleHorizontal;
@@ -50,7 +53,10 @@ public class BotAttackPanel extends AttackPanel {
     JLabel[][] gridLabels;
 
     /**
-     * TODO ADD COMMENT.
+     * Creates an attack panel with labels to show the bots actions.
+     * 
+     * @param main Reference to main
+     * @param enemyPlayerData Reference to the enemy's playerData for graphics
      */
     public BotAttackPanel(Main main, PlayerData enemyPlayerData) {
         super(main, GameState.PLAYER_2_ATTACK, enemyPlayerData);
@@ -143,7 +149,8 @@ public class BotAttackPanel extends AttackPanel {
 
 
     /**
-     * TODO ADD COMMENT.
+     * When the window is resized this is called to scale the images
+     * so that they fit evenly within the labels in the labelGrid.
      */
     void scaleImages() {
         Dimension dimensions = gridLabels[0][0].getSize();

@@ -12,7 +12,7 @@ import javax.swing.*;
 
 
 /**
- * TODO ADD COMMENT.
+ * Panel for showing the game's main menu.
  */
 public class MainMenuPanel extends BasePanel implements ActionListener {
     private final JButton newBotGameButton;
@@ -21,7 +21,9 @@ public class MainMenuPanel extends BasePanel implements ActionListener {
     private BotAlgorithm botAlgorithm;
 
     /**
-    * TODO ADD COMMENT.
+    * Creates a new main menu panel with all the buttons and labels added.
+    *
+    * @param main Reference to main
     */
     public MainMenuPanel(Main main) {
         super(main, GameState.MAIN_MENU);

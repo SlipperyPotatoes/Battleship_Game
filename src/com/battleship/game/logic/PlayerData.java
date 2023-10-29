@@ -8,17 +8,19 @@ import java.util.ArrayList;
 
 
 
-// Player can be a user (referred to as humans) or bot
 /**
-* TODO ADD COMMENT.
-*/
+ * Class to represent data specific to a player such as where their ships are placed and where
+ * they have been attacked.
+ * <p>
+ * A player can be a user (also referred to as humans) or bot
+ */
 public class PlayerData {
     private boolean shipsSet;
     private Ship[][] ships;
     private boolean[][] placesBeenAttacked;
 
     /**
-     * TODO ADD COMMENT.
+     * Creates a new PlayerData object and initializes all internal variables.
      */
     public PlayerData() {
         shipsSet = false;
@@ -27,7 +29,7 @@ public class PlayerData {
     }
 
     /**
-     * TODO ADD COMMENT.
+     * Creates a new PlayerData object using the parameters.
      */
     public PlayerData(Ship[][] ships, boolean[][] placesBeenAttacked) {
         shipsSet = true;
@@ -36,7 +38,7 @@ public class PlayerData {
     }
 
     /**
-     * TODO ADD COMMENT.
+     * Sets the var ships and throws an exception if the ships have already been set.
      */
     public void setShips(Ship[][] ships) {
         if (shipsSet) {
@@ -71,12 +73,22 @@ public class PlayerData {
         return ships[y][x] != null;
     }
 
+    /**
+     * Used for the bot attacking since it already has the player's shipGrid, so,
+     * it already hits the ship grid itself.
+     *
+     * @param vec Place to attack at
+     */
     public void botAttackAt(Vector vec) {
         placesBeenAttacked[vec.getY()][vec.getX()] = true;
     }
 
     /**
-     * TODO ADD COMMENT.
+     * Sets places attacked to true at the position and hits the ship there if there is one.
+     * <p>
+     * Doesn't check if the place has already been attacked.
+     *
+     * @param vec Place to attack at
      */
     public void attackAt(Vector vec) {
         placesBeenAttacked[vec.getY()][vec.getX()] = true;
@@ -90,7 +102,7 @@ public class PlayerData {
     }
 
     /**
-     * TODO ADD COMMENT.
+     * Checks if all ships stored in this object's grid are dead.
      */
     public boolean allShipsDead() {
         for (int y = 0; y < ships.length; y++) {
